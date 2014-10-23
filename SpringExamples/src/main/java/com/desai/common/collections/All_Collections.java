@@ -1,4 +1,4 @@
-package com.desai.common.collections;
+package main.java.com.desai.common.collections;
 
 import java.util.List;
 import java.util.Map;

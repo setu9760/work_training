@@ -1,4 +1,4 @@
-package com.desai.common.config;
+package main.java.com.desai.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

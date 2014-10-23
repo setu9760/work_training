@@ -5,10 +5,10 @@
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 
-	<bean id="ThingsBean" class="com.desai.common.Things">
+	<bean id="ThingsBean" class="main.java.com.desai.common.Things">
 		<constructor-arg>
 
-			<bean name="person2" id="personBean2" class="com.desai.common.Person"
+			<bean name="person2" id="personBean2" class="main.java.com.desai.common.Person"
 				p:age="15" p:ph_number="123456789">
 
 				<property name="name">
@@ -20,7 +20,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		</constructor-arg>
 		<constructor-arg>
 			<!-- ################################ -->
-			<bean id="personBean1" class="com.desai.common.Person">
+			<bean id="personBean1" class="main.java.com.desai.common.Person">
 				<constructor-arg type="java.lang.String">
 					<value>1sdf ds </value>
 				</constructor-arg>
