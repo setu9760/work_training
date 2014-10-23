@@ -1,4 +1,4 @@
-package com.desai.common.interfaces;
+package com.desai.common;
 
 public interface IOutputGenerator {
 

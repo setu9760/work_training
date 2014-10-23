@@ -3,7 +3,7 @@ package com.desai.common.config;
 import org.springframework.context.annotation.Bean;
 
 import com.desai.common.CsvOutputGenerator;
-import com.desai.common.interfaces.IOutputGenerator;
+import com.desai.common.IOutputGenerator;
 
 public class CsvGeneratorConfig {
 

@@ -1,6 +1,5 @@
 package com.desai.common;
 
-import com.desai.common.interfaces.IOutputGenerator;
 
 public class CsvOutputGenerator implements IOutputGenerator {
 
