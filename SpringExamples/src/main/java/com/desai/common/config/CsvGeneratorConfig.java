@@ -2,8 +2,8 @@ package com.desai.common.config;
 
 import org.springframework.context.annotation.Bean;
 
-import com.desai.common.CsvOutputGenerator;
-import com.desai.common.IOutputGenerator;
+import com.desai.common.initial.CsvOutputGenerator;
+import com.desai.common.initial.IOutputGenerator;
 
 public class CsvGeneratorConfig {
 

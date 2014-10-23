@@ -3,7 +3,7 @@ package com.desai.common.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
-import com.desai.singleton.Number;
+import com.desai.common.singleton.Number;
 
 public class NumberConfig {
 

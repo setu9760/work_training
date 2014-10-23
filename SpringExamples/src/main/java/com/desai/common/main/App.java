@@ -4,14 +4,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.desai.common.IOutputGenerator;
-import com.desai.common.OutputHelper;
-import com.desai.common.Person;
-import com.desai.common.Things;
 import com.desai.common.config.AppConfig;
 import com.desai.common.config.NumberConfig;
+import com.desai.common.initial.IOutputGenerator;
+import com.desai.common.initial.OutputHelper;
+import com.desai.common.initial.Person;
+import com.desai.common.initial.Things;
+import com.desai.common.singleton.Number;
 
-import com.desai.singleton.Number;
 
 /**
  * Hello world!

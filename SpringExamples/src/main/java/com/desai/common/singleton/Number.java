@@ -1,4 +1,4 @@
-package com.desai.singleton;
+package com.desai.common.singleton;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
