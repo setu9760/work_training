@@ -4,7 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-destroy-method="onDestroy">
+	<!-- As we have more than one person bean in use we can simply declare default 
+		life-cycle callback method. This method must be no-args void return type -->
 
 	<bean id="collection_bean" class="com.desai.common.collections.All_Collections">
 		<property name="list">
@@ -43,9 +46,11 @@
 		</property>
 
 	</bean>
-
+	<!-- For the following bean we have explicitly declared the lifecycle method 
+		"onDestroy" this method needs to be no-args void return type -->
 	<bean id="personBean1" class="com.desai.common.collections.Person"
-	p:name="setu" p:address="filton" p:age="25" p:ph_number="123456789" />
+		p:name="setu" p:address="filton" p:age="25" p:ph_number="123456789"
+		destroy-method="onDestroy" />
 
 	<bean id="personBean2" class="com.desai.common.collections.Person"
 		p:name="desai" p:address="filton--bri" p:age="20" p:ph_number="123456789" />

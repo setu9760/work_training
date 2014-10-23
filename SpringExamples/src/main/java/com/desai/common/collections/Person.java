@@ -1,6 +1,17 @@
 package com.desai.common.collections;
 
-public class Person {
+import org.springframework.beans.factory.InitializingBean;
+
+/**
+ * We have implemented bean life-cycle method callback interface, it implements
+ * related life-cycle method which in this case is "afterPropertiesSet()". all
+ * it does is pre-initialisation of bean before the it is injected by spring
+ * container
+ * 
+ * @author desai
+ * 
+ */
+public class Person implements InitializingBean {
 	private String name;
 	private String address;
 	private int age;
@@ -46,5 +57,19 @@ public class Person {
 	public String toString() {
 		return "name: " + name + ". address " + address + " age " + age
 				+ " num " + ph_number + "\n";
+	}
+
+	/**
+	 * implemented life-cycle callback method
+	 */
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		if (name != null && address != null) {
+			System.out.println("name  " + name + " initialised");
+		}
+	}
+
+	public void onDestroy() {
+		System.out.println("onDestroy called for " + name);
 	}
 }
