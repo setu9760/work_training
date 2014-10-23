@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.custom.i18n.resources" value="global" />
+	<constant name="struts.devMode" value="true" />
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="useraction" class="main.java.com.action.UserAction"
+			method="execute">
+			<result name="success">/success.jsp</result>
+			<result name="input">/index.jsp</result>
+		</action>
+	</package>
+</struts>
