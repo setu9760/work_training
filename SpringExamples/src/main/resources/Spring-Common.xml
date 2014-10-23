@@ -4,4 +4,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+	<bean id="OutputHelper" class="com.desai.common.OutputHelper">
+		<property name="iOutputGenerator">
+			<ref bean="JsonOutputGenerator" />
+		</property>
+	</bean>
+
+	<bean id="CsvOutputGenerator" class="com.desai.common.CsvOutputGenerator" />
+	<bean id="JsonOutputGenerator" class="com.desai.common.JsonOutputGenerator" />
 </beans>
