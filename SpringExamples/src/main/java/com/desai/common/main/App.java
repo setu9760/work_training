@@ -1,16 +1,11 @@
-package com.desai.common.main;
+package main.java.com.desai.common.main;
+
+import main.java.com.desai.common.config.NumberConfig;
+import main.java.com.desai.common.singleton.Number;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.desai.common.config.AppConfig;
-import com.desai.common.config.NumberConfig;
-import com.desai.common.initial.IOutputGenerator;
-import com.desai.common.initial.OutputHelper;
-import com.desai.common.initial.Person;
-import com.desai.common.initial.Things;
-import com.desai.common.singleton.Number;
 
 /**
  * 
@@ -48,7 +43,9 @@ public class App {
 
 		ApplicationContext context = new AnnotationConfigApplicationContext(
 				NumberConfig.class);
-		context = new ClassPathXmlApplicationContext("Spring-Singleton.xml");
+		context = new ClassPathXmlApplicationContext(
+				"main/resources/Spring-Singleton.xml");
+
 		Number number = (Number) context.getBean("numberBean");
 		number.printnumber_incr();
 		number.printnumber_incr();

@@ -1,4 +1,4 @@
-package com.desai.common.collections;
+package main.java.com.desai.common.collections;
 
 import org.springframework.beans.factory.InitializingBean;
 

@@ -1,4 +1,4 @@
-package com.desai.common.initial;
+package main.java.com.desai.common.initial;
 
 
 public class CsvOutputGenerator implements IOutputGenerator {

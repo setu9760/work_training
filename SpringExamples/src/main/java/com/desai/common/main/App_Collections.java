@@ -1,9 +1,10 @@
-package com.desai.common.main;
+package main.java.com.desai.common.main;
+
+import main.java.com.desai.common.collections.All_Collections;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.desai.common.collections.All_Collections;
 
 /**
  * @author desai
@@ -12,7 +13,7 @@ import com.desai.common.collections.All_Collections;
 public class App_Collections {
 	public static void main(String[] args) {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(
-				"Spring-Collections.xml");
+				"main/resources/Spring-Collections.xml");
 		All_Collections all = (All_Collections) context
 				.getBean("collection_bean");
 

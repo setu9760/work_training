@@ -1,4 +1,4 @@
-package com.desai.common;
+package test.java.com.desai.common;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
