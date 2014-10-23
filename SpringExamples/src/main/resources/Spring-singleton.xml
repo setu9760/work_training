@@ -6,6 +6,6 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-	<bean id="numberBean" class="com.desai.singleton.Number" p:number="12"
-		scope="prototype" />
+	<bean id="numberBean" class="com.desai.common.singleton.Number"
+		p:number="12" scope="prototype" />
 </beans>

@@ -12,12 +12,16 @@ import com.desai.common.initial.Person;
 import com.desai.common.initial.Things;
 import com.desai.common.singleton.Number;
 
-
 /**
- * Hello world!
  * 
  */
 public class App {
+	/**
+	 * This main is used for initial and singleton examples. For any other
+	 * package examples refer to other main files
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		/**
@@ -44,6 +48,7 @@ public class App {
 
 		ApplicationContext context = new AnnotationConfigApplicationContext(
 				NumberConfig.class);
+		context = new ClassPathXmlApplicationContext("Spring-Singleton.xml");
 		Number number = (Number) context.getBean("numberBean");
 		number.printnumber_incr();
 		number.printnumber_incr();
