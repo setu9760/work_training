@@ -1,7 +1,7 @@
-package main.java.com.desai.common.config;
+package com.desai.common.config;
 
-import main.java.com.desai.common.initial.IOutputGenerator;
-import main.java.com.desai.common.initial.JsonOutputGenerator;
+import com.desai.common.initial.IOutputGenerator;
+import com.desai.common.initial.JsonOutputGenerator;
 
 import org.springframework.context.annotation.Bean;
 

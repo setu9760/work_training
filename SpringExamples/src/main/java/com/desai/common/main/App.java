@@ -1,10 +1,9 @@
-package main.java.com.desai.common.main;
+package com.desai.common.main;
 
-import main.java.com.desai.common.config.NumberConfig;
-import main.java.com.desai.common.singleton.Number;
+import com.desai.common.config.NumberConfig;
+import com.desai.common.singleton.Number;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -41,10 +40,9 @@ public class App {
 		 * NOTE: retrieve the context directly from bean.class
 		 */
 
-		ApplicationContext context = new AnnotationConfigApplicationContext(
-				NumberConfig.class);
-		context = new ClassPathXmlApplicationContext(
-				"main/resources/Spring-Singleton.xml");
+		ApplicationContext context;
+		// = new AnnotationConfigApplicationContext( NumberConfig.class);
+		context = new ClassPathXmlApplicationContext("Spring-Singleton.xml");
 
 		Number number = (Number) context.getBean("numberBean");
 		number.printnumber_incr();

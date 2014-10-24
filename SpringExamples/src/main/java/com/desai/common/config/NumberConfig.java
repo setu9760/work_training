@@ -1,6 +1,6 @@
-package main.java.com.desai.common.config;
+package com.desai.common.config;
 
-import main.java.com.desai.common.singleton.Number;
+import com.desai.common.singleton.Number;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;

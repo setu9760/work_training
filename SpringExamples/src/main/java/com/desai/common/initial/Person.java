@@ -1,4 +1,4 @@
-package main.java.com.desai.common.initial;
+package com.desai.common.initial;
 
 public class Person {
 	private String name;

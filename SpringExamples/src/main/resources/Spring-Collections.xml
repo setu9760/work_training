@@ -9,14 +9,14 @@
 	<!-- As we have more than one person bean in use we can simply declare default 
 		life-cycle callback method. This method must be no-args void return type -->
 
-	<bean id="collection_bean" class="main.java.com.desai.common.collections.All_Collections">
+	<bean id="collection_bean" class="com.desai.common.collections.All_Collections">
 		<property name="list">
 			<list>
 				<value>1</value>
 				<value>string</value>
 				<ref bean="personBean1" />
 				<ref bean="personBean2" />
-				<bean class="main.java.com.desai.common.collections.Person">
+				<bean class="com.desai.common.collections.Person">
 					<property name="name" value="abcd" />
 					<property name="address" value="abcderdf" />
 					<property name="age" value="10" />
@@ -48,10 +48,10 @@
 	</bean>
 	<!-- For the following bean we have explicitly declared the lifecycle method 
 		"onDestroy" this method needs to be no-args void return type -->
-	<bean id="personBean1" class="main.java.com.desai.common.collections.Person"
+	<bean id="personBean1" class="com.desai.common.collections.Person"
 		p:name="setu" p:address="filton" p:age="25" p:ph_number="123456789"
 		destroy-method="onDestroy" />
 
-	<bean id="personBean2" class="main.java.com.desai.common.collections.Person"
+	<bean id="personBean2" class="com.desai.common.collections.Person"
 		p:name="desai" p:address="filton--bri" p:age="20" p:ph_number="123456789" />
 </beans>
