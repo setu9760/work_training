@@ -81,7 +81,7 @@ public class JdbcStudentDAO implements StudentDAO {
 		if (conn != null)
 			conn.close();
 		if (preparedStatement != null)
-			preparedStatement.closeOnCompletion();
+			preparedStatement.close();
 
 		preparedStatement = null;
 		conn = null;

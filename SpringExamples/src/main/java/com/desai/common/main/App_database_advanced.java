@@ -12,7 +12,7 @@ public class App_database_advanced {
 				"Spring-database.xml");
 		JdbcStudentDAO jdbcStudentDAO = (JdbcStudentDAO) context
 				.getBean("studentDAO");
-		Student student = jdbcStudentDAO.findStudentById_Manual(1);
+		Student student = jdbcStudentDAO.findStudentById_Normal(1);
 		System.out.println(student);
 
 		student = jdbcStudentDAO.findStudentById_BeanRowMapper(2);
@@ -22,5 +22,8 @@ public class App_database_advanced {
 		// jdbcStudentDAO.insert(student);
 
 		System.out.println(jdbcStudentDAO.countStudent());
+		System.out.println(jdbcStudentDAO.getAll_Normal());
+		System.out.println(jdbcStudentDAO.getAll_BeanRowMapper());
+
 	}
 }
