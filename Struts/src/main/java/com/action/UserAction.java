@@ -37,7 +37,7 @@ public class UserAction extends ActionSupport {
 		if ("setu".equalsIgnoreCase(username) && (pwd1.equals(pwd2))) {
 			return SUCCESS;
 		}
-		if (pwd1.equals(pwd2)) {
+		if (!pwd1.equals(pwd2)) {
 			addActionMessage("Passwords do not match");
 		}
 		return INPUT;
