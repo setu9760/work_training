@@ -7,17 +7,24 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class JdbcStudentDAO implements StudentDAO {
 
 	private DataSource dataSource;
+
+	public JdbcStudentDAO(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 
 	Connection conn = null;
 	PreparedStatement preparedStatement = null;
 	String sql = null;
 
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
+	// public void setDataSource(DataSource dataSource) {
+	// this.dataSource = dataSource;
+	// }
 
 	@Override
 	public void insert(Student student) {
@@ -44,7 +51,7 @@ public class JdbcStudentDAO implements StudentDAO {
 
 	@Override
 	public Student findByStudentById_Manual(int studId) {
-		sql = "SELECT *FROM STUDENT WHERE ID = ?";
+		sql = "SELECT *FROM STUDENT WHERE _Id = ?";
 		try {
 			conn = dataSource.getConnection();
 			preparedStatement = conn.prepareStatement(sql);
@@ -72,7 +79,7 @@ public class JdbcStudentDAO implements StudentDAO {
 	public int countStudent() {
 		sql = "SELECT COUNT(*) FROM STUDENT";
 		/**
-		 * 
+		 * Not implemented yet
 		 */
 		return 0;
 	}
