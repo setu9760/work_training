@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<ivy-module version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<!-- Information -->
+	<info organisation="com.desai" module="Ivy_example" status="working">
+	</info>
+
+	<!-- Ivy configurations -->
+	<configurations>
+		<conf name="compile" visibility="private" />
+		<conf name="test" visibility="public" />
+		<conf name="runtime" extends="compile" />
+		<conf name="default" extends="runtime" />
+		<conf name="ivyde" visibility="private" />
+	</configurations>
+
+	<!-- Ivy dependencies declarations -->
+	<dependencies>
+		<dependency org="org.apache.logging.log4j" name="log4j-api"
+			rev="2.1" conf="ivyde, compile->default" />
+		<dependency org="org.apache.logging.log4j" name="log4j-core"
+			rev="2.1" transitive="false" conf="ivyde, compile->default" />
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.33"
+			conf="compile" />
+		<dependency org="junit" name="junit" rev="4.11" conf="test->default" />
+	</dependencies>
+
+</ivy-module>

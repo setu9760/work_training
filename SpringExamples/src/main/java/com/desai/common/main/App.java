@@ -1,9 +1,12 @@
 package com.desai.common.main;
 
+import com.desai.common.config.AppConfig;
 import com.desai.common.config.NumberConfig;
+import com.desai.common.initial.IOutputGenerator;
 import com.desai.common.singleton.Number;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -40,19 +43,19 @@ public class App {
 		 * NOTE: retrieve the context directly from bean.class
 		 */
 
-		ApplicationContext context;
-		// = new AnnotationConfigApplicationContext( NumberConfig.class);
-		context = new ClassPathXmlApplicationContext("Spring-Singleton.xml");
+		// ApplicationContext context = new AnnotationConfigApplicationContext(
+		// AppConfig.class);
+		// context = new ClassPathXmlApplicationContext("Spring-Singleton.xml");
 
-		Number number = (Number) context.getBean("numberBean");
-		number.printnumber_incr();
-		number.printnumber_incr();
-		number.printnumber_incr();
-		number.printnumber_incr();
-
-		Number number2 = (Number) context.getBean("numberBean");
-		number2.printnumber_incr();
-		number2.printnumber_incr();
+		// Number number = (Number) context.getBean("numberBean");
+		// number.printnumber_incr();
+		// number.printnumber_incr();
+		// number.printnumber_incr();
+		// number.printnumber_incr();
+		//
+		// Number number2 = (Number) context.getBean("numberBean");
+		// number2.printnumber_incr();
+		// number2.printnumber_incr();
 		// Things things = (Things) context.getBean("ThingsBean");
 		// Person person = (Person) context.getBean("personBean2");
 		// System.out.println(person);
@@ -74,15 +77,16 @@ public class App {
 		/**
 		 * ################################################################## //
 		 * Getting context by using multiple config classes.//
-		 * 
-		 * ApplicationContext context = new AnnotationConfigApplicationContext(
-		 * AppConfig.class); IOutputGenerator generator = (IOutputGenerator)
-		 * context .getBean("JsonOutputGeneratorBean");
-		 * generator.generateOutput("hello");
-		 * 
-		 * generator = (IOutputGenerator) context
-		 * .getBean("CsvoutputGeneratorbean");
-		 * generator.generateOutput("again");
-		 **/
+		 */
+		ApplicationContext context = new AnnotationConfigApplicationContext(
+				AppConfig.class);
+		IOutputGenerator generator = (IOutputGenerator) context
+				.getBean("JsonOutputGeneratorBean");
+		generator.generateOutput("hello");
+
+		generator = (IOutputGenerator) context
+				.getBean("CsvoutputGeneratorbean");
+		generator.generateOutput("again");
+
 	}
 }

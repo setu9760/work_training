@@ -31,5 +31,6 @@
 	<classpathentry kind="var" path="CATALINA_HOME/lib/tomcat-util.jar"/>
 	<classpathentry kind="var" path="CATALINA_HOME/lib/tomcat7-websocket.jar"/>
 	<classpathentry kind="var" path="CATALINA_HOME/lib/websocket-api.jar"/>
+	<classpathentry kind="var" path="IVY_HOME"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
