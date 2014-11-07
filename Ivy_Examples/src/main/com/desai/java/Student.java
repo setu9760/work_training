@@ -1,4 +1,5 @@
-package com.desai.common.database_advanced;
+package main.com.desai.java;
+
 
 public class Student {
 	private int _Id;
@@ -38,21 +39,10 @@ public class Student {
 		this._age = _age;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Student [_Id=");
-		builder.append(_Id);
-		builder.append(", _Name=");
-		builder.append(_Name);
-		builder.append(", _age=");
-		builder.append(_age);
-		builder.append("]");
-		return builder.toString();
+		return "Student [_Id=" + _Id + ", _Name=" + _Name + ", _age=" + _age
+				+ "]";
 	}
+
 }

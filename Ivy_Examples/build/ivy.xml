@@ -19,13 +19,28 @@
 
 	<!-- Ivy dependencies declarations -->
 	<dependencies>
+	<!--
 		<dependency org="org.apache.logging.log4j" name="log4j-api"
 			rev="2.1" conf="ivyde, compile->default" />
+		
 		<dependency org="org.apache.logging.log4j" name="log4j-core"
 			rev="2.1" transitive="false" conf="ivyde, compile->default" />
-		<dependency org="mysql" name="mysql-connector-java" rev="5.1.33"
-			conf="compile" />
+		-->
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.33" />
+		
 		<dependency org="junit" name="junit" rev="4.11" conf="test->default" />
+		
+		<dependency org="cglib" name="cglib" rev="3.1"/>
+		
+		<dependency org="org.springframework" name="spring-jdbc" rev="4.1.0.RELEASE" 
+		transitive="true"/>
+		
+		<dependency org="org.springframework" name="spring-context" rev="4.1.0.RELEASE" 
+		transitive="true"/>
+		
+		<dependency org="org.springframework" name="spring-core" rev="4.1.0.RELEASE"
+		transitive="true"/>
+		
 	</dependencies>
 
 </ivy-module>
