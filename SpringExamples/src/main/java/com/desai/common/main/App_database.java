@@ -36,7 +36,6 @@ public class App_database {
 		// = new ClassPathXmlApplicationContext("Spring-database.xml");
 
 		context = new AnnotationConfigApplicationContext(DatabaseConfig.class);
-
 		studentDAO = (StudentDAO) context.getBean("studentDao");
 
 		student = (Student) context.getBean("studentBean");
@@ -50,7 +49,6 @@ public class App_database {
 			// TODO: handle exception
 		}
 		System.out.println(student1);
-
 		System.out
 				.println(studentDAO.findByStudentById_Manual(student.get_Id()));
 	}
