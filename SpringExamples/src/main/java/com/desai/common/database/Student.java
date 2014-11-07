@@ -40,6 +40,8 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "[Name: " + _Name + " ]";
+		return "Student [_Id=" + _Id + ", _Name=" + _Name + ", _age=" + _age
+				+ "]";
 	}
+
 }
