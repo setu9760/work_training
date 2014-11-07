@@ -18,18 +18,7 @@ import main.com.desai.java.Tutor;
 
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
-	// @Autowired
-	// @Qualifier("datasource")
-	// DataSource datasource;
-	Connection conn;
-
-	// @PostConstruct
-	// private void initialize() {
-	// setDataSource(datasource);
-	// }
-
 	public JdbcTutorDaoImpl(DataSource datasource) {
-		// this.datasource = datasource;
 		setDataSource(datasource);
 	}
 
