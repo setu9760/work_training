@@ -1,20 +1,11 @@
 package main.com.desai.java.dao;
 
-import groovy.sql.BatchingPreparedStatementWrapper;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import main.com.desai.java.Tutor;
+import main.com.desai.java.RowMappers.TutorRowMapper;
 
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
@@ -32,14 +23,28 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	@Override
 	public Tutor findTutorById(int tutor_id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM TUTOR WHERE ID = ?";
+		Tutor tutor = getJdbcTemplate().queryForObject(sql,
+				new Object[] { tutor_id }, new TutorRowMapper());
+		return tutor;
 	}
 
 	@Override
 	public Tutor findTutorByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM TUTOR WHERE NAME = ?";
+		Tutor tutor = getJdbcTemplate().queryForObject(sql,
+				new Object[] { name }, new TutorRowMapper());
+		return tutor;
+	}
+
+	@Override
+	public int countTutors() {
+		String sql = "SELECT COUNT(*) FROM TUTOR";
+		int count = getJdbcTemplate().queryForObject(sql, Integer.class);
+		if (count > 0)
+			return count;
+		else
+			return 0;
 	}
 
 }

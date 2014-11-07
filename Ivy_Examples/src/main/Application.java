@@ -24,8 +24,10 @@ public class Application {
 		Tutor tutor = (Tutor) context.getBean("tutorBean");
 		TutorDao tutorDao = (TutorDao) context.getBean("tutorDao");
 
-		tutorDao.insert(tutor);
-
+		// tutorDao.insert(tutor);
+		System.out.println(tutorDao.findTutorById(1));
+		System.out.println(tutorDao.findTutorByName("setu"));
+		System.out.println(tutorDao.countTutors());
 		//
 		// StudentDao dao = (StudentDao) context.getBean("");
 	}

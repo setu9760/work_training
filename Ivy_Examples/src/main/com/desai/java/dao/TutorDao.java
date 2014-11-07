@@ -10,4 +10,6 @@ public interface TutorDao {
 
 	public Tutor findTutorByName(String name);
 
+	public int countTutors();
+
 }
