@@ -4,7 +4,7 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<bean id="studentDAO" class="com.desai.common.database_advanced.JdbcStudentDAO">
-		<property name="dataSource" ref="dataSource"></property>
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<bean id="studentBean" class="com.desai.common.database_advanced.Student">

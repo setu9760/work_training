@@ -40,7 +40,8 @@ public class Student {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "[Name: ]";
+		return "Student [_Id=" + _Id + ", _Name=" + _Name + ", _age=" + _age
+				+ "]";
 	}
+
 }

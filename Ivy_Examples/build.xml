@@ -1,0 +1,87 @@
+<project basedir="." default="build" name="Ivy_Examples" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property environment="env" />
+	<property name="ECLIPSE_HOME" value="../../../../eclipse_jee_juna/eclipse" />
+	<property name="junit.output.dir" value="junit" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+<!--	<path id="Ivy.libraryclasspath">
+		<pathelement location="build/ivy/ivycache/cache/org.apache.logging.log4j/log4j-api/jars/log4j-api-2.1.jar" />
+		<pathelement location="build/ivy/ivycache/cache/org.apache.logging.log4j/log4j-core/jars/log4j-core-2.1.jar" />
+		<pathelement location="build/ivy/ivycache/cache/junit/junit/jars/junit-4.11.jar" />
+		<pathelement location="build/ivy/ivycache/cache/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.3.jar" />
+	</path>  -->
+	<path id="Ivy_Examples.classpath">
+		<pathelement location="bin" />
+		<path refid="Ivy.libraryclasspath" />
+	</path>
+	<target name="init">
+		<mkdir dir="bin" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="resources">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	<target name="resolve" description="resolve dependencies with ivy">
+		<ivy:resolve file="build/ivy.xml" />
+		<ivy:cachepath pathid="default.classpath" />
+	</target>
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+	<target depends="clean" name="cleanall" />
+	<target depends="build-subprojects,build-project" name="build" />
+	<target name="build-subprojects" />
+	<target depends="init" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+			<src path="src" />
+			<src path="resources" />
+			<classpath refid="Ivy_Examples.classpath" />
+		</javac>
+	</target>
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
+	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+		<copy todir="${ant.library.dir}">
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</copy>
+		<unzip dest="${ant.library.dir}">
+			<patternset includes="jdtCompilerAdapter.jar" />
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</unzip>
+	</target>
+	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+		<antcall target="build" />
+	</target>
+	<target name="PersonTest">
+		<mkdir dir="${junit.output.dir}" />
+		<junit fork="yes" printsummary="withOutAndErr">
+			<formatter type="xml" />
+			<test name="com.desai.common.test.PersonTest" todir="${junit.output.dir}" />
+			<classpath refid="Ivy_Examples.classpath" />
+		</junit>
+	</target>
+	<target name="PersonTest.testPersonStringInt">
+		<mkdir dir="${junit.output.dir}" />
+		<junit fork="yes" printsummary="withOutAndErr">
+			<formatter type="xml" />
+			<test name="com.desai.common.test.PersonTest" todir="${junit.output.dir}" />
+			<classpath refid="Ivy_Examples.classpath" />
+		</junit>
+	</target>
+	<target name="junitreport">
+		<junitreport todir="${junit.output.dir}">
+			<fileset dir="${junit.output.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${junit.output.dir}" />
+		</junitreport>
+	</target>
+</project>
