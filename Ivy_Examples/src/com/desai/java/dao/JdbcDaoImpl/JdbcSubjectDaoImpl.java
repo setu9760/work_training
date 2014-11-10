@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import com.desai.java.Subject;
 import com.desai.java.dao.SubjectDao;
 
-
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 
 	public JdbcSubjectDaoImpl(DataSource dataSource) {
@@ -16,11 +15,9 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 
 	@Override
 	public void insert(Subject subject) {
-		String sql = "INSERT INTO subject (subject_id, subject_name) VALUES (?, ?)";
-		getJdbcTemplate().update(
-				sql,
-				new Object[] { subject.getSubject_id(),
-						subject.getSubject_name() });
+		String sql = "INSERT INTO subject (subject_name) VALUES (?)";
+		getJdbcTemplate().update(sql,
+				new Object[] { subject.getSubject_name() });
 	}
 
 	@Override
@@ -30,7 +27,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	}
 
 	@Override
-	public Object findByName(String name) {
+	public Subject findByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -42,7 +39,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	}
 
 	@Override
-	public boolean dropAll() {
+	public boolean dropById(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

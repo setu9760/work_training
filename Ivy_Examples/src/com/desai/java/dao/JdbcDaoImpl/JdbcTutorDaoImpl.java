@@ -1,6 +1,9 @@
 package com.desai.java.dao.JdbcDaoImpl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -11,7 +14,6 @@ import com.desai.java.Tutor;
 import com.desai.java.RowMappers.TutorRowMapper;
 import com.desai.java.dao.TutorDao;
 
-
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	public JdbcTutorDaoImpl(DataSource datasource) {
@@ -20,9 +22,8 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	@Override
 	public void insert(Tutor tutor) {
-		String sql = "INSERT INTO TUTOR (id, name) VALUES (?, ?)";
-		getJdbcTemplate().update(sql,
-				new Object[] { tutor.getId(), tutor.getName() });
+		String sql = "INSERT INTO TUTOR (name) VALUES (?)";
+		getJdbcTemplate().update(sql, new Object[] { tutor.getName() });
 
 	}
 
@@ -35,11 +36,18 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public Tutor findByName(String name) {
+	public List<Tutor> findByName(String name) {
 		String sql = "SELECT * FROM TUTOR WHERE NAME = ?";
-		Tutor tutor = getJdbcTemplate().queryForObject(sql,
-				new Object[] { name }, new TutorRowMapper());
-		return tutor;
+		List<Tutor> tutors = new ArrayList<Tutor>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql,
+				new Object[] { name });
+		for (Map<String, Object> row : rows) {
+			Tutor tutor = new Tutor();
+			tutor.setId((Integer) row.get("id"));
+			tutor.setName((String) row.get("name"));
+			tutors.add(tutor);
+		}
+		return tutors;
 	}
 
 	@Override
@@ -50,9 +58,13 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public boolean dropAll() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean dropById(int id) {
+		String sql = "DELETE FROM tutor WHERE id = ?";
+		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
+		if (numRows == 0)
+			return false;
+		else
+			return true;
 	}
 
 	@Override

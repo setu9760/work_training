@@ -5,16 +5,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 
-import com.desai.java.config.PojoBeansConfigTest;
 import com.desai.java.dao.*;
 import com.desai.java.dao.JdbcDaoImpl.JdbcStudentDaoImpl;
 import com.desai.java.dao.JdbcDaoImpl.JdbcSubjectDaoImpl;
 import com.desai.java.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 
-
 @Configuration
-@Import({ PojoBeansConfigTest.class })
+@Import({ PojoBeansConfig.class, TransactionManagerConfig.class })
 public class Config {
 
 	@Value("org.springframework.jdbc.datasource.DriverManagerDataSource")

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.desai.java.Student;
 import com.desai.java.Subject;
 import com.desai.java.Tutor;
-import com.desai.java.config.ConfigTest;
+import com.desai.java.config.Config;
 import com.desai.java.dao.StudentDao;
 import com.desai.java.dao.SubjectDao;
 import com.desai.java.dao.TutorDao;
@@ -17,7 +17,7 @@ public class Application {
 
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(
-				ConfigTest.class);
+				Config.class);
 
 		String[] beans = context.getBeanDefinitionNames();
 
@@ -34,13 +34,19 @@ public class Application {
 		Subject subject = (Subject) context.getBean(Subject.class);
 		SubjectDao subjectDao = (SubjectDao) context.getBean(SubjectDao.class);
 
-		// tutorDao.insert(tutor);
-		// studentDao.insert(student);
-		// subjectDao.insert(subject);
+		tutorDao.insert(tutor);
+		studentDao.insert(student);
+		subjectDao.insert(subject);
+
+		System.out.println(studentDao.findById(1));
+		System.out.println(studentDao.findByName("test"));
+		System.out.println(studentDao.countAll());
+
 		System.out.println(tutorDao.findById(1));
 		System.out.println(tutorDao.findByName("setu"));
 		System.out.println(tutorDao.countAll());
-		// StudentDao dao = (StudentDao) context.getBean("");
+
+		tutorDao.dropById(16);
 
 		List<Subject> subjects = studentDao.findAssociatedSubjects(1);
 		for (Subject subject1 : subjects) {

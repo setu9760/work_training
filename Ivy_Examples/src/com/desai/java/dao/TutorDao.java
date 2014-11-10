@@ -5,10 +5,11 @@ import java.util.List;
 import com.desai.java.Student;
 import com.desai.java.Tutor;
 
-
 public interface TutorDao extends BaseDao {
 
 	public void insert(Tutor tutor);
-	
+
+	public List<Tutor> findByName(String name);
+
 	public List<Student> findAllStudents(int id);
 }

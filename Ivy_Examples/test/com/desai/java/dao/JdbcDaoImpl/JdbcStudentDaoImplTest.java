@@ -16,12 +16,12 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.desai.java.Student;
-import com.desai.java.config.ConfigTest;
+import com.desai.java.config.Config;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ConfigTest.class, loader = AnnotationConfigContextLoader.class)
-// @Transactional
+@ContextConfiguration(classes = Config.class, loader = AnnotationConfigContextLoader.class)
 // @TransactionConfiguration(defaultRollback = true)
+// @Transactional
 public class JdbcStudentDaoImplTest {
 
 	@Autowired
@@ -45,6 +45,8 @@ public class JdbcStudentDaoImplTest {
 	public void testInsert() {
 		assertNotNull(student);
 		assertNotNull(studentDao);
+		assertNotNull(studentDao.insert(student));
+		assertEquals(1, (int) studentDao.insert(student));
 	}
 
 	@Test

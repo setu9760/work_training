@@ -1,16 +1,10 @@
 package com.desai.java.dao.JdbcDaoImpl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
-
 
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
@@ -28,28 +22,34 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 	}
 
 	@Override
-	public void insert(Student student) {
-		String sql = "INSERT INTO STUDENT (id, name, age) VALUES (?, ?, ?)";
-		getJdbcTemplate().update(
-				sql,
-				new Object[] { student.getId(), student.getName(),
-						student.getAge() });
+	public int insert(Student student) {
+		final String sql = "INSERT INTO STUDENT (name, age) VALUES (?, ?)";
+		return getJdbcTemplate().update(sql,
+				new Object[] { student.getName(), student.getAge() });
 	}
 
 	@Override
 	public Student findById(int studId) {
 		String sql = "SELECT * FROM STUDENT WHERE ID = ?";
 		Student student = getJdbcTemplate().queryForObject(sql,
-				new StudentRowMapper());
+				new Object[] { studId }, new StudentRowMapper());
 		return student;
 	}
 
 	@Override
-	public Object findByName(String name) {
+	public List<Student> findByName(String name) {
 		String sql = "SELECT * FROM STUDENT WHERE NAME = ?";
-		Student student = getJdbcTemplate().queryForObject(sql,
-				new StudentRowMapper());
-		return student;
+		List<Student> students = new ArrayList<Student>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql,
+				new Object[] { name });
+		for (Map<String, Object> row : rows) {
+			Student student = new Student();
+			student.setId((Integer) row.get("id"));
+			student.setName((String) row.get("name"));
+			student.setAge((Integer) row.get("age"));
+			students.add(student);
+		}
+		return students;
 	}
 
 	@Override
@@ -60,9 +60,13 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 	}
 
 	@Override
-	public boolean dropAll() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean dropById(int id) {
+		String sql = "DELETE FROM student WHERE id = ?";
+		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
+		if (numRows == 0)
+			return false;
+		else
+			return true;
 	}
 
 	@Override
