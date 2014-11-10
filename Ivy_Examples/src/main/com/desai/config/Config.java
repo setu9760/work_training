@@ -3,14 +3,16 @@ package main.com.desai.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import main.com.desai.java.Tutor;
 import main.com.desai.java.dao.*;
 import main.com.desai.java.dao.JdbcDaoImpl.JdbcStudentDaoImpl;
+import main.com.desai.java.dao.JdbcDaoImpl.JdbcSubjectDaoImpl;
 import main.com.desai.java.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 
 @Configuration
+@Import({ PojoBeansConfig.class })
 public class Config {
 
 	@Value("org.springframework.jdbc.datasource.DriverManagerDataSource")
@@ -37,6 +39,12 @@ public class Config {
 		return tutorDao;
 	}
 
+	@Bean(name = "subjectDao")
+	public SubjectDao getSubjectDao() {
+		JdbcSubjectDaoImpl subjectDao = new JdbcSubjectDaoImpl(getDatasource());
+		return subjectDao;
+	}
+
 	@Bean(name = "datasource")
 	public DriverManagerDataSource getDatasource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -45,13 +53,5 @@ public class Config {
 		dataSource.setUsername(USERNAME);
 		dataSource.setPassword(PASSWORD);
 		return dataSource;
-	}
-
-	@Bean(name = "tutorBean")
-	public Tutor getTutorBean() {
-		Tutor tutor = new Tutor();
-		tutor.setName("setu");
-		tutor.setId(1);
-		return tutor;
 	}
 }

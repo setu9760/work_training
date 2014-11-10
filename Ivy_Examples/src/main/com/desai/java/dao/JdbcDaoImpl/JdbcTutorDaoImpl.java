@@ -45,10 +45,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	public int countAll() {
 		String sql = "SELECT COUNT(*) FROM TUTOR";
 		int count = getJdbcTemplate().queryForObject(sql, Integer.class);
-		if (count > 0)
-			return count;
-		else
-			return 0;
+		return count;
 	}
 
 	@Override

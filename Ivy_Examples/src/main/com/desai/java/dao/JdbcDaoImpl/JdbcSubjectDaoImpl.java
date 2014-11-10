@@ -1,9 +1,17 @@
 package main.com.desai.java.dao.JdbcDaoImpl;
 
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+
 import main.com.desai.java.Subject;
 import main.com.desai.java.dao.SubjectDao;
 
-public class JdbcSubjectDaoImpl implements SubjectDao {
+public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
+
+	public JdbcSubjectDaoImpl(DataSource dataSource) {
+		setDataSource(dataSource);
+	}
 
 	@Override
 	public void insert(Subject subject) {

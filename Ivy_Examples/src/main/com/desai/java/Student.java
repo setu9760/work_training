@@ -1,10 +1,20 @@
 package main.com.desai.java;
 
-
 public class Student {
 	private int id;
 	private String name;
 	private int age;
+
+	public Student() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Student(int id, String name, int age) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
 
 	/**
 	 * @return the id

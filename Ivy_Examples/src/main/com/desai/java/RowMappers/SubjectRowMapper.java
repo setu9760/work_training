@@ -16,5 +16,4 @@ public class SubjectRowMapper implements RowMapper<Subject> {
 		subject.setSubject_name(resultSet.getString("subject_name"));
 		return subject;
 	}
-
 }

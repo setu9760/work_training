@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import main.com.desai.java.Student;
 import main.com.desai.java.Subject;
+import main.com.desai.java.RowMappers.StudentRowMapper;
 import main.com.desai.java.dao.StudentDao;
 
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -24,26 +25,34 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
 	@Override
 	public void insert(Student student) {
-		String sql = "INSERT INTO STUDENT  ";
+		String sql = "INSERT INTO STUDENT (id, name, age) VALUES (?, ?, ?)";
+		getJdbcTemplate().update(
+				sql,
+				new Object[] { student.getId(), student.getName(),
+						student.getAge() });
 	}
 
 	@Override
 	public Student findById(int studId) {
-		return null;
+		String sql = "SELECT * FROM STUDENT WHERE ID = ?";
+		Student student = getJdbcTemplate().queryForObject(sql,
+				new StudentRowMapper());
+		return student;
 	}
 
 	@Override
 	public Object findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM STUDENT WHERE NAME = ?";
+		Student student = getJdbcTemplate().queryForObject(sql,
+				new StudentRowMapper());
+		return student;
 	}
 
 	@Override
 	public int countAll() {
-		/**
-		 * Not implemented yet
-		 */
-		return 0;
+		String sql = "SELECT COUNT(*) FROM STUDENT";
+		int count = getJdbcTemplate().queryForObject(sql, Integer.class);
+		return count;
 	}
 
 	@Override
@@ -53,7 +62,7 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 	}
 
 	@Override
-	public List<Subject> findAllSubject(int id) {
+	public List<Subject> findAssociatedSubjects(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

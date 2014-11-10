@@ -3,6 +3,7 @@ package main;
 import main.com.desai.config.Config;
 import main.com.desai.java.Student;
 import main.com.desai.java.Tutor;
+import main.com.desai.java.dao.BaseDao;
 import main.com.desai.java.dao.StudentDao;
 import main.com.desai.java.dao.TutorDao;
 
@@ -31,5 +32,4 @@ public class Application {
 		//
 		// StudentDao dao = (StudentDao) context.getBean("");
 	}
-
 }

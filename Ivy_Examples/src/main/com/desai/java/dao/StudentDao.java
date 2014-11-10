@@ -9,5 +9,5 @@ public interface StudentDao extends BaseDao {
 
 	public void insert(Student student);
 	
-	public List<Subject> findAllSubject(int id);
+	public List<Subject> findAssociatedSubjects(int id);
 }
