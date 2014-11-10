@@ -1,13 +1,13 @@
 package main.com.desai.java.dao;
 
-import main.com.desai.java.Student;
+import java.util.List;
 
-public interface StudentDao {
+import main.com.desai.java.Student;
+import main.com.desai.java.Subject;
+
+public interface StudentDao extends BaseDao {
 
 	public void insert(Student student);
-
-	public Student findByStudentById_Manual(int studId);
-
-	public int countStudent();
-
+	
+	public List<Subject> findAllSubject(int id);
 }

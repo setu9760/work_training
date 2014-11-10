@@ -1,7 +1,5 @@
 package main.com.desai.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +7,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import main.com.desai.java.Tutor;
 import main.com.desai.java.dao.*;
+import main.com.desai.java.dao.JdbcDaoImpl.JdbcStudentDaoImpl;
+import main.com.desai.java.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 
 @Configuration
 public class Config {
@@ -28,7 +28,6 @@ public class Config {
 	@Bean(name = "studentDao")
 	public StudentDao getStudentDao() {
 		JdbcStudentDaoImpl studentDAO = new JdbcStudentDaoImpl(getDatasource());
-		// studentDAO.setDataSource(getDatasource());
 		return studentDAO;
 	}
 

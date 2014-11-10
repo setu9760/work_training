@@ -1,11 +1,15 @@
-package main.com.desai.java.dao;
+package main.com.desai.java.dao.JdbcDaoImpl;
+
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
+import main.com.desai.java.Student;
 import main.com.desai.java.Tutor;
 import main.com.desai.java.RowMappers.TutorRowMapper;
+import main.com.desai.java.dao.TutorDao;
 
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
@@ -22,7 +26,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public Tutor findTutorById(int tutor_id) {
+	public Tutor findById(int tutor_id) {
 		String sql = "SELECT * FROM TUTOR WHERE ID = ?";
 		Tutor tutor = getJdbcTemplate().queryForObject(sql,
 				new Object[] { tutor_id }, new TutorRowMapper());
@@ -30,7 +34,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public Tutor findTutorByName(String name) {
+	public Tutor findByName(String name) {
 		String sql = "SELECT * FROM TUTOR WHERE NAME = ?";
 		Tutor tutor = getJdbcTemplate().queryForObject(sql,
 				new Object[] { name }, new TutorRowMapper());
@@ -38,13 +42,25 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public int countTutors() {
+	public int countAll() {
 		String sql = "SELECT COUNT(*) FROM TUTOR";
 		int count = getJdbcTemplate().queryForObject(sql, Integer.class);
 		if (count > 0)
 			return count;
 		else
 			return 0;
+	}
+
+	@Override
+	public boolean dropAll() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Student> findAllStudents(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

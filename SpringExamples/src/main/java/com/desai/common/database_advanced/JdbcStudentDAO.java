@@ -17,8 +17,8 @@ public class JdbcStudentDAO extends JdbcDaoSupport implements StudentDAO {
 		String sql = "INSERT INTO STUDENT (_Id, _Name, _Age) VALUES (?, ?, ?)";
 		getJdbcTemplate().update(
 				sql,
-				new Object[] { student.get_Id(), student.get_Name(),
-						student.get_age() });
+				new Object[] { student.getId(), student.getName(),
+						student.getAge() });
 	}
 
 	@Override
@@ -30,9 +30,9 @@ public class JdbcStudentDAO extends JdbcDaoSupport implements StudentDAO {
 			public void setValues(PreparedStatement ps, int i)
 					throws SQLException {
 				Student student = students.get(i);
-				ps.setInt(1, student.get_Id());
-				ps.setString(2, student.get_Name());
-				ps.setInt(3, student.get_age());
+				ps.setInt(1, student.getId());
+				ps.setString(2, student.getName());
+				ps.setInt(3, student.getAge());
 			}
 
 			@Override
@@ -75,9 +75,9 @@ public class JdbcStudentDAO extends JdbcDaoSupport implements StudentDAO {
 		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
 		for (Map<String, Object> row : rows) {
 			Student student = new Student();
-			student.set_Id((Integer) row.get("_Id"));
-			student.set_Name((String) row.get("_Name"));
-			student.set_age((Integer) row.get("_Age"));
+			student.setId((Integer) row.get("_Id"));
+			student.setName((String) row.get("_Name"));
+			student.setAge((Integer) row.get("_Age"));
 			students.add(student);
 		}
 		return students;

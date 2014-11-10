@@ -2,47 +2,70 @@ package main.com.desai.java;
 
 
 public class Student {
-	private int _Id;
-	private String _Name;
-	private int _age;
+	private int id;
+	private String name;
+	private int age;
 
-	public Student() {
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
 	}
 
-	public Student(int _Id, String _Name, int _age) {
-		this._Id = _Id;
-		this._Name = _Name;
-		this._age = _age;
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public int get_Id() {
-		return _Id;
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
 
-	public void set_Id(int _Id) {
-		this._Id = _Id;
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String get_Name() {
-		return _Name;
+	/**
+	 * @return the age
+	 */
+	public int getAge() {
+		return age;
 	}
 
-	public void set_Name(String _Name) {
-		this._Name = _Name;
+	/**
+	 * @param age
+	 *            the age to set
+	 */
+	public void setAge(int age) {
+		this.age = age;
 	}
 
-	public int get_age() {
-		return _age;
-	}
-
-	public void set_age(int _age) {
-		this._age = _age;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "Student [_Id=" + _Id + ", _Name=" + _Name + ", _age=" + _age
-				+ "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Student [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", age=");
+		builder.append(age);
+		builder.append("]");
+		return builder.toString();
 	}
-
 }
