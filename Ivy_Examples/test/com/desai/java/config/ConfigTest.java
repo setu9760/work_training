@@ -1,19 +1,23 @@
-package main.com.desai.config;
+package com.desai.java.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import main.com.desai.java.dao.*;
-import main.com.desai.java.dao.JdbcDaoImpl.JdbcStudentDaoImpl;
-import main.com.desai.java.dao.JdbcDaoImpl.JdbcSubjectDaoImpl;
-import main.com.desai.java.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
+import com.desai.java.config.PojoBeansConfigTest;
+import com.desai.java.dao.StudentDao;
+import com.desai.java.dao.SubjectDao;
+import com.desai.java.dao.TutorDao;
+import com.desai.java.dao.JdbcDaoImpl.JdbcStudentDaoImpl;
+import com.desai.java.dao.JdbcDaoImpl.JdbcSubjectDaoImpl;
+import com.desai.java.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 
 @Configuration
-@Import({ PojoBeansConfig.class })
-public class Config {
+@Import({ PojoBeansConfigTest.class })
+public class ConfigTest {
 
 	@Value("org.springframework.jdbc.datasource.DriverManagerDataSource")
 	private String DRIVER_CLASSNAME;

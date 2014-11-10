@@ -1,9 +1,10 @@
-package main.com.desai.java.dao;
+package com.desai.java.dao;
 
 import java.util.List;
 
-import main.com.desai.java.Student;
-import main.com.desai.java.Tutor;
+import com.desai.java.Student;
+import com.desai.java.Tutor;
+
 
 public interface TutorDao extends BaseDao {
 

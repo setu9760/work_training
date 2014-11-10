@@ -1,24 +1,23 @@
-package main;
+package com;
 
 import java.util.List;
 
-import main.com.desai.config.Config;
-import main.com.desai.java.Student;
-import main.com.desai.java.Subject;
-import main.com.desai.java.Tutor;
-import main.com.desai.java.dao.BaseDao;
-import main.com.desai.java.dao.StudentDao;
-import main.com.desai.java.dao.SubjectDao;
-import main.com.desai.java.dao.TutorDao;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.desai.java.Student;
+import com.desai.java.Subject;
+import com.desai.java.Tutor;
+import com.desai.java.config.ConfigTest;
+import com.desai.java.dao.StudentDao;
+import com.desai.java.dao.SubjectDao;
+import com.desai.java.dao.TutorDao;
 
 public class Application {
 
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(
-				Config.class);
+				ConfigTest.class);
 
 		String[] beans = context.getBeanDefinitionNames();
 

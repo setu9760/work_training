@@ -1,11 +1,12 @@
-package main.com.desai.java.RowMappers;
+package com.desai.java.RowMappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import main.com.desai.java.Subject;
 
 import org.springframework.jdbc.core.RowMapper;
+
+import com.desai.java.Subject;
 
 public class SubjectRowMapper implements RowMapper<Subject> {
 

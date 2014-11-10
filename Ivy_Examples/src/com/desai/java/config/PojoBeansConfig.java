@@ -1,11 +1,12 @@
-package main.com.desai.config;
+package com.desai.java.config;
 
-import main.com.desai.java.Student;
-import main.com.desai.java.Subject;
-import main.com.desai.java.Tutor;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.desai.java.Student;
+import com.desai.java.Subject;
+import com.desai.java.Tutor;
 
 @Configuration
 public class PojoBeansConfig {

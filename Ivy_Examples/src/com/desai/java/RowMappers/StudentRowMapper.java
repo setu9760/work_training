@@ -1,11 +1,12 @@
-package main.com.desai.java.RowMappers;
+package com.desai.java.RowMappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import main.com.desai.java.Student;
 
 import org.springframework.jdbc.core.RowMapper;
+
+import com.desai.java.Student;
 
 public class StudentRowMapper implements RowMapper<Student> {
 

@@ -1,4 +1,4 @@
-package main.com.desai.java.dao.JdbcDaoImpl;
+package com.desai.java.dao.JdbcDaoImpl;
 
 import java.util.List;
 
@@ -6,10 +6,11 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-import main.com.desai.java.Student;
-import main.com.desai.java.Tutor;
-import main.com.desai.java.RowMappers.TutorRowMapper;
-import main.com.desai.java.dao.TutorDao;
+import com.desai.java.Student;
+import com.desai.java.Tutor;
+import com.desai.java.RowMappers.TutorRowMapper;
+import com.desai.java.dao.TutorDao;
+
 
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 

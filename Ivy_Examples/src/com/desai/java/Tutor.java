@@ -1,4 +1,4 @@
-package main.com.desai.java;
+package com.desai.java;
 
 public class Tutor {
 

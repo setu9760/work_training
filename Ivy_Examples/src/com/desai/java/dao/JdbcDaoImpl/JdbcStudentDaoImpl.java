@@ -1,4 +1,4 @@
-package main.com.desai.java.dao.JdbcDaoImpl;
+package com.desai.java.dao.JdbcDaoImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,13 +11,14 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import main.com.desai.java.Student;
-import main.com.desai.java.Subject;
-import main.com.desai.java.RowMappers.StudentRowMapper;
-import main.com.desai.java.dao.StudentDao;
 
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
+
+import com.desai.java.Student;
+import com.desai.java.Subject;
+import com.desai.java.RowMappers.StudentRowMapper;
+import com.desai.java.dao.StudentDao;
 
 @Component
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
