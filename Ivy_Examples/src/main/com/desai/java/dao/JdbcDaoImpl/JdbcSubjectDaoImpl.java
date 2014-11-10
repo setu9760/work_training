@@ -15,8 +15,11 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 
 	@Override
 	public void insert(Subject subject) {
-		// TODO Auto-generated method stub
-
+		String sql = "INSERT INTO subject (subject_id, subject_name) VALUES (?, ?)";
+		getJdbcTemplate().update(
+				sql,
+				new Object[] { subject.getSubject_id(),
+						subject.getSubject_name() });
 	}
 
 	@Override

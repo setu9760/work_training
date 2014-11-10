@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -63,7 +66,18 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
 	@Override
 	public List<Subject> findAssociatedSubjects(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM subject INNER JOIN student_subj_table "
+				+ "ON subject.subject_id = student_subj_table.subject_id "
+				+ "WHERE student_subj_table.student_id = ?";
+		List<Subject> subjects = new ArrayList<Subject>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql,
+				new Object[] { id });
+		for (Map<String, Object> row : rows) {
+			Subject subject = new Subject();
+			subject.setSubject_id((Integer) row.get("subject_id"));
+			subject.setSubject_name((String) row.get("subject_name"));
+			subjects.add(subject);
+		}
+		return subjects;
 	}
 }
