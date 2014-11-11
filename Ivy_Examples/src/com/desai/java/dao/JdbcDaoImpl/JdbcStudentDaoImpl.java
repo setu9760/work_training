@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,9 @@ import com.desai.java.dao.StudentDao;
 
 @Component
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
+
+	@Autowired
+	private StudentRowMapper studentMapper;
 
 	public JdbcStudentDaoImpl(DataSource dataSource) {
 		setDataSource(dataSource);
@@ -32,7 +36,7 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 	public Student findById(int studId) {
 		String sql = "SELECT * FROM STUDENT WHERE ID = ?";
 		Student student = getJdbcTemplate().queryForObject(sql,
-				new Object[] { studId }, new StudentRowMapper());
+				new Object[] { studId }, studentMapper);
 		return student;
 	}
 

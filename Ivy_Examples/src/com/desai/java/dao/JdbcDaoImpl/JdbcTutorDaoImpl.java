@@ -6,15 +6,28 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.desai.java.Subject;
 import com.desai.java.Tutor;
 import com.desai.java.RowMappers.SubjectRowMapper;
 import com.desai.java.RowMappers.TutorRowMapper;
+import com.desai.java.dao.SubjectDao;
 import com.desai.java.dao.TutorDao;
 
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
+
+	@Autowired
+	@Qualifier(value = "subjectDao")
+	private SubjectDao subjectDao;
+
+	@Autowired
+	private TutorRowMapper tutorMapper;
+
+	@Autowired
+	private SubjectRowMapper subjectMapper;
 
 	public JdbcTutorDaoImpl(DataSource datasource) {
 		setDataSource(datasource);
@@ -34,7 +47,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	public Tutor findById(int tutor_id) {
 		String sql = "SELECT * FROM TUTOR WHERE ID = ?";
 		Tutor tutor = getJdbcTemplate().queryForObject(sql,
-				new Object[] { tutor_id }, new TutorRowMapper());
+				new Object[] { tutor_id }, tutorMapper);
 		return tutor;
 	}
 
@@ -48,8 +61,8 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 			Tutor tutor = new Tutor();
 			tutor.setId((Integer) row.get("id"));
 			tutor.setName((String) row.get("name"));
-			tutor.setSubject((Subject) new Subject((Integer) row
-					.get("subject_id"), ""));
+			tutor.setSubject((Subject) subjectDao.findById((Integer) row
+					.get("subject_id")));
 			tutors.add(tutor);
 		}
 		return tutors;
@@ -76,7 +89,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	public Subject findSubjectOfTutor(int tutor_id) {
 		String sql = "SELECT * FROM subject WHERE subject_id = (SELECT subject_id FROM tutor WHERE id = ? )";
 		Subject subject = getJdbcTemplate().queryForObject(sql,
-				new Object[] { tutor_id }, new SubjectRowMapper());
+				new Object[] { tutor_id }, subjectMapper);
 		return subject;
 	}
 }

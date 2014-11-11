@@ -6,6 +6,16 @@ public class Tutor {
 	private String name;
 	private Subject subject;
 
+	public Tutor() {
+	}
+
+	public Tutor(int id, String name, Subject subject) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.subject = subject;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -63,7 +73,7 @@ public class Tutor {
 		builder.append(id);
 		builder.append(", name=");
 		builder.append(name);
-		builder.append(", subject=");
+		builder.append(", ");
 		builder.append(subject);
 		builder.append("]");
 		return builder.toString();

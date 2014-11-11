@@ -51,10 +51,8 @@ public class Application {
 
 		System.out.println(tutorDao.findSubjectOfTutor(1));
 
-		List<Subject> subjects = studentDao.findAssociatedSubjects(1);
-		for (Subject subject1 : subjects) {
-			System.out.println(subject1);
-		}
+		System.out.println(subjectDao.findAllTutorsForSubject(1));
+
 		context.registerShutdownHook();
 		context.close();
 	}
