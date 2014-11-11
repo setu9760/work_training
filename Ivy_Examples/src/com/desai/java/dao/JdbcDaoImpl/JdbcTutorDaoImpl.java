@@ -8,26 +8,24 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.desai.java.Subject;
 import com.desai.java.Tutor;
-import com.desai.java.RowMappers.SubjectRowMapper;
-import com.desai.java.RowMappers.TutorRowMapper;
 import com.desai.java.dao.SubjectDao;
 import com.desai.java.dao.TutorDao;
 
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	@Autowired
-	@Qualifier(value = "subjectDao")
 	private SubjectDao subjectDao;
 
 	@Autowired
-	private TutorRowMapper tutorMapper;
+	private RowMapper<Tutor> tutorMapper;
 
 	@Autowired
-	private SubjectRowMapper subjectMapper;
+	private RowMapper<Subject> subjectMapper;
 
 	public JdbcTutorDaoImpl(DataSource datasource) {
 		setDataSource(datasource);
@@ -54,17 +52,8 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	@Override
 	public List<Tutor> findByName(String name) {
 		String sql = "SELECT * FROM TUTOR WHERE NAME = ?";
-		List<Tutor> tutors = new ArrayList<Tutor>();
-		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql,
-				new Object[] { name });
-		for (Map<String, Object> row : rows) {
-			Tutor tutor = new Tutor();
-			tutor.setId((Integer) row.get("id"));
-			tutor.setName((String) row.get("name"));
-			tutor.setSubject((Subject) subjectDao.findById((Integer) row
-					.get("subject_id")));
-			tutors.add(tutor);
-		}
+		List<Tutor> tutors = getJdbcTemplate().query(sql,
+				new Object[] { name }, tutorMapper);
 		return tutors;
 	}
 

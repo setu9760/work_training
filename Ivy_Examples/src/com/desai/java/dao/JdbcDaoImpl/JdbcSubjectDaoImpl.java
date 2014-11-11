@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.desai.java.Subject;
@@ -17,7 +18,10 @@ import com.desai.java.dao.SubjectDao;
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 
 	@Autowired
-	private SubjectRowMapper subjectMapper;
+	private RowMapper<Subject> subjectMapper;
+
+	@Autowired
+	private RowMapper<Tutor> tutorMapper;
 
 	public JdbcSubjectDaoImpl(DataSource dataSource) {
 		setDataSource(dataSource);
@@ -64,15 +68,8 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	@Override
 	public List<Tutor> findAllTutorsForSubject(int subject_id) {
 		String sql = "SELECT * FROM tutor WHERE subject_id = ?";
-		List<Tutor> tutors = new ArrayList<Tutor>();
-		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql,
-				new Object[] { subject_id });
-		for (Map<String, Object> row : rows) {
-			Tutor tutor = new Tutor((Integer) row.get("id"),
-					(String) row.get("name"), (Subject) findById(subject_id));
-			tutors.add(tutor);
-		}
+		List<Tutor> tutors = getJdbcTemplate().query(sql,
+				new Object[] { subject_id }, tutorMapper);
 		return tutors;
 	}
-
 }
