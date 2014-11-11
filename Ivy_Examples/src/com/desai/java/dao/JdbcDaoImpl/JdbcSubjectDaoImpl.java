@@ -1,10 +1,14 @@
 package com.desai.java.dao.JdbcDaoImpl;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.desai.java.Subject;
+import com.desai.java.Tutor;
+import com.desai.java.RowMappers.SubjectRowMapper;
 import com.desai.java.dao.SubjectDao;
 
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
@@ -22,25 +26,39 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 
 	@Override
 	public Object findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM subject WHERE subject_id = ? ";
+		Subject subject = getJdbcTemplate().queryForObject(sql,
+				new Object[] { id }, new SubjectRowMapper());
+		return subject;
 	}
 
 	@Override
 	public Subject findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM subject WHERE subject_name = ? ";
+		Subject subject = getJdbcTemplate().queryForObject(sql,
+				new Object[] { name }, new SubjectRowMapper());
+		return subject;
 	}
 
 	@Override
 	public int countAll() {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "SELECT COUNT(*) FROM subject";
+		int count = getJdbcTemplate().queryForObject(sql, Integer.class);
+		return count;
 	}
 
 	@Override
 	public boolean dropById(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "DELETE FROM subject WHERE subject_id = ? ";
+		int rowNum = getJdbcTemplate().queryForObject(sql, new Object[] { id },
+				Integer.class);
+		return rowNum == 0;
 	}
+
+	@Override
+	public List<Tutor> findAllTutorsForSubject(int subject_id) {
+		//String sql = "";
+		return null;
+	}
+
 }

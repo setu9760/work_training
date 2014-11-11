@@ -4,16 +4,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
 
-import com.desai.java.dao.*;
+import com.desai.java.dao.StudentDao;
+import com.desai.java.dao.SubjectDao;
+import com.desai.java.dao.TutorDao;
 import com.desai.java.dao.JdbcDaoImpl.JdbcStudentDaoImpl;
 import com.desai.java.dao.JdbcDaoImpl.JdbcSubjectDaoImpl;
 import com.desai.java.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 
 @Configuration
-@Import({ PojoBeansConfig.class, TransactionManagerConfig.class })
+@Import({ PojoBeansConfig.class })
+@ImportResource("spring-beans.xml")
 public class Config {
 
 	@Value("org.springframework.jdbc.datasource.DriverManagerDataSource")
@@ -46,7 +49,7 @@ public class Config {
 		return subjectDao;
 	}
 
-	@Bean(name = "datasource")
+	@Bean(name = "dataSource")
 	public DriverManagerDataSource getDatasource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(DRIVER_CLASSNAME);

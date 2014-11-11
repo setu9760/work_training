@@ -1,6 +1,5 @@
 package com.desai.java.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,7 +23,7 @@ public class PojoBeansConfig {
 	public Tutor getTutorBean() {
 		Tutor tutor = new Tutor();
 		tutor.setName("setu");
-		tutor.setId(1);
+		tutor.setSubject(getSubjectBean());
 		return tutor;
 	}
 

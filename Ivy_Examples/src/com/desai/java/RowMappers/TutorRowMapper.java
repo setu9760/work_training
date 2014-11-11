@@ -3,9 +3,9 @@ package com.desai.java.RowMappers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 import org.springframework.jdbc.core.RowMapper;
 
+import com.desai.java.Subject;
 import com.desai.java.Tutor;
 
 public class TutorRowMapper implements RowMapper<Tutor> {
@@ -15,6 +15,7 @@ public class TutorRowMapper implements RowMapper<Tutor> {
 		Tutor tutor = new Tutor();
 		tutor.setId(resultSet.getInt("id"));
 		tutor.setName(resultSet.getString("name"));
+		tutor.setSubject(new Subject(resultSet.getInt("subject_id"),""));
 		return tutor;
 	}
 
