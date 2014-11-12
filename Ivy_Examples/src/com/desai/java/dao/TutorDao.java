@@ -12,4 +12,6 @@ public interface TutorDao extends BaseDao {
 	public List<Tutor> findByName(String name);
 
 	public Subject findSubjectOfTutor(int tutor_id);
+
+	public void dropAllTutorsForSubject(int subject_id);
 }

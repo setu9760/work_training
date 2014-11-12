@@ -13,11 +13,15 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import com.desai.java.Subject;
 import com.desai.java.Tutor;
 import com.desai.java.dao.SubjectDao;
+import com.desai.java.dao.TutorDao;
 
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 
 	public static final Logger log = LogManager
 			.getLogger(JdbcSubjectDaoImpl.class);
+
+	@Autowired
+	private TutorDao tutorDao;
 
 	@Autowired
 	private RowMapper<Subject> subjectMapper;
@@ -68,11 +72,15 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	}
 
 	@Override
-	public boolean dropById(int id) {
+	public void dropById(int id) {
 		String sql = "DELETE FROM subject WHERE subject_id = ? ";
-		int rowNum = getJdbcTemplate().queryForObject(sql, new Object[] { id },
-				Integer.class);
-		return rowNum == 0;
+		int rowNum = getJdbcTemplate().update(sql, new Object[] { id });
+		if (log.isDebugEnabled() && rowNum == 0) {
+			log.info("Zero records deleted as no subject found with id: " + id);
+		} else {
+			tutorDao.dropAllTutorsForSubject(id);
+			log.info("One records deleted from subject table with id: " + id);
+		}
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package com.desai.java.dao.JdbcDaoImpl;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 import javax.sql.DataSource;
 
 import org.apache.log4j.LogManager;
@@ -88,13 +87,12 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public boolean dropById(int id) {
+	public void dropById(int id) {
 		String sql = "DELETE FROM tutor WHERE id = ?";
 		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
-		if (numRows == 0)
-			return false;
-		else
-			return true;
+		if (log.isDebugEnabled() && numRows == 0)
+			log.debug("Zero records deleted as no tutor found with id: " + id);
+		log.info("One records deleted from tutor table with id: " + id);
 	}
 
 	@Override
@@ -108,5 +106,16 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public void dropAllTutorsForSubject(int subject_id) {
+		String sql = "DELETE FROM tutor WHERE subject_id = ?";
+		int rowNum = getJdbcTemplate().update(sql, new Object[] { subject_id });
+		if (log.isDebugEnabled() && rowNum == 0)
+			log.debug("Zero records deleted from tutor table as no tutor is allocated subject_id: "
+					+ subject_id);
+		log.info(rowNum + " tutors deleted from tutor table with subject id"
+				+ subject_id);
 	}
 }

@@ -32,26 +32,41 @@ public class Application {
 		Student student = (Student) context.getBean("studentBean");
 		StudentDao studentDao = (StudentDao) context.getBean("studentDao");
 
-		Subject subject = context.getBean(Subject.class);
-		SubjectDao subjectDao = context.getBean(SubjectDao.class);
+		Subject subject = (Subject) context.getBean("subjectBean");
+		SubjectDao subjectDao = (SubjectDao) context.getBean("subjectDao");
 
-		tutorDao.insert(tutor);
-		studentDao.insert(student);
-		subjectDao.insert(subject);
+		Tutor tutor2 = (Tutor) context.getBean("tutorBean2");
+
+		Student student2 = (Student) context.getBean("studentBean2");
+
+		Subject subject2 = (Subject) context.getBean("subjectBean2");
+
+		// subjectDao.insert(subject);
+		// subjectDao.insert(subject2);
+		//
+		// tutorDao.insert(tutor);
+		// tutorDao.insert(tutor2);
+		//
+		// studentDao.insert(student);
+		// studentDao.insert(student2);
 
 		System.out.println(studentDao.findById(1));
-		System.out.println(studentDao.findByName("test"));
+		System.out.println(studentDao.findByName("student 1"));
 		System.out.println(studentDao.countAll());
 
 		System.out.println(tutorDao.findById(1));
-		System.out.println(tutorDao.findByName("setu"));
+		System.out.println(tutorDao.findByName("tutor 2"));
 		System.out.println(tutorDao.countAll());
 
-		System.out.println(tutorDao.findSubjectOfTutor(67));
+		System.out.println(tutorDao.findSubjectOfTutor(6));
 
 		System.out.println(subjectDao.findAllTutorsForSubject(1));
 
-		System.out.println(subjectDao.findById(100));
+		System.out.println(subjectDao.findById(1));
+
+		subjectDao.dropById(2);
+		studentDao.dropById(2);
+		tutorDao.dropById(3);
 
 		context.registerShutdownHook();
 		context.close();

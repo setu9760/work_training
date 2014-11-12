@@ -70,10 +70,12 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 	}
 
 	@Override
-	public boolean dropById(int id) {
+	public void dropById(int id) {
 		String sql = "DELETE FROM student WHERE id = ?";
 		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
-		return numRows == 0;
+		if (log.isDebugEnabled() && numRows == 0)
+			log.debug("Zero records deleted as no student found with id: " + id);
+		log.info("One record deleted from student table with id: " + id);
 	}
 
 	@Override

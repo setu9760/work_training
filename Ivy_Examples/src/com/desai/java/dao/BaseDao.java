@@ -6,5 +6,5 @@ public interface BaseDao {
 
 	public int countAll();
 
-	public boolean dropById(int id);
+	public void dropById(int id);
 }
