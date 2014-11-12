@@ -1,7 +1,5 @@
 package com;
 
-import java.util.List;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -49,9 +47,11 @@ public class Application {
 		System.out.println(tutorDao.findByName("setu"));
 		System.out.println(tutorDao.countAll());
 
-		System.out.println(tutorDao.findSubjectOfTutor(1));
+		System.out.println(tutorDao.findSubjectOfTutor(67));
 
 		System.out.println(subjectDao.findAllTutorsForSubject(1));
+
+		System.out.println(subjectDao.findById(100));
 
 		context.registerShutdownHook();
 		context.close();

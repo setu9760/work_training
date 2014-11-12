@@ -1,21 +1,23 @@
 package com.desai.java.dao.JdbcDaoImpl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import javax.sql.DataSource;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.desai.java.Subject;
 import com.desai.java.Tutor;
-import com.desai.java.RowMappers.SubjectRowMapper;
 import com.desai.java.dao.SubjectDao;
 
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
+
+	public static final Logger log = LogManager
+			.getLogger(JdbcSubjectDaoImpl.class);
 
 	@Autowired
 	private RowMapper<Subject> subjectMapper;
@@ -35,11 +37,19 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	}
 
 	@Override
-	public Object findById(int id) {
+	public Subject findById(int id) {
 		String sql = "SELECT * FROM subject WHERE subject_id = ? ";
-		Subject subject = getJdbcTemplate().queryForObject(sql,
-				new Object[] { id }, subjectMapper);
-		return subject;
+		try {
+			Subject subject = getJdbcTemplate().queryForObject(sql,
+					new Object[] { id }, subjectMapper);
+			return subject;
+		} catch (EmptyResultDataAccessException e) {
+			if (log.isDebugEnabled())
+				log.debug("No Subject found for id: " + id, e);
+			else
+				log.info("No Subject found for id: " + id);
+			return null;
+		}
 	}
 
 	@Override

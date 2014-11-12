@@ -1,26 +1,31 @@
 package com.desai.java.dao.JdbcDaoImpl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import javax.sql.DataSource;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 
 import com.desai.java.Student;
 import com.desai.java.Subject;
-import com.desai.java.RowMappers.StudentRowMapper;
 import com.desai.java.dao.StudentDao;
 
 @Component
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
+	public static final Logger log = LogManager
+			.getLogger(JdbcStudentDaoImpl.class);
+
 	@Autowired
 	private RowMapper<Student> studentMapper;
+
+	@Autowired
+	private RowMapper<Subject> subjectMapper;
 
 	public JdbcStudentDaoImpl(DataSource dataSource) {
 		setDataSource(dataSource);
@@ -36,9 +41,17 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 	@Override
 	public Student findById(int studId) {
 		String sql = "SELECT * FROM STUDENT WHERE ID = ?";
-		Student student = getJdbcTemplate().queryForObject(sql,
-				new Object[] { studId }, studentMapper);
-		return student;
+		try {
+			Student student = getJdbcTemplate().queryForObject(sql,
+					new Object[] { studId }, studentMapper);
+			return student;
+		} catch (EmptyResultDataAccessException e) {
+			if (log.isDebugEnabled())
+				log.debug("No student found for id: " + studId, e);
+			else
+				log.info("No student found for id: " + studId);
+			return null;
+		}
 	}
 
 	@Override
@@ -68,15 +81,8 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 		String sql = "SELECT * FROM subject INNER JOIN student_subj_table "
 				+ "ON subject.subject_id = student_subj_table.subject_id "
 				+ "WHERE student_subj_table.student_id = ?";
-		List<Subject> subjects = new ArrayList<Subject>();
-		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql,
-				new Object[] { id });
-		for (Map<String, Object> row : rows) {
-			Subject subject = new Subject();
-			subject.setSubject_id((Integer) row.get("subject_id"));
-			subject.setSubject_name((String) row.get("subject_name"));
-			subjects.add(subject);
-		}
+		List<Subject> subjects = getJdbcTemplate().query(sql,
+				new Object[] { id }, subjectMapper);
 		return subjects;
 	}
 }

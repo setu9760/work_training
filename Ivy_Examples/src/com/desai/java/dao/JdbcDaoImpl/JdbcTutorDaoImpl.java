@@ -1,13 +1,15 @@
 package com.desai.java.dao.JdbcDaoImpl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import javax.annotation.Resource;
+import javax.annotation.Resources;
 import javax.sql.DataSource;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -18,8 +20,14 @@ import com.desai.java.dao.TutorDao;
 
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
+	public static final Logger log = LogManager
+			.getLogger(JdbcTutorDaoImpl.class);
+
 	@Autowired
 	private SubjectDao subjectDao;
+
+	@Resource
+	private TutorDao tutorDao;
 
 	@Autowired
 	private RowMapper<Tutor> tutorMapper;
@@ -33,20 +41,35 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	@Override
 	public void insert(Tutor tutor) {
-		String sql = "INSERT INTO TUTOR (name, subject_id) VALUES (?, ?)";
-		getJdbcTemplate().update(
-				sql,
-				new Object[] { tutor.getName(),
-						tutor.getSubject().getSubject_id() });
-
+		Object obj = subjectDao.findById(tutor.getSubject().getSubject_id());
+		if (obj != null && obj instanceof Subject) {
+			obj = (Subject) obj;
+			String sql = "INSERT INTO TUTOR (name, subject_id) VALUES (?, ?)";
+			getJdbcTemplate().update(
+					sql,
+					new Object[] { tutor.getName(),
+							tutor.getSubject().getSubject_id() });
+		} else {
+			log.warn("The subject with id: "
+					+ tutor.getSubject().getSubject_id()
+					+ " does not exist. \nFirst create the subject in subject table to assign tutor for it.");
+		}
 	}
 
 	@Override
 	public Tutor findById(int tutor_id) {
 		String sql = "SELECT * FROM TUTOR WHERE ID = ?";
-		Tutor tutor = getJdbcTemplate().queryForObject(sql,
-				new Object[] { tutor_id }, tutorMapper);
-		return tutor;
+		try {
+			Tutor tutor = getJdbcTemplate().queryForObject(sql,
+					new Object[] { tutor_id }, tutorMapper);
+			return tutor;
+		} catch (EmptyResultDataAccessException e) {
+			if (log.isDebugEnabled())
+				log.debug("no tutor found for id: " + tutor_id, e);
+			else
+				log.info("no tutor found for id: " + tutor_id);
+			return null;
+		}
 	}
 
 	@Override
@@ -76,9 +99,14 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	@Override
 	public Subject findSubjectOfTutor(int tutor_id) {
-		String sql = "SELECT * FROM subject WHERE subject_id = (SELECT subject_id FROM tutor WHERE id = ? )";
-		Subject subject = getJdbcTemplate().queryForObject(sql,
-				new Object[] { tutor_id }, subjectMapper);
-		return subject;
+		Object obj = tutorDao.findById(tutor_id);
+		if (obj != null && obj instanceof Tutor) {
+			String sql = "SELECT * FROM subject WHERE subject_id = (SELECT subject_id FROM tutor WHERE id = ? )";
+			Subject subject = getJdbcTemplate().queryForObject(sql,
+					new Object[] { tutor_id }, subjectMapper);
+			return subject;
+		} else {
+			return null;
+		}
 	}
 }
