@@ -41,14 +41,14 @@ public class Application {
 
 		Subject subject2 = (Subject) context.getBean("subjectBean2");
 
-		// subjectDao.insert(subject);
-		// subjectDao.insert(subject2);
-		//
-		// tutorDao.insert(tutor);
-		// tutorDao.insert(tutor2);
-		//
-		// studentDao.insert(student);
-		// studentDao.insert(student2);
+		subjectDao.insert(subject);
+		subjectDao.insert(subject2);
+
+		tutorDao.insert(tutor);
+		tutorDao.insert(tutor2);
+
+		studentDao.insert(student);
+		studentDao.insert(student2);
 
 		System.out.println(studentDao.findById(1));
 		System.out.println(studentDao.findByName("student 1"));
