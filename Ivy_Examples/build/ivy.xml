@@ -43,6 +43,10 @@
 		
 		<dependency org="org.springframework" name="spring-core" rev="4.1.0.RELEASE"
 		transitive="false"/>
+		
+		<dependency org="org.springframework" name="spring-context-support" rev="4.1.0.RELEASE"
+		transitive="false"/>
+	
 	<!-- 	
 		<dependency org="org.mockito" name="mockito-all" rev="1.10.8" transitive ="false"/>
 	-->
