@@ -1,6 +1,5 @@
 package com.desai.java.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -19,17 +18,16 @@ import com.desai.java.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 @ImportResource("spring-beans.xml")
 public class Config {
 
-	@Value("org.springframework.jdbc.datasource.DriverManagerDataSource")
-	private String DRIVER_CLASSNAME;
+	private final String DRIVER_CLASSNAME = Config_properties
+			.getString("Config.class_name");
 
-	@Value("jdbc:mysql://localhost:3306/test")
-	private String URL;
+	private final String URL = Config_properties.getString("Config.db_url");
 
-	@Value("setu")
-	private String USERNAME;
+	private final String USERNAME = Config_properties
+			.getString("Config.username");
 
-	@Value("password")
-	private String PASSWORD;
+	private final String PASSWORD = Config_properties
+			.getString("Config.password");
 
 	@Bean(name = "studentDao")
 	public StudentDao getStudentDao() {

@@ -43,7 +43,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		Object obj = subjectDao.findById(tutor.getSubject().getSubject_id());
 		if (obj != null && obj instanceof Subject) {
 			obj = (Subject) obj;
-			String sql = "INSERT INTO TUTOR (name, subject_id) VALUES (?, ?)";
+			String sql = "INSERT INTO tutor (tutor_name, subject_id) VALUES (?, ?)";
 			getJdbcTemplate().update(
 					sql,
 					new Object[] { tutor.getName(),
@@ -57,7 +57,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	@Override
 	public Tutor findById(int tutor_id) {
-		String sql = "SELECT * FROM TUTOR WHERE ID = ?";
+		String sql = "SELECT * FROM tutor WHERE tutor_id = ?";
 		try {
 			Tutor tutor = getJdbcTemplate().queryForObject(sql,
 					new Object[] { tutor_id }, tutorMapper);
@@ -73,7 +73,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	@Override
 	public List<Tutor> findByName(String name) {
-		String sql = "SELECT * FROM TUTOR WHERE NAME = ?";
+		String sql = "SELECT * FROM tutor WHERE tutor_name = ?";
 		List<Tutor> tutors = getJdbcTemplate().query(sql,
 				new Object[] { name }, tutorMapper);
 		return tutors;
@@ -81,14 +81,14 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	@Override
 	public int countAll() {
-		String sql = "SELECT COUNT(*) FROM TUTOR";
+		String sql = "SELECT COUNT(*) FROM tutor";
 		int count = getJdbcTemplate().queryForObject(sql, Integer.class);
 		return count;
 	}
 
 	@Override
 	public void dropById(int id) {
-		String sql = "DELETE FROM tutor WHERE id = ?";
+		String sql = "DELETE FROM tutor WHERE tutor_id = ?";
 		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
 		if (log.isDebugEnabled() && numRows == 0)
 			log.debug("Zero records deleted as no tutor found with id: " + id);
@@ -99,7 +99,8 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	public Subject findSubjectOfTutor(int tutor_id) {
 		Object obj = tutorDao.findById(tutor_id);
 		if (obj != null && obj instanceof Tutor) {
-			String sql = "SELECT * FROM subject WHERE subject_id = (SELECT subject_id FROM tutor WHERE id = ? )";
+			String sql = "SELECT * FROM subject WHERE subject_id = "
+					+ "(SELECT subject_id FROM tutor WHERE tutor_id = ? )";
 			Subject subject = getJdbcTemplate().queryForObject(sql,
 					new Object[] { tutor_id }, subjectMapper);
 			return subject;

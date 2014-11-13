@@ -33,14 +33,14 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
 	@Override
 	public int insert(Student student) {
-		final String sql = "INSERT INTO STUDENT (name, age) VALUES (?, ?)";
+		final String sql = "INSERT INTO student (student_name, student_age) VALUES (?, ?)";
 		return getJdbcTemplate().update(sql,
 				new Object[] { student.getName(), student.getAge() });
 	}
 
 	@Override
 	public Student findById(int studId) {
-		String sql = "SELECT * FROM STUDENT WHERE ID = ?";
+		String sql = "SELECT * FROM student WHERE student_id = ?";
 		try {
 			Student student = getJdbcTemplate().queryForObject(sql,
 					new Object[] { studId }, studentMapper);
@@ -56,7 +56,7 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
 	@Override
 	public List<Student> findByName(String name) {
-		String sql = "SELECT * FROM STUDENT WHERE NAME = ?";
+		String sql = "SELECT * FROM student WHERE student_name = ?";
 		List<Student> students = getJdbcTemplate().query(sql,
 				new Object[] { name }, studentMapper);
 		return students;
@@ -64,14 +64,14 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
 	@Override
 	public int countAll() {
-		String sql = "SELECT COUNT(*) FROM STUDENT";
+		String sql = "SELECT COUNT(*) FROM student";
 		int count = getJdbcTemplate().queryForObject(sql, Integer.class);
 		return count;
 	}
 
 	@Override
 	public void dropById(int id) {
-		String sql = "DELETE FROM student WHERE id = ?";
+		String sql = "DELETE FROM student WHERE student_id = ?";
 		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
 		if (log.isDebugEnabled() && numRows == 0)
 			log.debug("Zero records deleted as no student found with id: " + id);
