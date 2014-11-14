@@ -10,6 +10,8 @@ import desai.java.Tutor;
 import desai.java.dao.SubjectDao;
 import desai.java.dao.TutorDao;
 
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,9 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	public static final Logger log = LogManager
-			.getLogger(JdbcTutorDaoImpl.class);
+ .getLogger(JdbcTutorDaoImpl.class);
 
+//	public static final Log log = LogFactory.getLog(JdbcTutorDaoImpl.class);
 	@Autowired
 	private SubjectDao subjectDao;
 

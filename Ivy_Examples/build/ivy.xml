@@ -46,6 +46,10 @@
 		
 		<dependency org="org.springframework" name="spring-context-support" rev="4.1.0.RELEASE"
 		transitive="false"/>
+		
+		<!-- <exclude org="log4j"/> -->
+		<!-- <dependency org="log4j" name="log4j" rev="1.2.17"/> -->
+		
 	
 	<!-- 	
 		<dependency org="org.mockito" name="mockito-all" rev="1.10.8" transitive ="false"/>

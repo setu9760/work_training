@@ -2,6 +2,8 @@ package a_main;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import desai.java.Student;
@@ -14,7 +16,9 @@ import desai.java.dao.TutorDao;
 
 public class Application {
 
-	public static final Logger log = LogManager.getLogger(Application.class);
+	public static final Logger log = LogManager.getLogger("mainAppLogger");
+
+	// public static final Log log = LogFactory.getLog("mainAppLogger");
 
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
@@ -24,6 +28,7 @@ public class Application {
 
 		for (int i = 0; i < beans.length; i++) {
 			System.out.println("bean: " + beans[i]);
+			log.info("bean: " + beans[i]);
 		}
 		Tutor tutor = (Tutor) context.getBean("tutorBean");
 		TutorDao tutorDao = (TutorDao) context.getBean("tutorDao");
@@ -68,6 +73,12 @@ public class Application {
 		// studentDao.dropById(2);
 		// tutorDao.dropById(3);
 
+		log.info("info");
+		log.debug("debug", new RuntimeException());
+		log.error("error", new RuntimeException());
+		log.fatal("fatal", new RuntimeException());
+		log.trace("trace");
+		
 		context.registerShutdownHook();
 		context.close();
 	}

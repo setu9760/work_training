@@ -7,6 +7,8 @@ import desai.java.Student;
 import desai.java.Subject;
 import desai.java.dao.StudentDao;
 
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
-	public static final Logger log = LogManager
-			.getLogger(JdbcStudentDaoImpl.class);
+	 public static final Logger log = LogManager
+	 .getLogger(JdbcStudentDaoImpl.class);
+
+	//public static final Log log = LogFactory.getLog(JdbcStudentDaoImpl.class);
 
 	@Autowired
 	private RowMapper<Student> studentMapper;

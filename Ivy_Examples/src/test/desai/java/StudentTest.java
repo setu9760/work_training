@@ -2,6 +2,8 @@ package desai.java;
 
 import static org.junit.Assert.*;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -24,6 +26,8 @@ import desai.java.config.Config;
 @TestExecutionListeners(listeners = { DependencyInjectionTestExecutionListener.class })
 public class StudentTest {
 
+	private static final Logger log = LogManager.getLogger("testingLogger");
+
 	@Autowired
 	private ApplicationContext context;
 
@@ -32,6 +36,11 @@ public class StudentTest {
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
+		log.info("info");
+		log.debug("debug", new RuntimeException());
+		log.error("error", new RuntimeException());
+		log.fatal("fatal", new RuntimeException());
+		log.trace("trace");
 
 	}
 
@@ -44,17 +53,20 @@ public class StudentTest {
 	public void setUp() throws Exception {
 		studentBean = (Student) context.getBean("studentBean");
 		studentBean2 = (Student) context.getBean("studentBean2");
+		log.info("setUp method");
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		studentBean = studentBean2 = null;
+		log.info("tearDown method");
 	}
 
 	@Test
 	public void testStudent() {
 		assertNotNull(studentBean);
 		assertNotNull(studentBean2);
+		log.trace("constructor tested");
 	}
 
 	@Test
@@ -64,6 +76,7 @@ public class StudentTest {
 
 		assertEquals(1, studentBean.getId());
 		assertEquals(2, studentBean2.getId());
+		log.info("abcd ");
 
 		assertNotEquals(null, studentBean.getId());
 		assertNotEquals(null, studentBean2.getId());
@@ -77,23 +90,23 @@ public class StudentTest {
 		studentBean.setId(10);
 		assertNotEquals(1, studentBean.getId());
 		assertEquals(10, studentBean.getId());
-
+		log.info("sdfds");
 		studentBean2.setId(10);
 		assertNotEquals(2, studentBean.getId());
 		assertEquals(10, studentBean2.getId());
 
 		assertEquals(studentBean.getId(), studentBean2.getId());
-
+		log.info("dfsdf");
 	}
 
 	@Test
 	public void testGetName() {
 		assertNotNull(studentBean.getName());
 		assertNotNull(studentBean2.getName());
-
+		log.info("sfddas");
 		assertEquals("student 1", studentBean.getName());
 		assertEquals("student 2", studentBean2.getName());
-
+		log.info("sfdfad");
 		assertNotEquals(null, studentBean.getName());
 		assertNotEquals(null, studentBean2.getName());
 		assertNotEquals("string", studentBean.getName());
