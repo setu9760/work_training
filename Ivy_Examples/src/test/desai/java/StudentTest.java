@@ -1,7 +1,11 @@
 package desai.java;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -17,9 +21,9 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.util.Assert;
 
-import desai.java.config.Config;
+import spring.desai.config.Config;
+import spring.desai.pojo.Student;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { Config.class }, loader = AnnotationConfigContextLoader.class)
@@ -36,12 +40,16 @@ public class StudentTest {
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		log.info("info");
-		log.debug("debug", new RuntimeException());
-		log.error("error", new RuntimeException());
-		log.fatal("fatal", new RuntimeException());
-		log.trace("trace");
-
+		if (log.isInfoEnabled())
+			log.info("info");
+		if (log.isDebugEnabled())
+			log.debug("debug", new RuntimeException());
+		if (log.isEnabledFor(Level.ERROR))
+			log.error("error", new RuntimeException());
+		if (log.isEnabledFor(Level.FATAL))
+			log.fatal("fatal", new RuntimeException());
+		if (log.isTraceEnabled())
+			log.trace("trace");
 	}
 
 	@AfterClass
