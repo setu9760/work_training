@@ -3,7 +3,6 @@ package spring.desai.dao.JdbcDaoImpl;
 import java.util.List;
 import javax.sql.DataSource;
 
-
 //import org.apache.commons.logging.Log;
 //import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
@@ -21,15 +20,16 @@ import spring.desai.pojo.Subject;
 @Component
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
-	 public static final Logger log = LogManager
-	 .getLogger(JdbcStudentDaoImpl.class);
+	public static final Logger log = LogManager
+			.getLogger(JdbcStudentDaoImpl.class);
 
-	//public static final Log log = LogFactory.getLog(JdbcStudentDaoImpl.class);
+	// public static final Log log =
+	// LogFactory.getLog(JdbcStudentDaoImpl.class);
 
-	@Autowired
+	// @Autowired
 	private RowMapper<Student> studentMapper;
 
-	@Autowired
+	// @Autowired
 	private RowMapper<Subject> subjectMapper;
 
 	public JdbcStudentDaoImpl(DataSource dataSource) {

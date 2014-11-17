@@ -25,16 +25,16 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 			.getLogger(JdbcTutorDaoImpl.class);
 
 	// public static final Log log = LogFactory.getLog(JdbcTutorDaoImpl.class);
-	@Autowired
+	// @Autowired
 	private SubjectDao subjectDao;
 
-	@Resource
+	// @Resource
 	private TutorDao tutorDao;
 
-	@Autowired
+	// @Autowired
 	private RowMapper<Tutor> tutorMapper;
 
-	@Autowired
+	// @Autowired
 	private RowMapper<Subject> subjectMapper;
 
 	public JdbcTutorDaoImpl(DataSource datasource) {

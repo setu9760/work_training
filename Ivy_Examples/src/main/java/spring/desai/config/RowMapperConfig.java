@@ -11,7 +11,7 @@ import spring.desai.pojo.Student;
 import spring.desai.pojo.Subject;
 import spring.desai.pojo.Tutor;
 
-@Configuration
+//@Configuration
 public class RowMapperConfig {
 
 	@Bean

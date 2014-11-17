@@ -1,4 +1,4 @@
-package spring.desai;
+package spring.desai.mains;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -16,12 +16,13 @@ public class Initializer implements WebApplicationInitializer {
 	@Override
 	public void onStartup(ServletContext servletContext)
 			throws ServletException {
-		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(MvcConfig.class, Config.class);
-
-		Dynamic servlet = servletContext.addServlet("dispatcher",
-				new DispatcherServlet(context));
-		servlet.addMapping("/");
-		servlet.setLoadOnStartup(1);
+		// AnnotationConfigWebApplicationContext context = new
+		// AnnotationConfigWebApplicationContext();
+		// context.register(MvcConfig.class, Config.class);
+		//
+		// Dynamic servlet = servletContext.addServlet("dispatcher",
+		// new DispatcherServlet(context));
+		// servlet.addMapping("/");
+		// servlet.setLoadOnStartup(1);
 	}
 }

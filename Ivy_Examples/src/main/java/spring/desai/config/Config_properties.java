@@ -4,7 +4,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Config_properties {
-	private static final String BUNDLE_NAME = "spring.desai.config.config"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "props.config"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
 			.getBundle(BUNDLE_NAME);

@@ -12,8 +12,8 @@ import spring.desai.dao.JdbcDaoImpl.JdbcStudentDaoImpl;
 import spring.desai.dao.JdbcDaoImpl.JdbcSubjectDaoImpl;
 import spring.desai.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 
-@Configuration
-@Import({ PojoBeansConfig.class, RowMapperConfig.class})
+//@Configuration
+//@Import({ PojoBeansConfig.class, RowMapperConfig.class})
 // @ImportResource("spring-beans.xml")
 public class Config {
 
