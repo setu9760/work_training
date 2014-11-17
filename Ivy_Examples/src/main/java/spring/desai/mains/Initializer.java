@@ -1,4 +1,4 @@
-package spring.desai;
+package spring.desai.mains;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
