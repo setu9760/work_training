@@ -1,8 +1,17 @@
 package spring.desai.pojo;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Subject {
 
+	@NotNull
+	@Max(100)
 	private int subject_id;
+
+	@NotNull
+	@Size(min = 4, max = 15)
 	private String subject_name;
 
 	public Subject() {
@@ -59,7 +68,9 @@ public class Subject {
 		return builder.toString();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -72,7 +83,9 @@ public class Subject {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

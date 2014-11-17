@@ -8,10 +8,10 @@
 </head>
 <body>
 	Results
-	<!-- 
-	<p th:text="subject_id: " + ${subject.subject_id} />
-	<p th:text="subject_name: " + ${subject.subject_name} />
-	<a href="/subject">Submit another subject</a>
-	 -->
+
+	<p>Form submitted with following message:</p>
+	<br />
+	<p>${ message }</p>
+
 </body>
 </html>
