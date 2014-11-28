@@ -14,24 +14,29 @@
 	<p>The time on the server is ${serverTime}.</p>
 	<p>The subject details are ${subject.subject_id}</p>
 
-	<c:forEach var="i" begin="1" end="5">
-		<tr>
-			<td>number:
-			<td>${ i }
-		</tr>
-	</c:forEach>
 
-	<form:form modelAttribute="subject">
+	<%
+		String message = request.getParameter("message");
+		boolean isSet = message != null;
+		if (isSet) {
+	%>
+	<p>Message:</p><%=message%>
+	<%
+		}
+	%>
+
+	<form:form modelAttribute="subject" method="post">
 		<label for="id"> ID: </label>
 		<form:input path="subject_id" id="id" />
-		<form:errors path="subject_id" cssClass="error" />
+		<form:errors path="subject_id" />
 		<br />
 		<label for="name"></label>
 		<form:input path="subject_name" id="name" />
-		<form:errors path="subject_name" cssClass="error" />
-		<input type="submit" value="submit" />
+		<form:errors path="subject_name" />
 
+		<input type="submit" value="submit" />
 	</form:form>
 
+	<a href="<%=request.getContextPath()%>/student">Student</a>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package spring.desai.dao.JdbcDaoImpl;
 
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 //import org.apache.commons.logging.Log;
@@ -12,12 +14,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
 import spring.desai.pojo.Subject;
 
-@Component
+@Repository
+// @Component
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
 	public static final Logger log = LogManager
@@ -26,13 +30,21 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 	// public static final Log log =
 	// LogFactory.getLog(JdbcStudentDaoImpl.class);
 
-	// @Autowired
+	@Autowired
+	private DataSource dataSource;
+
+	@Autowired
 	private RowMapper<Student> studentMapper;
 
-	// @Autowired
+	@Autowired
 	private RowMapper<Subject> subjectMapper;
 
-	public JdbcStudentDaoImpl(DataSource dataSource) {
+	public JdbcStudentDaoImpl() {
+		// setDataSource(dataSource);
+	}
+
+	@PostConstruct
+	public void init() {
 		setDataSource(dataSource);
 	}
 

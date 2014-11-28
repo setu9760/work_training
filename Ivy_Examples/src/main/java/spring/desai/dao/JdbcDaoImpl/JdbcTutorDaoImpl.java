@@ -2,6 +2,7 @@ package spring.desai.dao.JdbcDaoImpl;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
@@ -13,32 +14,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import spring.desai.dao.SubjectDao;
 import spring.desai.dao.TutorDao;
 import spring.desai.pojo.Subject;
 import spring.desai.pojo.Tutor;
 
+@Repository
+// @Component
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
 	public static final Logger log = LogManager
 			.getLogger(JdbcTutorDaoImpl.class);
 
 	// public static final Log log = LogFactory.getLog(JdbcTutorDaoImpl.class);
-	// @Autowired
+
+	@Autowired
+	private DataSource dataSource;
+
+	@Autowired
 	private SubjectDao subjectDao;
 
-	// @Resource
+	@Resource
 	private TutorDao tutorDao;
 
-	// @Autowired
+	@Autowired
 	private RowMapper<Tutor> tutorMapper;
 
-	// @Autowired
+	@Autowired
 	private RowMapper<Subject> subjectMapper;
 
-	public JdbcTutorDaoImpl(DataSource datasource) {
-		setDataSource(datasource);
+	public JdbcTutorDaoImpl() {
+		// setDataSource(dataSource);
+	}
+
+	@PostConstruct
+	public void init() {
+		setDataSource(dataSource);
 	}
 
 	@Override
