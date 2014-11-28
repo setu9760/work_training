@@ -161,9 +161,13 @@
 		<pathelement location="src/main/WebContent/WEB-INF/lib/velocity-tools-view-jar-1.4.jar" />
 		<pathelement location="src/main/WebContent/WEB-INF/lib/yecht-jar-1.0.jar" />
 	</path>
+	<path id="Ivy2.libraryclasspath">
+		<pathelement location="src/main/WebContent/WEB-INF/lib" />
+	</path>
 	<path id="EAR Libraries.libraryclasspath" />
 	<path id="Ivy_Examples.classpath">
 		<pathelement location="bin/classes" />
+		<path refid="Ivy2.libraryclasspath" />
 		<path refid="Ivy.libraryclasspath" />
 		<path refid="EAR Libraries.libraryclasspath" />
 	</path>
@@ -217,30 +221,25 @@
 
 	<property name="build.dir" value="bin" />
 	<property name="build.lib" value="${build.dir}/lib" />
-	<property name="build.temp" value="${build.dir}/tmp" />
 	<property name="build.webinf" value="${build.dir}/WEB-INF" />
+	<property name="dist.dir" value="dist" />
 
 	<target name="clean-war-comps" description="Cleans the temporary directories created for war creation">
 		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+		<antcall target="build" />
 	</target>
 
 	<target name="build-war file" depends=" clean-war-comps, build" description="Build a war file of the project for deployment">
-		<mkdir dir="${build.temp}" />
-		<copy failonerror="false" todir="${build.temp}/lib" flatten="true">
-			<fileset dir="${build.lib}">
-			</fileset>
-		</copy>
-		<ivy:resolve file="${basedir}/build/ivy.xml" />
-		<ivy:retrieve pattern="${build.temp}/lib/[artifact]-[type]-[revision](-[suffix]).[ext]" />
-
+		<mkdir dir="${dist.dir}" />
 		<copy todir="${build.webinf}">
-			<fileset dir="${basedir}/src/main/WebContent/WEB-INF" excludes="**/lib/, **/web.xml">
+			<fileset dir="${basedir}/src/main/WebContent/WEB-INF" excludes="**/lib/, **/web.xml, **/classes">
 
 			</fileset>
 		</copy>
-		<war destfile="${build.dir}/Ivy_Examples.war" webxml="${basedir}/src/main/WebContent/WEB-INF/web.xml">
-			<!-- <fileset dir="${build.temp}" />-->
-			<lib dir="${build.temp}/lib">
+		<war destfile="${dist.dir}/Ivy_Examples.war" webxml="${basedir}/src/main/WebContent/WEB-INF/web.xml">
+
+			<lib dir="src/main/WebContent/WEB-INF/lib">
 				<include name="*.jar" />
 			</lib>
 			<webinf dir="${build.webinf}" />
