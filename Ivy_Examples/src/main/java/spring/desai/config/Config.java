@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jndi.JndiTemplate;
 
@@ -73,6 +74,13 @@ public class Config {
 	public SubjectDao getSubjectDao() throws NamingException {
 		JdbcSubjectDaoImpl subjectDao = new JdbcSubjectDaoImpl();
 		return subjectDao;
+	}
+
+	@Bean(name = "messageSource")
+	public ResourceBundleMessageSource getMessageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("messages");
+		return messageSource;
 	}
 
 	/**

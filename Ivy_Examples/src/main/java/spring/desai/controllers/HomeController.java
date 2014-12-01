@@ -1,4 +1,4 @@
-package spring.desai.mains;
+package spring.desai.controllers;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;

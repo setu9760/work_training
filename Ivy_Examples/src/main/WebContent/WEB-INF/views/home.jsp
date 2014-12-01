@@ -25,14 +25,14 @@
 		}
 	%>
 
-	<form:form modelAttribute="subject" method="post">
+	<form:form commandName="subject" modelAttribute="subject" method="post">
 		<label for="id"> ID: </label>
 		<form:input path="subject_id" id="id" />
-		<form:errors path="subject_id" />
+		<form:errors path="subject_id" cssClass="error" />
 		<br />
 		<label for="name"></label>
 		<form:input path="subject_name" id="name" />
-		<form:errors path="subject_name" />
+		<form:errors path="subject_name" cssClass="error" />
 
 		<input type="submit" value="submit" />
 	</form:form>

@@ -28,11 +28,7 @@ public class StudentController {
 	private static final Log logger = LogFactory
 			.getLog(StudentController.class);
 
-	@Autowired
-	ApplicationContext context;
 
-	@Autowired
-	StudentDao studentDao;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String studentHome(Locale locale, Model model) {
