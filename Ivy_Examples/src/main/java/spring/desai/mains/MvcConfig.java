@@ -39,11 +39,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 				"/resources/");
 	}
 
-	@Bean(name="Webdatasource")
-	public DataSource getDataSource() throws NamingException {
-		JndiTemplate jndiTemplate = new JndiTemplate();
-		DataSource dataSource = (DataSource) jndiTemplate
-				.lookup("java:/comp/env/jdbc/testDb");
-		return dataSource;
-	}
+	// @Bean(name="Webdatasource")
+	// public DataSource getDataSource() throws NamingException {
+	// JndiTemplate jndiTemplate = new JndiTemplate();
+	// DataSource dataSource = (DataSource) jndiTemplate
+	// .lookup("java:/comp/env/jdbc/testDb");
+	// return dataSource;
+	// }
 }

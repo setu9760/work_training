@@ -1,5 +1,7 @@
-package spring.desai.mains;
+package spring.desai.controllers;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,14 +36,12 @@ public class HomeController {
 			.getLogger("mainAppLogger");
 
 	static Log log = LogFactory.getLog(HomeController.class);
+	//
+	@Autowired
+	ApplicationContext context;
 
-//	@Autowired
-//	ApplicationContext context;
-//
-//	SubjectDao subjectDao1;
-//
-//	@Autowired
-//	SubjectDao subjectDao2;
+	@Autowired
+	SubjectDao subjectDao;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -71,8 +71,7 @@ public class HomeController {
 					"there was an error completing the request");
 			return ("home");
 		} else {
-			//subjectDao1 = (SubjectDao) context.getBean("subjectDao");
-			//subjectDao1.insert(subject);
+			subjectDao.insert(subject);
 			model.addAttribute("message", "Successfully saved subject: "
 					+ subject);
 		}
