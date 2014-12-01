@@ -22,9 +22,11 @@
 	<!--  classpath declaration -->
 	<path id="EAR Libraries.libraryclasspath" />
 	<path id="Ivy.libraryclasspath">
-		<fileset dir="build/ivy/cache">
+		<fileset dir="${ivy.cache.path}">
 			<include name="*.jar" />
 		</fileset>
+		<!--
+		<pathelement location="C:/Users/desai/Downloads/Microsoft JDBC Driver 4.1 for SQL Server/sqljdbc_4.1/enu/sqljdbc4.jar" /> -->
 	</path>
 	<path id="Ivy_Examples.classpath">
 		<pathelement location="bin/classes" />
@@ -37,7 +39,7 @@
 		<ivy:resolve file="${basedir}/build/ivy.xml" />
 		<ivy:retrieve pattern="${ivy.cache.path}/[artifact]-[type]-[revision].[ext]" sync="true" type="jar,bundle" />
 	</target>
-	
+
 	<target name="init">
 		<mkdir dir="bin/classes" />
 		<copy includeemptydirs="false" todir="bin/classes">
@@ -60,7 +62,11 @@
 		<delete dir="bin/classes" />
 		<delete dir="${ivy.cache.path}" />
 	</target>
-	<target depends="clean" name="cleanall" />
+	<target depends="clean, clean-war-comps" name="cleanall" />
+	<target name="clean-war-comps" description="Cleans the temporary directories created for war creation">
+		<delete dir="${temp.dir}" />
+	</target>
+
 	<target depends="build-subprojects,build-project" name="build" />
 	<target name="build-subprojects" />
 	<target depends="init" name="build-project">
@@ -92,9 +98,7 @@
 		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
 		<antcall target="build" />
 	</target>
-	<target name="clean-war-comps" description="Cleans the temporary directories created for war creation">
-		<delete dir="${temp.dir}" />
-	</target>
+
 	<target name="build-war" depends="build">
 		<mkdir dir="${dist.dir}" />
 		<copy todir="${temp.webinf}">

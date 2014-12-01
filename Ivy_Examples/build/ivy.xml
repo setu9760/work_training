@@ -42,11 +42,11 @@
 		<dependency org="org.springframework" name="spring-context" rev="4.1.0.RELEASE" 
 		transitive="true"/>
 		
-		<dependency org="org.springframework" name="spring-test" rev="4.1.1.RELEASE" 
+		<dependency org="org.springframework" name="spring-test" rev="4.1.0.RELEASE" 
 		transitive="false"/>
 		
 	
-		 <dependency org="org.springframework" name="spring-aop" rev="3.0.7.RELEASE"/>
+		 <dependency org="org.springframework" name="spring-aop" rev="4.1.0.RELEASE"/>
 		 
 		
 		<dependency org="org.springframework" name="spring-core" rev="4.1.0.RELEASE"

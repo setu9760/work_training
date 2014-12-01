@@ -1,4 +1,4 @@
-package spring.desai.mains;
+package spring.desai.controllers.student;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -16,17 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.desai.pojo.Student;
-import spring.desai.pojo.Subject;
 
 @Controller
-@RequestMapping(value = "/student")
-public class StudentController {
+@RequestMapping(value = "student/insert")
+public class InsertStudentController {
 
 	private static final Log logger = LogFactory
 			.getLog(StudentController.class);
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String subjectForm(Locale locale, Model model) {
+	public String studentForm(Locale locale, Model model) {
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
@@ -35,15 +34,15 @@ public class StudentController {
 		String formattedDate = dateFormat.format(date);
 
 		Student student = new Student(1, "setu", 3);
-		
+
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("student", student);
 		logger.info("studentForm handler");
-		return "student";
+		return "student-insert";
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String subjectResult(@ModelAttribute @Valid Student student,
+	public String studentResult(@ModelAttribute @Valid Student student,
 			Model model, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
