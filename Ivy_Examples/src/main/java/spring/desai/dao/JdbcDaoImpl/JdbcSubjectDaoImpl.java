@@ -109,4 +109,11 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 				new Object[] { subject_id }, tutorMapper);
 		return tutors;
 	}
+
+	@Override
+	public List<Subject> getAll() {
+		String sql = "SELECT * from subject";
+		List<Subject> subjects = getJdbcTemplate().query(sql, subjectMapper);
+		return subjects;
+	}
 }

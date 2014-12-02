@@ -2,12 +2,15 @@ package spring.desai.config;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.Properties;
 
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -25,7 +28,7 @@ import spring.desai.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 @Configuration
 @Import({ PojoBeansConfig.class, RowMapperConfig.class })
 // @ImportResource("spring-beans.xml")
-public class Config {
+public class Config {// implements InitializingBean {
 
 	private static final Log log = LogFactory.getLog(Config.class);
 
@@ -82,6 +85,17 @@ public class Config {
 		messageSource.setBasename("messages");
 		return messageSource;
 	}
+
+	// @Override
+	// public void afterPropertiesSet() throws Exception {
+	// log.info("afterPropertiesSet method");
+	// Properties prop = System.getProperties();
+	// Iterator<Object> i = prop.keySet().iterator();
+	// while (i.hasNext()) {
+	// Object key = i.next();
+	// log.info(key + ":" + prop.get(key));
+	// }
+	// }
 
 	/**
 	 * Not Implemented yet

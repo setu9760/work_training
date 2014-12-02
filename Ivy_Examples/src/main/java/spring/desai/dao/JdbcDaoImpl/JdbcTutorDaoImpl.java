@@ -136,4 +136,11 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		log.info(rowNum + " tutors deleted from tutor table with subject id"
 				+ subject_id);
 	}
+
+	@Override
+	public List<Tutor> getAll() {
+		String sql = "SELECT * from tutor";
+		List<Tutor> tutors = getJdbcTemplate().query(sql, tutorMapper);
+		return tutors;
+	}
 }

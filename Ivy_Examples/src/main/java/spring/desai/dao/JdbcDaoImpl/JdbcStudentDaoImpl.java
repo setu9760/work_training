@@ -104,4 +104,11 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 				new Object[] { id }, subjectMapper);
 		return subjects;
 	}
+
+	@Override
+	public List<Student> getAll() {
+		String sql = "SELECT * FROM student;";
+		List<Student> students = getJdbcTemplate().query(sql, studentMapper);
+		return students;
+	}
 }
