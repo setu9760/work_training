@@ -1,4 +1,4 @@
-package spring.desai.controllers.student;
+package spring.desai.controllers;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -27,8 +27,6 @@ public class StudentController {
 
 	private static final Log logger = LogFactory
 			.getLog(StudentController.class);
-
-
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String studentHome(Locale locale, Model model) {

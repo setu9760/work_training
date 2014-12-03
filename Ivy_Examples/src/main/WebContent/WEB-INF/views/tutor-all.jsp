@@ -9,12 +9,5 @@
 </head>
 <body>
 
-	<form:form modelAttribute="student" method="post">
-		<label for="id"> ID: </label>
-		<form:input path="id" id="id" />
-
-		<input type="submit" value="submit" />
-	</form:form>
-
 </body>
 </html>

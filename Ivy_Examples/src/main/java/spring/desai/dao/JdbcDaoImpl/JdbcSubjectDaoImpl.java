@@ -1,5 +1,6 @@
 package spring.desai.dao.JdbcDaoImpl;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -111,9 +112,9 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	}
 
 	@Override
-	public List<Subject> getAll() {
+	public List<?> getAll() {
 		String sql = "SELECT * from subject";
-		List<Subject> subjects = getJdbcTemplate().query(sql, subjectMapper);
+		List<?> subjects = getJdbcTemplate().query(sql, subjectMapper);
 		return subjects;
 	}
 }
