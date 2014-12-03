@@ -29,6 +29,7 @@ public class AllStudentController {
 		List<Student> students = (List<Student>) studentDao.getAll();
 		logger.info("number of students: " + students.size());
 		model.addAttribute("students", students);
+		model.addAttribute("title", "All Students");
 		logger.info("studentAll handler");
 		return "student-all";
 	}

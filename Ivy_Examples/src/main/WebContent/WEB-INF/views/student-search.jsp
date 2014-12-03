@@ -5,16 +5,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>${ title }</title>
 </head>
 <body>
-
+	<%@include file="header.jsp"%>
 	<form:form modelAttribute="student" method="post">
 		<label for="id"> ID: </label>
 		<form:input path="id" id="id" />
 
 		<input type="submit" value="submit" />
 	</form:form>
-
+	<%@include file="footer.jsp"%>
 </body>
 </html>

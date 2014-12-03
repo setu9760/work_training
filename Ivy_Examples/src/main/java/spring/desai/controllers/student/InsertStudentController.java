@@ -45,6 +45,7 @@ public class InsertStudentController {
 
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("student", student);
+		model.addAttribute("title", "Insert Student");
 		logger.info("studentForm handler");
 		return "student-insert";
 	}
@@ -55,17 +56,20 @@ public class InsertStudentController {
 
 		StudentValidator validator = new StudentValidator();
 		validator.validate(student, bindingResult);
+		logger.info("studentResult handler");
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("message",
 					"there was an error completing the request");
+			model.addAttribute("title", "Success");
 			return ("student-insert");
 		} else {
 			studentDao.insert(student);
 			model.addAttribute("message", "Successfully saved student: "
 					+ student);
+			model.addAttribute("title", "Error");
+			return "result";
 		}
-		logger.info("studentResult handler");
-		return "result";
+
 	}
 
 }

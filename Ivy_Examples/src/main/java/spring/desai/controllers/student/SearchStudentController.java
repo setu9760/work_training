@@ -30,6 +30,7 @@ public class SearchStudentController {
 		Student student = new Student();
 		model.addAttribute("student", student);
 		model.addAttribute("id", id);
+		model.addAttribute("title", "Search student");
 		logger.info("studentSearch handler");
 		return "student-search";
 	}
@@ -42,9 +43,11 @@ public class SearchStudentController {
 		if (obj != null) {
 			logger.info(obj);
 			model.addAttribute("message", "student found: " + obj);
+			model.addAttribute("title", "Success");
 		} else {
 			model.addAttribute("message",
 					"No student found for id: " + student.getId());
+			model.addAttribute("title", "Error");
 		}
 
 		logger.info("studentSearch handler");

@@ -36,12 +36,6 @@ public class HomeController {
 			.getLogger("mainAppLogger");
 
 	static Log log = LogFactory.getLog(HomeController.class);
-	//
-	@Autowired
-	ApplicationContext context;
-
-	@Autowired
-	SubjectDao subjectDao;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -57,27 +51,10 @@ public class HomeController {
 
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("subject", subject);
+		model.addAttribute("title", "Home");
 		log.info("returning home");
 		logger.info("returning home");
 		return "home";
-	}
-
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String submit(@ModelAttribute("subject") @Valid Subject subject,
-			Model model, BindingResult bindingResult) {
-
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("message",
-					"there was an error completing the request");
-			return ("home");
-		} else {
-			subjectDao.insert(subject);
-			model.addAttribute("message", "Successfully saved subject: "
-					+ subject);
-		}
-		log.info("in the post method.");
-		logger.info("in the post method.");
-		return "result";
 	}
 
 }

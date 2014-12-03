@@ -38,6 +38,7 @@ public class StudentController {
 		String formattedDate = dateFormat.format(date);
 
 		model.addAttribute("serverTime", formattedDate);
+		model.addAttribute("title", "Student");
 		logger.info("studentForm handler");
 		return "student";
 	}

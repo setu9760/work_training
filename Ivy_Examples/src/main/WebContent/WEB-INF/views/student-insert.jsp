@@ -5,12 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>${ title }</title>
 </head>
 <body>
-	Student
-
-	<p>The time on the server is ${serverTime}.</p>
+	<%@include file="header.jsp"%>
 	<p>The student details are ${student.id}</p>
 
 	<form:form modelAttribute="student">
@@ -29,5 +27,7 @@
 		<input type="submit" value="submit" />
 
 	</form:form>
+
+	<%@include file="footer.jsp"%>
 </body>
 </html>

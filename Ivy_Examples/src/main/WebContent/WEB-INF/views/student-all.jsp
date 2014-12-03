@@ -5,12 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>${ title }</title>
 </head>
 <body>
+	<%@include file="header.jsp"%>
 	<c:forEach items="${students}" var="student">
 		<li>${student}</li>
 		<br />
 	</c:forEach>
+	<%@include file="footer.jsp"%>
 </body>
 </html>

@@ -5,15 +5,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Insert title here</title>
+<title>${ title }</title>
 </head>
 <body>
-	Home
 
-	<p>The time on the server is ${serverTime}.</p>
-	<p>The subject details are ${subject.subject_id}</p>
-
-
+	<%@include file="header.jsp"%>
 	<%
 		String message = request.getParameter("message");
 		boolean isSet = message != null;
@@ -24,18 +20,17 @@
 		}
 	%>
 
-	<form:form commandName="subject" modelAttribute="subject" method="post">
-		<label for="id"> ID: </label>
-		<form:input path="subject_id" id="id" />
-		<form:errors path="subject_id" cssClass="error" />
-		<br />
-		<label for="name"></label>
-		<form:input path="subject_name" id="name" />
-		<form:errors path="subject_name" cssClass="error" />
 
-		<input type="submit" value="submit" />
-	</form:form>
-
+	<br />
+	<br />
 	<a href="<%=request.getContextPath()%>/student">Student</a>
+	<br />
+	<br />
+	<a href="<%=request.getContextPath()%>/tutor">Tutor</a>
+	<br />
+	<br />
+	<a href="<%=request.getContextPath()%>/subject">Subject</a>
+
+	<%@include file="footer.jsp"%>
 </body>
 </html>

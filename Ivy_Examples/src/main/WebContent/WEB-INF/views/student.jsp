@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>${ title }</title>
 </head>
 <body>
-	<p>The time on the server is ${serverTime}.</p>
+	<%@include file="header.jsp"%>
 	<br />
 	<a href="<%=request.getContextPath()%>/student/insert">Insert
 		Student</a>
@@ -18,5 +18,6 @@
 	<br />
 	<a href="<%=request.getContextPath()%>/student/all">All Students</a>
 	<br />
+	<%@include file="footer.jsp"%>
 </body>
 </html>
