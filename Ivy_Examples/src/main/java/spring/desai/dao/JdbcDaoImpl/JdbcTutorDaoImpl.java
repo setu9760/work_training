@@ -61,6 +61,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		if (obj != null && obj instanceof Subject) {
 			obj = (Subject) obj;
 			String sql = "INSERT INTO tutor (tutor_name, subject_id) VALUES (?, ?)";
+			logSql(sql);
 			getJdbcTemplate().update(
 					sql,
 					new Object[] { tutor.getName(),
@@ -75,6 +76,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	@Override
 	public Tutor findById(int tutor_id) {
 		String sql = "SELECT * FROM tutor WHERE tutor_id = ?";
+		logSql(sql);
 		try {
 			Tutor tutor = getJdbcTemplate().queryForObject(sql,
 					new Object[] { tutor_id }, tutorMapper);
@@ -91,6 +93,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	@Override
 	public List<Tutor> findByName(String name) {
 		String sql = "SELECT * FROM tutor WHERE tutor_name = ?";
+		logSql(sql);
 		List<Tutor> tutors = getJdbcTemplate().query(sql,
 				new Object[] { name }, tutorMapper);
 		return tutors;
@@ -99,6 +102,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	@Override
 	public int countAll() {
 		String sql = "SELECT COUNT(*) FROM tutor";
+		logSql(sql);
 		int count = getJdbcTemplate().queryForObject(sql, Integer.class);
 		return count;
 	}
@@ -106,6 +110,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	@Override
 	public void dropById(int id) {
 		String sql = "DELETE FROM tutor WHERE tutor_id = ?";
+		logSql(sql);
 		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
 		if (log.isDebugEnabled() && numRows == 0)
 			log.debug("Zero records deleted as no tutor found with id: " + id);
@@ -118,6 +123,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		if (obj != null && obj instanceof Tutor) {
 			String sql = "SELECT * FROM subject WHERE subject_id = "
 					+ "(SELECT subject_id FROM tutor WHERE tutor_id = ? )";
+			logSql(sql);
 			Subject subject = getJdbcTemplate().queryForObject(sql,
 					new Object[] { tutor_id }, subjectMapper);
 			return subject;
@@ -129,6 +135,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	@Override
 	public void dropAllTutorsForSubject(int subject_id) {
 		String sql = "DELETE FROM tutor WHERE subject_id = ?";
+		logSql(sql);
 		int rowNum = getJdbcTemplate().update(sql, new Object[] { subject_id });
 		if (log.isDebugEnabled() && rowNum == 0)
 			log.debug("Zero records deleted from tutor table as no tutor is allocated subject_id: "
@@ -140,7 +147,12 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	@Override
 	public List<Tutor> getAll() {
 		String sql = "SELECT * from tutor";
+		logSql(sql);
 		List<Tutor> tutors = getJdbcTemplate().query(sql, tutorMapper);
 		return tutors;
+	}
+
+	private void logSql(String sql) {
+		log.info("SQL call: " + sql);
 	}
 }

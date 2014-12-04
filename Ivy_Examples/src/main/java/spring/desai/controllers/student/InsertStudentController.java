@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -26,8 +28,8 @@ import spring.desai.pojo.StudentValidator;
 @RequestMapping(value = "student/insert")
 public class InsertStudentController {
 
-	private static final Log logger = LogFactory
-			.getLog(StudentController.class);
+	private static final Logger logger = LogManager
+			.getLogger(StudentController.class);
 
 	@Autowired
 	StudentDao studentDao;
@@ -38,7 +40,7 @@ public class InsertStudentController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);
-
+		logger.info("studentInsert get request handler");
 		String formattedDate = dateFormat.format(date);
 
 		Student student = new Student(1, "setu-web", 3);
@@ -46,17 +48,17 @@ public class InsertStudentController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("student", student);
 		model.addAttribute("title", "Insert Student");
-		logger.info("studentForm handler");
+
 		return "student-insert";
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String studentResult(@ModelAttribute("student") Student student,
 			Model model, BindingResult bindingResult) {
-
+		logger.info("studentInsert post request handler");
 		StudentValidator validator = new StudentValidator();
 		validator.validate(student, bindingResult);
-		logger.info("studentResult handler");
+
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("message",
 					"there was an error completing the request");

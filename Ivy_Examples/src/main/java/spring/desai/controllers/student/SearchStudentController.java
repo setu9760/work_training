@@ -2,6 +2,8 @@ package spring.desai.controllers.student;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,20 +20,20 @@ import spring.desai.pojo.Student;
 @RequestMapping(value = "student/search")
 public class SearchStudentController {
 
-	private static final Log logger = LogFactory
-			.getLog(StudentController.class);
+	private static final Logger logger = LogManager
+			.getLogger(StudentController.class);
 
 	@Autowired
 	private StudentDao studentDao;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String studentSearch(Model model) {
+		logger.info("studentSearch get request handler");
 		Integer id = new Integer(0);
 		Student student = new Student();
 		model.addAttribute("student", student);
 		model.addAttribute("id", id);
 		model.addAttribute("title", "Search student");
-		logger.info("studentSearch handler");
 		return "student-search";
 	}
 
@@ -39,6 +41,7 @@ public class SearchStudentController {
 	public String studentSearchResult(
 			@ModelAttribute("student") Student student, Model model,
 			BindingResult result) {
+		logger.info("studentSearch post request handler");
 		Object obj = studentDao.findById(student.getId());
 		if (obj != null) {
 			logger.info(obj);
@@ -49,8 +52,6 @@ public class SearchStudentController {
 					"No student found for id: " + student.getId());
 			model.addAttribute("title", "Error");
 		}
-
-		logger.info("studentSearch handler");
 		return "result";
 	}
 }

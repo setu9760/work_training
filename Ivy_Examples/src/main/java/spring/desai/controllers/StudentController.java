@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -25,8 +27,8 @@ import spring.desai.pojo.Subject;
 @RequestMapping(value = "/student")
 public class StudentController {
 
-	private static final Log logger = LogFactory
-			.getLog(StudentController.class);
+	private static final Logger logger = LogManager
+			.getLogger(StudentController.class);
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String studentHome(Locale locale, Model model) {
@@ -39,7 +41,7 @@ public class StudentController {
 
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("title", "Student");
-		logger.info("studentForm handler");
+		logger.info("student handler");
 		return "student";
 	}
 

@@ -56,6 +56,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	@Override
 	public void insert(Subject subject) {
 		String sql = "INSERT INTO subject (subject_name) VALUES (?)";
+		logSql(sql);
 		getJdbcTemplate().update(sql,
 				new Object[] { subject.getSubject_name() });
 	}
@@ -63,6 +64,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	@Override
 	public Subject findById(int id) {
 		String sql = "SELECT * FROM subject WHERE subject_id = ? ";
+		logSql(sql);
 		try {
 			Subject subject = getJdbcTemplate().queryForObject(sql,
 					new Object[] { id }, subjectMapper);
@@ -79,6 +81,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	@Override
 	public Subject findByName(String name) {
 		String sql = "SELECT * FROM subject WHERE subject_name = ? ";
+		logSql(sql);
 		Subject subject = getJdbcTemplate().queryForObject(sql,
 				new Object[] { name }, subjectMapper);
 		return subject;
@@ -87,6 +90,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	@Override
 	public int countAll() {
 		String sql = "SELECT COUNT(*) FROM subject";
+		logSql(sql);
 		int count = getJdbcTemplate().queryForObject(sql, Integer.class);
 		return count;
 	}
@@ -94,6 +98,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	@Override
 	public void dropById(int id) {
 		String sql = "DELETE FROM subject WHERE subject_id = ? ";
+		logSql(sql);
 		int rowNum = getJdbcTemplate().update(sql, new Object[] { id });
 		if (log.isDebugEnabled() && rowNum == 0) {
 			log.info("Zero records deleted as no subject found with id: " + id);
@@ -106,6 +111,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	@Override
 	public List<Tutor> findAllTutorsForSubject(int subject_id) {
 		String sql = "SELECT * FROM tutor WHERE subject_id = ?";
+		logSql(sql);
 		List<Tutor> tutors = getJdbcTemplate().query(sql,
 				new Object[] { subject_id }, tutorMapper);
 		return tutors;
@@ -114,7 +120,12 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	@Override
 	public List<?> getAll() {
 		String sql = "SELECT * from subject";
+		logSql(sql);
 		List<?> subjects = getJdbcTemplate().query(sql, subjectMapper);
 		return subjects;
+	}
+
+	private void logSql(String sql) {
+		log.info("SQL call: " + sql);
 	}
 }
