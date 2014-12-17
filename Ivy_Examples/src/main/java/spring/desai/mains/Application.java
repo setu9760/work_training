@@ -1,14 +1,8 @@
 package spring.desai.mains;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-//import org.apache.commons.logging.Log;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import spring.desai.config.Config;
@@ -18,6 +12,7 @@ import spring.desai.dao.TutorDao;
 import spring.desai.pojo.Student;
 import spring.desai.pojo.Subject;
 import spring.desai.pojo.Tutor;
+//import org.apache.commons.logging.Log;
 
 public class Application {
 
@@ -62,6 +57,7 @@ public class Application {
 //			}
 //		}
 
+		
 		String[] beans = context.getBeanDefinitionNames();
 
 		for (int i = 0; i < beans.length; i++) {
