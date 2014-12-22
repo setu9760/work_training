@@ -92,7 +92,7 @@ public class CustomLookup extends AbstractLookup {
 		while (i.hasNext()) {
 			String key = i.next().toString();
 
-			if (shouldIgnore(key)) {
+			if (!shouldIgnore(key)) {
 				if (key.contains("java"))
 					append(javaProps, key);
 				else if (key.contains("os"))
