@@ -17,7 +17,7 @@ public class main_method {
 					.println("usage: java TeenyWeb <port> <http root directory>");
 			return;
 		}
-		new example(args[0], args[1]);
+		new WebServer(Integer.parseInt(args[0]), args[1]);
 		// for (int i = 0; i < 1000; i++) {
 		// logger2.info("main method");
 		// }
