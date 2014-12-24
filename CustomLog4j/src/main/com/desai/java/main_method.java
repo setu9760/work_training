@@ -1,5 +1,7 @@
 package com.desai.java;
 
+import java.util.ArrayList;
+
 public class main_method {
 
 	// static Logger logger = LogManager.getLogger(main_method.class);
@@ -9,8 +11,17 @@ public class main_method {
 
 	public static void main(String[] args) {
 
-		for (int i = 0; i < 1000; i++) {
-			logger2.info("main method");
+		
+		if (args.length < 2) {
+			System.out
+					.println("usage: java TeenyWeb <port> <http root directory>");
+			return;
 		}
+		new example(args[0], args[1]);
+		// for (int i = 0; i < 1000; i++) {
+		// logger2.info("main method");
+		// }
+
 	}
+
 }
