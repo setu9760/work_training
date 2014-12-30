@@ -2,17 +2,9 @@ package spring.desai.dao.JdbcDaoImpl;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
-
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-//import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import spring.desai.dao.JdbcDaoSupport;
@@ -21,15 +13,8 @@ import spring.desai.dao.TutorDao;
 import spring.desai.pojo.Subject;
 import spring.desai.pojo.Tutor;
 
-//@Component
 @Repository
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
-
-	// public static final Logger logger = LogManager
-	// .getLogger(JdbcSubjectDaoImpl.class);
-
-//	@Autowired
-//	private DataSource dataSource;
 
 	@Autowired
 	private TutorDao tutorDao;
@@ -41,13 +26,8 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	private RowMapper<Tutor> tutorMapper;
 
 	public JdbcSubjectDaoImpl() {
-		// setDataSource(dataSource);
+		// NO-OP:
 	}
-
-//	@PostConstruct
-//	public void init() {
-//		setDataSource(dataSource);
-//	}
 
 	@Override
 	public void insert(Subject subject) {
@@ -97,7 +77,8 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 		logSql(sql);
 		int rowNum = getJdbcTemplate().update(sql, new Object[] { id });
 		if (logger.isDebugEnabled() && rowNum == 0) {
-			logger.info("Zero records deleted as no subject found with id: " + id);
+			logger.info("Zero records deleted as no subject found with id: "
+					+ id);
 		} else {
 			tutorDao.dropAllTutorsForSubject(id);
 			logger.info("One records deleted from subject table with id: " + id);

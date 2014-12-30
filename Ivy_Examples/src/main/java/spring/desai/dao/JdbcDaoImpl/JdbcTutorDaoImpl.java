@@ -2,12 +2,7 @@ package spring.desai.dao.JdbcDaoImpl;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.sql.DataSource;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,14 +16,7 @@ import spring.desai.pojo.Subject;
 import spring.desai.pojo.Tutor;
 
 @Repository
-// @Component
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
-
-	// public static final Logger logger =
-	// LogManager.getLogger(JdbcTutorDaoImpl.class);
-
-	// @Autowired
-	// private DataSource dataSource;
 
 	@Autowired
 	private SubjectDao subjectDao;
@@ -43,13 +31,8 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	private RowMapper<Subject> subjectMapper;
 
 	public JdbcTutorDaoImpl() {
-		// setDataSource(dataSource);
+		// NO-OP:
 	}
-
-//	 @PostConstruct
-//	 public void init() {
-//	 setDataSource(dataSource);
-//	 }
 
 	@Override
 	public void insert(Tutor tutor) {
