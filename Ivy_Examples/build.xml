@@ -25,8 +25,6 @@
 		<fileset dir="${ivy.cache.path}">
 			<include name="*.jar" />
 		</fileset>
-		<!--
-		<pathelement location="C:/Users/desai/Downloads/Microsoft JDBC Driver 4.1 for SQL Server/sqljdbc_4.1/enu/sqljdbc4.jar" /> -->
 		<pathelement location="C:/Users/desai/Desktop/aaa.jar" />
 	</path>
 	<path id="Ivy_Examples.classpath">

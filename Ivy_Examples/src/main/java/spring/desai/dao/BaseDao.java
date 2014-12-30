@@ -4,9 +4,11 @@ import java.util.List;
 
 public interface BaseDao {
 
-	public abstract Object findById(int id);
+	public Object findById(int id);
 
-	public abstract int countAll();
+	public List<?> findByName(String name);
+
+	public int countAll();
 
 	public void dropById(int id);
 

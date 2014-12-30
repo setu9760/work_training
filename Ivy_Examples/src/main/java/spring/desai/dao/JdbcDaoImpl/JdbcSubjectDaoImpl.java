@@ -55,12 +55,12 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	}
 
 	@Override
-	public Subject findByName(String name) {
+	public List<Subject> findByName(String name) {
 		String sql = "SELECT * FROM subject WHERE subject_name = ? ";
 		logSql(sql);
-		Subject subject = getJdbcTemplate().queryForObject(sql,
+		List<Subject> subjects = getJdbcTemplate().query(sql,
 				new Object[] { name }, subjectMapper);
-		return subject;
+		return subjects;
 	}
 
 	@Override

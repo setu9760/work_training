@@ -10,6 +10,10 @@
 <body>
 	<%@include file="header.jsp"%>
 
+	<c:forEach items="${tutors}" var="tutor">
+		<li>${tutor}</li>
+		<br />
+	</c:forEach>
 
 	<%@include file="footer.jsp"%>
 </body>
