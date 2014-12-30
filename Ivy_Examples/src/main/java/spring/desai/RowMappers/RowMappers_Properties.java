@@ -3,8 +3,6 @@ package spring.desai.RowMappers;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.apache.lucene.queryparser.flexible.messages.NLS;
-
 public class RowMappers_Properties {
 	private static final String BUNDLE_NAME = "props.rowmappers"; //$NON-NLS-1$
 

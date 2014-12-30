@@ -4,14 +4,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.validation.Valid;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,13 +57,13 @@ public class InsertStudentController {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("message",
 					"there was an error completing the request");
-			model.addAttribute("title", "Success");
+			model.addAttribute("title", "Error");
 			return ("student-insert");
 		} else {
 			studentDao.insert(student);
 			model.addAttribute("message", "Successfully saved student: "
 					+ student);
-			model.addAttribute("title", "Error");
+			model.addAttribute("title", "Success");
 			return "result";
 		}
 

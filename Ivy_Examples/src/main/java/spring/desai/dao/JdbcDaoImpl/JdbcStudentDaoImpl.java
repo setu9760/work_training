@@ -12,10 +12,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Component;
+//import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import spring.desai.dao.JdbcDaoSupport;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
 import spring.desai.pojo.Subject;
@@ -24,14 +24,12 @@ import spring.desai.pojo.Subject;
 // @Component
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
-	public static final Logger log = LogManager
-			.getLogger(JdbcStudentDaoImpl.class);
+	// public static final Logger logger = LogManager
+	//		.getLogger(JdbcStudentDaoImpl.class);
 
-	// public static final Log log =
-	// LogFactory.getLog(JdbcStudentDaoImpl.class);
 
-	@Autowired
-	private DataSource dataSource;
+//	@Autowired
+//	private DataSource dataSource;
 
 	@Autowired
 	private RowMapper<Student> studentMapper;
@@ -43,10 +41,10 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 		// setDataSource(dataSource);
 	}
 
-	@PostConstruct
-	public void init() {
-		setDataSource(dataSource);
-	}
+//	@PostConstruct
+//	public void init() {
+//		setDataSource(dataSource);
+//	}
 
 	@Override
 	public int insert(Student student) {
@@ -65,10 +63,10 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 					new Object[] { studId }, studentMapper);
 			return student;
 		} catch (EmptyResultDataAccessException e) {
-			if (log.isDebugEnabled())
-				log.debug("No student found for id: " + studId, e);
+			if (logger.isDebugEnabled())
+				logger.debug("No student found for id: " + studId, e);
 			else
-				log.info("No student found for id: " + studId);
+				logger.info("No student found for id: " + studId);
 			return null;
 		}
 	}
@@ -96,9 +94,9 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 		logSql(sql);
 		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
 		if (numRows > 0)
-			log.info("One record deleted from student table with id: " + id);
+			logger.info("One record deleted from student table with id: " + id);
 		else
-			log.info("No record deleted as no student exists with id: " + id);
+			logger.info("No record deleted as no student exists with id: " + id);
 
 	}
 
@@ -121,7 +119,4 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 		return students;
 	}
 
-	private void logSql(String sql) {
-		log.info("SQL call: " + sql);
-	}
 }

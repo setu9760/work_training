@@ -1,6 +1,5 @@
 package spring.desai.dao.JdbcDaoImpl;
 
-import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,10 +12,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Component;
+//import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import spring.desai.dao.JdbcDaoSupport;
 import spring.desai.dao.SubjectDao;
 import spring.desai.dao.TutorDao;
 import spring.desai.pojo.Subject;
@@ -26,14 +25,11 @@ import spring.desai.pojo.Tutor;
 @Repository
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 
-	public static final Logger log = LogManager
-			.getLogger(JdbcSubjectDaoImpl.class);
+	// public static final Logger logger = LogManager
+	// .getLogger(JdbcSubjectDaoImpl.class);
 
-	// public static final Log log =
-	// LogFactory.getLog(JdbcSubjectDaoImpl.class);
-
-	@Autowired
-	private DataSource dataSource;
+//	@Autowired
+//	private DataSource dataSource;
 
 	@Autowired
 	private TutorDao tutorDao;
@@ -48,10 +44,10 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 		// setDataSource(dataSource);
 	}
 
-	@PostConstruct
-	public void init() {
-		setDataSource(dataSource);
-	}
+//	@PostConstruct
+//	public void init() {
+//		setDataSource(dataSource);
+//	}
 
 	@Override
 	public void insert(Subject subject) {
@@ -70,10 +66,10 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 					new Object[] { id }, subjectMapper);
 			return subject;
 		} catch (EmptyResultDataAccessException e) {
-			if (log.isDebugEnabled())
-				log.debug("No Subject found for id: " + id, e);
+			if (logger.isDebugEnabled())
+				logger.debug("No Subject found for id: " + id, e);
 			else
-				log.info("No Subject found for id: " + id);
+				logger.info("No Subject found for id: " + id);
 			return null;
 		}
 	}
@@ -100,11 +96,11 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 		String sql = "DELETE FROM subject WHERE subject_id = ? ";
 		logSql(sql);
 		int rowNum = getJdbcTemplate().update(sql, new Object[] { id });
-		if (log.isDebugEnabled() && rowNum == 0) {
-			log.info("Zero records deleted as no subject found with id: " + id);
+		if (logger.isDebugEnabled() && rowNum == 0) {
+			logger.info("Zero records deleted as no subject found with id: " + id);
 		} else {
 			tutorDao.dropAllTutorsForSubject(id);
-			log.info("One records deleted from subject table with id: " + id);
+			logger.info("One records deleted from subject table with id: " + id);
 		}
 	}
 
@@ -125,7 +121,4 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 		return subjects;
 	}
 
-	private void logSql(String sql) {
-		log.info("SQL call: " + sql);
-	}
 }

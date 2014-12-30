@@ -4,11 +4,12 @@ import java.util.List;
 
 public interface BaseDao {
 
-	public Object findById(int id);
+	public abstract Object findById(int id);
 
-	public int countAll();
+	public abstract int countAll();
 
 	public void dropById(int id);
 
-	public List<? extends Object> getAll();
+	public List<?> getAll();
+
 }

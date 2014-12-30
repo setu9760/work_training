@@ -9,7 +9,14 @@
 </head>
 <body>
 	<%@include file="header.jsp"%>
-
+<br />
+	<a href="<%=request.getContextPath()%>/tutor/insert">Insert
+		Tutor</a>
+	<br />
+	<a href="<%=request.getContextPath()%>/tutor/search">Find Tutor</a>
+	<br />
+	<a href="<%=request.getContextPath()%>/tutor/all">All Tutors</a>
+	<br />
 
 	<%@include file="footer.jsp"%>
 </body>

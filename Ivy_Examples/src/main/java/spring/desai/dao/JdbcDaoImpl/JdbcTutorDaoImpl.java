@@ -6,17 +6,15 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Component;
+//import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import spring.desai.dao.JdbcDaoSupport;
 import spring.desai.dao.SubjectDao;
 import spring.desai.dao.TutorDao;
 import spring.desai.pojo.Subject;
@@ -26,13 +24,11 @@ import spring.desai.pojo.Tutor;
 // @Component
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
-	public static final Logger log = LogManager
-			.getLogger(JdbcTutorDaoImpl.class);
+	// public static final Logger logger =
+	// LogManager.getLogger(JdbcTutorDaoImpl.class);
 
-	// public static final Log log = LogFactory.getLog(JdbcTutorDaoImpl.class);
-
-	@Autowired
-	private DataSource dataSource;
+	// @Autowired
+	// private DataSource dataSource;
 
 	@Autowired
 	private SubjectDao subjectDao;
@@ -50,10 +46,10 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		// setDataSource(dataSource);
 	}
 
-	@PostConstruct
-	public void init() {
-		setDataSource(dataSource);
-	}
+//	 @PostConstruct
+//	 public void init() {
+//	 setDataSource(dataSource);
+//	 }
 
 	@Override
 	public void insert(Tutor tutor) {
@@ -67,7 +63,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 					new Object[] { tutor.getName(),
 							tutor.getSubject().getSubject_id() });
 		} else {
-			log.warn("The subject with id: "
+			logger.warn("The subject with id: "
 					+ tutor.getSubject().getSubject_id()
 					+ " does not exist. \nFirst create the subject in subject table to assign tutor for it.");
 		}
@@ -82,10 +78,10 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 					new Object[] { tutor_id }, tutorMapper);
 			return tutor;
 		} catch (EmptyResultDataAccessException e) {
-			if (log.isDebugEnabled())
-				log.debug("no tutor found for id: " + tutor_id, e);
+			if (logger.isDebugEnabled())
+				logger.debug("no tutor found for id: " + tutor_id, e);
 			else
-				log.info("no tutor found for id: " + tutor_id);
+				logger.info("no tutor found for id: " + tutor_id);
 			return null;
 		}
 	}
@@ -112,9 +108,10 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		String sql = "DELETE FROM tutor WHERE tutor_id = ?";
 		logSql(sql);
 		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
-		if (log.isDebugEnabled() && numRows == 0)
-			log.debug("Zero records deleted as no tutor found with id: " + id);
-		log.info("One records deleted from tutor table with id: " + id);
+		if (logger.isDebugEnabled() && numRows == 0)
+			logger.debug("Zero records deleted as no tutor found with id: "
+					+ id);
+		logger.info("One records deleted from tutor table with id: " + id);
 	}
 
 	@Override
@@ -137,10 +134,10 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		String sql = "DELETE FROM tutor WHERE subject_id = ?";
 		logSql(sql);
 		int rowNum = getJdbcTemplate().update(sql, new Object[] { subject_id });
-		if (log.isDebugEnabled() && rowNum == 0)
-			log.debug("Zero records deleted from tutor table as no tutor is allocated subject_id: "
+		if (logger.isDebugEnabled() && rowNum == 0)
+			logger.debug("Zero records deleted from tutor table as no tutor is allocated subject_id: "
 					+ subject_id);
-		log.info(rowNum + " tutors deleted from tutor table with subject id"
+		logger.info(rowNum + " tutors deleted from tutor table with subject id"
 				+ subject_id);
 	}
 
@@ -152,7 +149,4 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		return tutors;
 	}
 
-	private void logSql(String sql) {
-		log.info("SQL call: " + sql);
-	}
 }

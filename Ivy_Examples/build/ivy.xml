@@ -37,16 +37,17 @@
 		<dependency org="cglib" name="cglib" rev="3.1"/>
 		-->
 		<dependency org="org.springframework" name="spring-jdbc" rev="4.1.0.RELEASE" 
-		transitive="true"/>
+		transitive="false"/>
 		
 		<dependency org="org.springframework" name="spring-context" rev="4.1.0.RELEASE" 
-		transitive="true"/>
+		transitive="false"/>
 		
 		<dependency org="org.springframework" name="spring-test" rev="4.1.0.RELEASE" 
 		transitive="false"/>
 		
 	
-		 <dependency org="org.springframework" name="spring-aop" rev="4.1.0.RELEASE"/>
+		 <dependency org="org.springframework" name="spring-aop" rev="4.1.0.RELEASE"
+		 transitive="false"/>
 		 
 		
 		<dependency org="org.springframework" name="spring-core" rev="4.1.0.RELEASE"
@@ -56,12 +57,14 @@
 		transitive="false"/>
 		
 		<dependency org="org.springframework" name="spring-webmvc" rev="4.1.0.RELEASE" 
-		/>
-		
-		
+		transitive="true"/>
+				
 		<!-- <exclude org="log4j"/> -->
 		<dependency org="log4j" name="log4j" rev="1.2.17"/> 
 		
+	
+	
+	
 	
 	<!-- 	
 		<dependency org="org.mockito" name="mockito-all" rev="1.10.8" transitive ="false"/>
