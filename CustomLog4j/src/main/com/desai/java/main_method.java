@@ -1,7 +1,5 @@
 package com.desai.java;
 
-import java.util.ArrayList;
-
 public class main_method {
 
 	// static Logger logger = LogManager.getLogger(main_method.class);
@@ -14,7 +12,7 @@ public class main_method {
 		
 		if (args.length < 2) {
 			System.out
-					.println("usage: java TeenyWeb <port> <http root directory>");
+					.println("usage: java main_method <port> <http root directory>");
 			return;
 		}
 		new WebServer(Integer.parseInt(args[0]), args[1]);

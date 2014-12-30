@@ -2,8 +2,6 @@ package com.desai.java;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
-
 import org.apache.log4j.Logger;
 
 public class WebServer extends Thread {
