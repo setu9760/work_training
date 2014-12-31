@@ -11,7 +11,7 @@
 	<!-- Ivy configurations -->
 	<configurations>
 		<conf name="compile" visibility="private" />
-		<conf name="test" visibility="public" />
+		<conf name="test" visibility="private" />
 		<conf name="runtime" extends="compile" />
 		<conf name="default" extends="runtime" />
 		<conf name="ivyde" visibility="private" />
@@ -37,7 +37,7 @@
 		<dependency org="cglib" name="cglib" rev="3.1"/>
 		-->
 		<dependency org="org.springframework" name="spring-jdbc" rev="4.1.0.RELEASE" 
-		transitive="false"/>
+		transitive="false" />
 		
 		<dependency org="org.springframework" name="spring-context" rev="4.1.0.RELEASE" 
 		transitive="false"/>
@@ -58,6 +58,8 @@
 		
 		<dependency org="org.springframework" name="spring-webmvc" rev="4.1.0.RELEASE" 
 		transitive="true"/>
+		
+		<dependency org="com.google.code.gson" name="gson" rev="2.3"/>
 				
 		<!-- <exclude org="log4j"/> -->
 		<dependency org="log4j" name="log4j" rev="1.2.17"/> 

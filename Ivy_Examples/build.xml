@@ -22,7 +22,10 @@
 	<!--  classpath declaration -->
 	<path id="EAR Libraries.libraryclasspath" />
 	<path id="Ivy.libraryclasspath">
-		<fileset dir="${ivy.cache.path}">
+		<fileset dir="${ivy.cache.path}/jars">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${ivy.cache.path}/bundles">
 			<include name="*.jar" />
 		</fileset>
 		<pathelement location="C:/Users/desai/Desktop/aaa.jar" />
@@ -36,7 +39,7 @@
 
 	<target name="retrieve" description="Resolve and Retrieve with ivy">
 		<ivy:resolve file="${basedir}/build/ivy.xml" />
-		<ivy:retrieve pattern="${ivy.cache.path}/[artifact]-[type]-[revision].[ext]" sync="true" type="jar,bundle" />
+		<ivy:retrieve pattern="${ivy.cache.path}/[type]s/[artifact]-[revision].[ext]" sync="true" type="jar,bundle" />
 	</target>
 
 	<target name="init">
@@ -104,7 +107,8 @@
 			<fileset dir="${webinf.dir}" excludes="**/lib/, **/web.xml, **/classes" />
 		</copy>
 		<war destfile="${dist.dir}/Ivy_Examples.war" webxml="${webinf.dir}/web.xml">
-			<lib dir="${ivy.cache.path}" includes="**.jar" />
+			<lib dir="${ivy.cache.path}/jars" includes="**.jar" />
+			<lib dir="${ivy.cache.path}/bundles" includes="**.jar" />
 			<webinf dir="${temp.webinf}" />
 			<classes dir="${bin.dir}/classes" />
 		</war>

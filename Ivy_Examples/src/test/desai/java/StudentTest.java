@@ -40,16 +40,6 @@ public class StudentTest {
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		if (log.isInfoEnabled())
-			log.info("info");
-		if (log.isDebugEnabled())
-			log.debug("debug", new RuntimeException());
-		if (log.isEnabledFor(Level.ERROR))
-			log.error("error", new RuntimeException());
-		if (log.isEnabledFor(Level.FATAL))
-			log.fatal("fatal", new RuntimeException());
-		if (log.isTraceEnabled())
-			log.trace("trace");
 	}
 
 	@AfterClass

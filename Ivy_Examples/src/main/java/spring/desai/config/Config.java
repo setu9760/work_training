@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -23,10 +24,9 @@ import spring.desai.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 
 @Configuration
 @Import({ PojoBeansConfig.class, RowMapperConfig.class })
-// @ImportResource("spring-beans.xml")
-public class Config {// implements InitializingBean {
+public class Config {
 
-	private static final Log log = LogFactory.getLog(Config.class);
+	private static final Logger logger = Logger.getLogger(Config.class);
 
 	private final String DRIVER_CLASSNAME = Config_properties
 			.getString("Config.class_name");
@@ -52,7 +52,7 @@ public class Config {// implements InitializingBean {
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 		} catch (SQLException e) {
-			log.error("driver not found", e);
+			logger.error("driver not found", e);
 		}
 		return dataSource;
 	}
@@ -82,30 +82,4 @@ public class Config {// implements InitializingBean {
 		return messageSource;
 	}
 
-	// @Override
-	// public void afterPropertiesSet() throws Exception {
-	// log.info("afterPropertiesSet method");
-	// Properties prop = System.getProperties();
-	// Iterator<Object> i = prop.keySet().iterator();
-	// while (i.hasNext()) {
-	// Object key = i.next();
-	// log.info(key + ":" + prop.get(key));
-	// }
-	// }
-
-	/**
-	 * Not Implemented yet
-	 * 
-	 * @return
-	 */
-	// @Bean
-	// public PropertySourcesPlaceholderConfigurer getProperties() {
-	// PropertySourcesPlaceholderConfigurer properties = new
-	// PropertySourcesPlaceholderConfigurer();
-	// Resource[] resources = new ClassPathResource[] { new ClassPathResource(
-	// "") };
-	// properties.setLocations(resources);
-	// properties.setIgnoreUnresolvablePlaceholders(true);
-	// return properties;
-	// }
 }
