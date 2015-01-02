@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 //import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -125,7 +126,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public List<Tutor> getAll() {
+	public List<Tutor> getAll() throws DataAccessException {
 		String sql = "SELECT * from tutor";
 		logSql(sql);
 		List<Tutor> tutors = getJdbcTemplate().query(sql, tutorMapper);

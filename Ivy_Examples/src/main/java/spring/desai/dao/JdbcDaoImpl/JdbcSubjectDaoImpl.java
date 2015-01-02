@@ -95,10 +95,10 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	}
 
 	@Override
-	public List<?> getAll() {
+	public List<Subject> getAll() {
 		String sql = "SELECT * from subject";
 		logSql(sql);
-		List<?> subjects = getJdbcTemplate().query(sql, subjectMapper);
+		List<Subject> subjects = getJdbcTemplate().query(sql, subjectMapper);
 		return subjects;
 	}
 

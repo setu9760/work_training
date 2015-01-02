@@ -1,4 +1,4 @@
-package spring.desai.controllers.subject;
+package spring.desai.controllers.tutor;
 
 import java.util.List;
 

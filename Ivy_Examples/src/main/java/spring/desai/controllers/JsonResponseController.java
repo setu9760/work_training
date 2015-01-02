@@ -32,25 +32,48 @@ public class JsonResponseController {
 
 	private Gson gson = new Gson();
 	private String jsonString;
+	private static final String JSON_RESPONSE = "jsonResponse";
 
 	@RequestMapping(value = "/all-students", method = RequestMethod.GET)
 	public String allStudents(Model model) {
 		jsonString = gson.toJson((List<Student>) studentDao.getAll());
 		model.addAttribute("jsonString", jsonString);
-		return "jsonResponse";
+		return JSON_RESPONSE;
 	}
 
 	@RequestMapping(value = "/all-tutors", method = RequestMethod.GET)
 	public String allTutors(Model model) {
 		jsonString = gson.toJson((List<Tutor>) tutorDao.getAll());
 		model.addAttribute("jsonString", jsonString);
-		return "jsonResponse";
+		return JSON_RESPONSE;
 	}
 
 	@RequestMapping(value = "/all-subjects", method = RequestMethod.GET)
 	public String allSubjects(Model model) {
 		jsonString = gson.toJson((List<Subject>) subjectDao.getAll());
 		model.addAttribute("jsonString", jsonString);
-		return "jsonResponse";
+		return JSON_RESPONSE;
+	}
+
+	// TODO
+	@RequestMapping(value = "/student-by-id", method = RequestMethod.POST)
+	public String searchStudentById(Model model) {
+		jsonString = gson.toJson((List<Student>) studentDao.findById(0));
+		model.addAttribute("jsonString", jsonString);
+		return JSON_RESPONSE;
+	}
+
+	// TODO
+	@RequestMapping(value = "/subject-by-id", method = RequestMethod.POST)
+	public String searchSubjectById() {
+
+		return JSON_RESPONSE;
+	}
+
+	// TODO
+	@RequestMapping(value = "/tutor-by-id", method = RequestMethod.POST)
+	public String searchTutorById() {
+
+		return JSON_RESPONSE;
 	}
 }
