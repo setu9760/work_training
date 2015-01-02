@@ -27,41 +27,13 @@ import spring.desai.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 @Import({ PojoBeansConfig.class, RowMapperConfig.class })
 @ImportResource({ "classpath:spring-beans.xml" })
 public class Config {
-
-	private static final Logger logger = Logger.getLogger(Config.class);
-
-	private final String DRIVER_CLASSNAME = Config_properties
-			.getString("Config.class_name");
-
-	private final String URL = Config_properties.getString("Config.db_url");
-
-	private final String USERNAME = Config_properties
-			.getString("Config.username");
-
-	private final String PASSWORD = Config_properties
-			.getString("Config.password");
-
+	
 	private final String DATASOURCE_JNDI = Config_properties
 			.getString("Config.datasource.jndi");
 
 	@Bean(name = "dataSource")
 	public DataSource getDatasource() throws NamingException {
-
-		// DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		// dataSource.setDriverClassName(DRIVER_CLASSNAME);
-		// dataSource.setUrl(URL);
-		// dataSource.setUsername(USERNAME);
-		// dataSource.setPassword(PASSWORD);
-		// // return (DataSource)
-		//
-		// try {
-		// DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-		// } catch (SQLException e) {
-		// logger.error("driver not found", e);
-		// }
-		//
 		JndiTemplate jndiTemplate = new JndiTemplate();
-
 		DataSource dataSource = (DataSource) jndiTemplate
 				.lookup(DATASOURCE_JNDI);
 		return dataSource;
