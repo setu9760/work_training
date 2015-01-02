@@ -16,29 +16,22 @@ import spring.desai.pojo.Tutor;
 @Repository
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 
-	@Autowired
-	private TutorDao tutorDao;
-
-	@Autowired
-	private RowMapper<Subject> subjectMapper;
-
-	@Autowired
-	private RowMapper<Tutor> tutorMapper;
-
 	public JdbcSubjectDaoImpl() {
 		// NO-OP:
 	}
 
 	@Override
 	public void insert(Subject subject) {
-		String sql = "INSERT INTO subject (subject_name) VALUES (?)";
+		String sql = "INSERT INTO subject (subject_id, subject_name) VALUES (?, ?)";
 		logSql(sql);
-		getJdbcTemplate().update(sql,
-				new Object[] { subject.getSubject_name() });
+		getJdbcTemplate().update(
+				sql,
+				new Object[] { subject.getSubject_id(),
+						subject.getSubject_name() });
 	}
 
 	@Override
-	public Subject findById(int id) {
+	public Subject findById(String id) {
 		String sql = "SELECT * FROM subject WHERE subject_id = ? ";
 		logSql(sql);
 		try {
@@ -72,7 +65,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 	}
 
 	@Override
-	public void dropById(int id) {
+	public void dropById(String id) {
 		String sql = "DELETE FROM subject WHERE subject_id = ? ";
 		logSql(sql);
 		int rowNum = getJdbcTemplate().update(sql, new Object[] { id });

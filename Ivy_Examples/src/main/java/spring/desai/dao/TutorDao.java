@@ -7,7 +7,7 @@ public interface TutorDao extends BaseDao {
 
 	public void insert(Tutor tutor);
 
-	public Subject findSubjectOfTutor(int tutor_id);
+	public Subject findSubjectOfTutor(String tutor_id);
 
-	public void dropAllTutorsForSubject(int subject_id);
+	public void dropAllTutorsForSubject(String subject_id);
 }

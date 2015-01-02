@@ -58,7 +58,7 @@ public class JsonResponseController {
 	// TODO
 	@RequestMapping(value = "/student-by-id", method = RequestMethod.POST)
 	public String searchStudentById(Model model) {
-		jsonString = gson.toJson((List<Student>) studentDao.findById(0));
+		jsonString = gson.toJson((List<Student>) studentDao.findById("0"));
 		model.addAttribute("jsonString", jsonString);
 		return JSON_RESPONSE;
 	}

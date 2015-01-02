@@ -29,12 +29,8 @@ public class HomeController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);
-
 		String formattedDate = dateFormat.format(date);
-		Subject subject = new Subject(3, "Comp");
-
 		model.addAttribute("serverTime", formattedDate);
-		model.addAttribute("subject", subject);
 		model.addAttribute("title", "Home");
 		logger.info("returning home");
 		return "home";

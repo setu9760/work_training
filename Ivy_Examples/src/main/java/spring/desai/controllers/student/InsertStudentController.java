@@ -38,7 +38,7 @@ public class InsertStudentController {
 		logger.info("studentInsert get request handler");
 		String formattedDate = dateFormat.format(date);
 
-		Student student = new Student(1, "setu-web", 3);
+		Student student = new Student("1", "setu-web", 3);
 
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("student", student);

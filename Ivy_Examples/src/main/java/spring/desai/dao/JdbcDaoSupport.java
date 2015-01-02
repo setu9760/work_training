@@ -1,9 +1,15 @@
 package spring.desai.dao;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
+
+import spring.desai.pojo.Student;
+import spring.desai.pojo.Subject;
+import spring.desai.pojo.Tutor;
 
 /**
  * Convenient super class for JDBC-based data access objects.
@@ -23,6 +29,21 @@ public abstract class JdbcDaoSupport extends
 
 	@Autowired
 	protected DataSource dataSource;
+
+	@Autowired
+	protected SubjectDao subjectDao;
+
+	@Resource
+	protected TutorDao tutorDao;
+
+	@Autowired
+	protected RowMapper<Student> studentMapper;
+	
+	@Autowired
+	protected RowMapper<Subject> subjectMapper;
+
+	@Autowired
+	protected RowMapper<Tutor> tutorMapper;
 
 	@PostConstruct
 	public void init() {

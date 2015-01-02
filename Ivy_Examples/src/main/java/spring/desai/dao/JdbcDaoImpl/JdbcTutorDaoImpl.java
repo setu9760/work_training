@@ -19,18 +19,6 @@ import spring.desai.pojo.Tutor;
 @Repository
 public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 
-	@Autowired
-	private SubjectDao subjectDao;
-
-	@Resource
-	private TutorDao tutorDao;
-
-	@Autowired
-	private RowMapper<Tutor> tutorMapper;
-
-	@Autowired
-	private RowMapper<Subject> subjectMapper;
-
 	public JdbcTutorDaoImpl() {
 		// NO-OP:
 	}
@@ -40,11 +28,11 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 		Object obj = subjectDao.findById(tutor.getSubject().getSubject_id());
 		if (obj != null && obj instanceof Subject) {
 			obj = (Subject) obj;
-			String sql = "INSERT INTO tutor (tutor_name, subject_id) VALUES (?, ?)";
+			String sql = "INSERT INTO tutor (tutor_id, tutor_name, subject_id) VALUES (?, ?, ?)";
 			logSql(sql);
 			getJdbcTemplate().update(
 					sql,
-					new Object[] { tutor.getName(),
+					new Object[] { tutor.getId(), tutor.getName(),
 							tutor.getSubject().getSubject_id() });
 		} else {
 			logger.warn("The subject with id: "
@@ -54,7 +42,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public Tutor findById(int tutor_id) {
+	public Tutor findById(String tutor_id) {
 		String sql = "SELECT * FROM tutor WHERE tutor_id = ?";
 		logSql(sql);
 		try {
@@ -88,7 +76,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public void dropById(int id) {
+	public void dropById(String id) {
 		String sql = "DELETE FROM tutor WHERE tutor_id = ?";
 		logSql(sql);
 		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
@@ -99,7 +87,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public Subject findSubjectOfTutor(int tutor_id) {
+	public Subject findSubjectOfTutor(String tutor_id) {
 		Object obj = tutorDao.findById(tutor_id);
 		if (obj != null && obj instanceof Tutor) {
 			String sql = "SELECT * FROM subject WHERE subject_id = "
@@ -114,7 +102,7 @@ public class JdbcTutorDaoImpl extends JdbcDaoSupport implements TutorDao {
 	}
 
 	@Override
-	public void dropAllTutorsForSubject(int subject_id) {
+	public void dropAllTutorsForSubject(String subject_id) {
 		String sql = "DELETE FROM tutor WHERE subject_id = ?";
 		logSql(sql);
 		int rowNum = getJdbcTemplate().update(sql, new Object[] { subject_id });

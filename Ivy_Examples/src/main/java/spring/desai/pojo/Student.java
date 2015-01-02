@@ -2,14 +2,14 @@ package spring.desai.pojo;
 
 public class Student {
 
-	private int id;
+	private String id;
 	private String name;
 	private int age;
 
 	public Student() {
 	}
 
-	public Student(int id, String name, int age) {
+	public Student(String id, String name, int age) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -19,7 +19,7 @@ public class Student {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -27,7 +27,7 @@ public class Student {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -79,9 +79,9 @@ public class Student {
 		return builder.toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -89,14 +89,12 @@ public class Student {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + age;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -114,7 +112,11 @@ public class Student {
 		if (age != other.age) {
 			return false;
 		}
-		if (id != other.id) {
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
 		}
 		if (name == null) {

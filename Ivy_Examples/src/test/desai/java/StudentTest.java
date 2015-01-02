@@ -85,13 +85,13 @@ public class StudentTest {
 
 	@Test
 	public void testSetId() {
-		studentBean.setId(10);
-		assertNotEquals(1, studentBean.getId());
-		assertEquals(10, studentBean.getId());
+		studentBean.setId("1");
+		assertNotEquals("11", studentBean.getId());
+		assertEquals("1", studentBean.getId());
 		log.info("sdfds");
-		studentBean2.setId(10);
-		assertNotEquals(2, studentBean.getId());
-		assertEquals(10, studentBean2.getId());
+		studentBean2.setId("10");
+		assertNotEquals("2", studentBean.getId());
+		assertEquals("10", studentBean2.getId());
 
 		assertEquals(studentBean.getId(), studentBean2.getId());
 		log.info("dfsdf");

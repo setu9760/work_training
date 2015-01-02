@@ -2,14 +2,14 @@ package spring.desai.pojo;
 
 public class Tutor {
 
-	private int id;
+	private String id;
 	private String name;
 	private Subject subject;
 
 	public Tutor() {
 	}
 
-	public Tutor(int id, String name, Subject subject) {
+	public Tutor(String id, String name, Subject subject) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -19,7 +19,7 @@ public class Tutor {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -27,7 +27,7 @@ public class Tutor {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -79,24 +79,20 @@ public class Tutor {
 		return builder.toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -111,7 +107,11 @@ public class Tutor {
 			return false;
 		}
 		Tutor other = (Tutor) obj;
-		if (id != other.id) {
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
 		}
 		if (name == null) {

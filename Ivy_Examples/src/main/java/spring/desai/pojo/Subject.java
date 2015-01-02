@@ -6,9 +6,8 @@ import javax.validation.constraints.Size;
 
 public class Subject {
 
-	@NotNull
-	@Max(100)
-	private int subject_id;
+
+	private String subject_id;
 
 	@NotNull
 	@Size(min = 4, max = 15)
@@ -17,7 +16,7 @@ public class Subject {
 	public Subject() {
 	}
 
-	public Subject(int subject_id, String subject_name) {
+	public Subject(String subject_id, String subject_name) {
 		this.subject_id = subject_id;
 		this.subject_name = subject_name;
 	}
@@ -25,7 +24,7 @@ public class Subject {
 	/**
 	 * @return the subject_id
 	 */
-	public int getSubject_id() {
+	public String getSubject_id() {
 		return subject_id;
 	}
 
@@ -33,7 +32,7 @@ public class Subject {
 	 * @param subject_id
 	 *            the subject_id to set
 	 */
-	public void setSubject_id(int subject_id) {
+	public void setSubject_id(String subject_id) {
 		this.subject_id = subject_id;
 	}
 
@@ -68,24 +67,21 @@ public class Subject {
 		return builder.toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + subject_id;
+		result = prime * result
+				+ ((subject_id == null) ? 0 : subject_id.hashCode());
 		result = prime * result
 				+ ((subject_name == null) ? 0 : subject_name.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -100,7 +96,11 @@ public class Subject {
 			return false;
 		}
 		Subject other = (Subject) obj;
-		if (subject_id != other.subject_id) {
+		if (subject_id == null) {
+			if (other.subject_id != null) {
+				return false;
+			}
+		} else if (!subject_id.equals(other.subject_id)) {
 			return false;
 		}
 		if (subject_name == null) {
