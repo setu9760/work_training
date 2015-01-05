@@ -1,16 +1,23 @@
 package spring.desai.pojo;
 
+import spring.desai.utils.GuidGenerator;
+import spring.desai.utils.GuidGeneratorException;
+
 public class Tutor {
 
 	private String id;
 	private String name;
 	private Subject subject;
 
-	public Tutor() {
+	public Tutor() throws GuidGeneratorException {
+		this("", new Subject());
 	}
 
-	public Tutor(String id, String name, Subject subject) {
-		super();
+	public Tutor(String name, Subject subject) throws GuidGeneratorException {
+		this(GuidGenerator.getInstance().getGuid(), name, subject);
+	}
+
+	private Tutor(String id, String name, Subject subject) {
 		this.id = id;
 		this.name = name;
 		this.subject = subject;
@@ -79,7 +86,9 @@ public class Tutor {
 		return builder.toString();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -92,7 +101,9 @@ public class Tutor {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

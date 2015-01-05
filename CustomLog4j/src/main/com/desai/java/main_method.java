@@ -7,7 +7,7 @@ public class main_method {
 	static org.apache.logging.log4j.Logger logger2 = org.apache.logging.log4j.LogManager
 			.getLogger(main_method.class);
 
-	private static short counter = (short) 39;
+	private static short counter = (short) 0;
 
 	public static void main(String[] args) {
 
@@ -21,7 +21,7 @@ public class main_method {
 		// for (int i = 0; i < 1000; i++) {
 		// logger2.info("main method");
 		// }
-		final int JVM = (int) (System.currentTimeMillis() >>> 1);
+		final int JVM = (int) (System.currentTimeMillis() >>> 6);
 
 		StringBuffer s = new StringBuffer(10);
 
@@ -30,17 +30,36 @@ public class main_method {
 		// buf.replace(0, 6, formatted);
 		//
 		// s.append(buf);
-		s.replace(0, 6, Integer.toHexString(JVM).substring(1, 7));
+
+		String sub1 = Integer.toHexString(JVM);
+		// sub1 = sub1.substring(1, 7);
+		s.append(sub1);
 
 		// String formatted2 = Integer.toHexString(counter);
 		// StringBuffer buf2 = new StringBuffer("00");
 		// buf2.replace(2 - formatted2.length(), 2, formatted2);
 		//
 		// s.append(buf2);
-		String sub = Integer.toHexString(counter).substring(0, 2);
+		String sub = format(getCounter());
 		s.append(sub);
 
 		System.out.println(JVM);
 		System.out.println(s);
 	}
+
+	private static short getCounter() {
+		synchronized (main_method.class) {
+			if (counter < 0 || counter > 999)
+				counter = 0;
+			return counter++;
+		}
+	}
+
+	private static String format(short shortVal) {
+		String formatted = Integer.toHexString(shortVal);
+		StringBuffer buf = new StringBuffer("000");
+		buf.replace(3 - formatted.length(), 3, formatted);
+		return buf.toString();
+	}
+
 }

@@ -18,6 +18,7 @@ import spring.desai.controllers.StudentController;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
 import spring.desai.pojo.StudentValidator;
+import spring.desai.utils.GuidGeneratorException;
 
 @Controller
 @RequestMapping(value = "student/insert")
@@ -30,7 +31,8 @@ public class InsertStudentController {
 	StudentDao studentDao;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String studentForm(Locale locale, Model model) {
+	public String studentForm(Locale locale, Model model)
+			throws GuidGeneratorException {
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
@@ -38,7 +40,7 @@ public class InsertStudentController {
 		logger.info("studentInsert get request handler");
 		String formattedDate = dateFormat.format(date);
 
-		Student student = new Student("1", "setu-web", 3);
+		Student student = new Student();
 
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("student", student);

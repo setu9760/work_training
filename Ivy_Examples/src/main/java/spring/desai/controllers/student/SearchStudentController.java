@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import spring.desai.controllers.StudentController;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
+import spring.desai.utils.GuidGeneratorException;
 
 @Controller
 @RequestMapping(value = "student/search")
@@ -25,7 +26,7 @@ public class SearchStudentController {
 	private StudentDao studentDao;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String studentSearch(Model model) {
+	public String studentSearch(Model model) throws GuidGeneratorException {
 		logger.info("studentSearch get request handler");
 		Integer id = new Integer(0);
 		Student student = new Student();
