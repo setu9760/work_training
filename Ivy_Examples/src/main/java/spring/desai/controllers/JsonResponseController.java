@@ -37,7 +37,6 @@ public class JsonResponseController {
 
 	@RequestMapping(value = "/all-students", method = RequestMethod.GET)
 	public String allStudents(Model model) {
-		// ModelAndView model = new ModelAndView();
 		jsonString = gson.toJson((List<Student>) studentDao.getAll());
 		model.addAttribute("jsonString", jsonString);
 		return JSON_RESPONSE;
