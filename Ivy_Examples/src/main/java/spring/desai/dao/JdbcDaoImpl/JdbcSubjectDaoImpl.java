@@ -2,9 +2,10 @@ package spring.desai.dao.JdbcDaoImpl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import spring.desai.dao.JdbcDaoSupport;
@@ -15,6 +16,9 @@ import spring.desai.pojo.Tutor;
 
 @Repository
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
+
+	@Resource
+	protected TutorDao tutorDao;
 
 	public JdbcSubjectDaoImpl() {
 		// NO-OP:

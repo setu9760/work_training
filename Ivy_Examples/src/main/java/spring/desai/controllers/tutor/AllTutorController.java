@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.desai.dao.TutorDao;
-import spring.desai.pojo.Student;
 import spring.desai.pojo.Tutor;
 
 @Controller

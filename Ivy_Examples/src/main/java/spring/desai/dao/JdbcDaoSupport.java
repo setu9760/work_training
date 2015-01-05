@@ -1,7 +1,6 @@
 package spring.desai.dao;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +30,8 @@ public abstract class JdbcDaoSupport extends
 	protected DataSource dataSource;
 
 	@Autowired
-	protected SubjectDao subjectDao;
-
-	@Resource
-	protected TutorDao tutorDao;
-
-	@Autowired
 	protected RowMapper<Student> studentMapper;
-	
+
 	@Autowired
 	protected RowMapper<Subject> subjectMapper;
 

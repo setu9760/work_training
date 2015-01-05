@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import spring.desai.dao.StudentDao;
 import spring.desai.dao.SubjectDao;
@@ -32,10 +33,11 @@ public class JsonResponseController {
 
 	private Gson gson = new Gson();
 	private String jsonString;
-	private static final String JSON_RESPONSE = "jsonResponse";
+	private static final String JSON_RESPONSE = "json-response";
 
 	@RequestMapping(value = "/all-students", method = RequestMethod.GET)
 	public String allStudents(Model model) {
+		// ModelAndView model = new ModelAndView();
 		jsonString = gson.toJson((List<Student>) studentDao.getAll());
 		model.addAttribute("jsonString", jsonString);
 		return JSON_RESPONSE;

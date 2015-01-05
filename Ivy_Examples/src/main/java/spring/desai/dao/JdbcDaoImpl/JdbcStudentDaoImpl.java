@@ -2,9 +2,7 @@ package spring.desai.dao.JdbcDaoImpl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import spring.desai.dao.JdbcDaoSupport;
