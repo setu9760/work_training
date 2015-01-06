@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.desai.controllers.StudentController;
 import spring.desai.dao.StudentDao;
@@ -29,8 +30,8 @@ public class SearchStudentController {
 	public String studentSearch(Model model) throws GuidGeneratorException {
 		logger.info("studentSearch get request handler");
 		Integer id = new Integer(0);
-		Student student = new Student();
-		model.addAttribute("student", student);
+//		Student student = new Student();
+//		model.addAttribute("student", student);
 		model.addAttribute("id", id);
 		model.addAttribute("title", "Search student");
 		return "student-search";
@@ -38,19 +39,19 @@ public class SearchStudentController {
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String studentSearchResult(
-			@ModelAttribute("student") Student student, Model model,
+			@RequestParam("id") String id, Model model,
 			BindingResult result) {
 		logger.info("studentSearch post request handler");
-		Object obj = studentDao.findById(student.getId());
-		if (obj != null) {
-			logger.info(obj);
-			model.addAttribute("message", "student found: " + obj);
-			model.addAttribute("title", "Success");
-		} else {
-			model.addAttribute("message",
-					"No student found for id: " + student.getId());
-			model.addAttribute("title", "Error");
-		}
+		// Object obj = studentDao.findById(student.getId());
+		// if (obj != null) {
+		// logger.info(obj);
+		// model.addAttribute("message", "student found: " + obj);
+		// model.addAttribute("title", "Success");
+		// } else {
+		// model.addAttribute("message",
+		// "No student found for id: " + student.getId());
+		// model.addAttribute("title", "Error");
+		// }
 		return "result";
 	}
 }
