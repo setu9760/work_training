@@ -17,6 +17,13 @@
 	<p>
 		You are visitor number:
 		<%=pageCount%></p>
+	<br />
+	<br />
+	<p>
+		<a href="<%=request.getContextPath()%>/home"></a>
+	</p>
+	<br />
+	<br />
 
 </body>
 </html>

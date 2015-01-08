@@ -1,11 +1,13 @@
 package spring.desai.pojo.validators;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import spring.desai.pojo.Student;
 
+@Component
 public class StudentValidator implements Validator {
 
 	@Override
@@ -20,7 +22,11 @@ public class StudentValidator implements Validator {
 				"id.required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "student_name",
 				"name.required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "student_age",
-				"age.required");
+		Student student = (Student) target;
+		if (student.getStudent_age() < 18) {
+			errors.rejectValue("student_age", "age.too.low");
+		} else if (student.getStudent_age() > 65) {
+			errors.rejectValue("student_age", "age.too.high");
+		}
 	}
 }

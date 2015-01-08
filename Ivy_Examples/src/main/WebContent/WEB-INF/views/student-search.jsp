@@ -10,8 +10,8 @@
 <body>
 	<%@include file="header.jsp"%>
 	<form:form modelAttribute="student" method="post">
-		<label for="id"> ID: </label>
-		<form:input path="id" id="id" />
+		<label for="student_id"> ID: </label>
+		<form:input path="student_id" id="student_id" />
 
 		<input type="submit" value="submit" />
 	</form:form>

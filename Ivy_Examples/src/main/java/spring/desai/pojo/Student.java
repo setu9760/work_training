@@ -1,8 +1,5 @@
 package spring.desai.pojo;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-
 import spring.desai.utils.GuidGenerator;
 import spring.desai.utils.GuidGeneratorException;
 
@@ -10,12 +7,10 @@ public class Student {
 
 	private String student_id;
 	private String student_name;
-	@Min(18)
-	@Max(65)
 	private int student_age;
 
 	public Student() throws GuidGeneratorException {
-		this("", 0);
+		this("", 18);
 	}
 
 	public Student(String name, int age) throws GuidGeneratorException {
