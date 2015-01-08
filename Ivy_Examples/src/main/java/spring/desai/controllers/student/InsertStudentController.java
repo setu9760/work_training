@@ -30,15 +30,15 @@ public class InsertStudentController {
 			.getLogger(StudentController.class);
 
 	@Autowired
-	StudentDao studentDao;
+	private StudentDao studentDao;
+
+	@Autowired
+	private StudentValidator studentValidator;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(studentValidator);
 	}
-
-	@Autowired
-	StudentValidator studentValidator;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String studentForm(Locale locale, Model model)
@@ -77,7 +77,5 @@ public class InsertStudentController {
 			model.addAttribute("title", "Success");
 			return "result";
 		}
-
 	}
-
 }
