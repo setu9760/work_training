@@ -20,7 +20,6 @@ public class SubjectRowMapper implements RowMapper<Subject> {
 		} catch (GuidGeneratorException e) {
 			e.printStackTrace();
 		}
-		
 		return subject;
 	}
 }

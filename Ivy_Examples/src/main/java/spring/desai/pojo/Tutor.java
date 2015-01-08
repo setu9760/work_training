@@ -5,8 +5,8 @@ import spring.desai.utils.GuidGeneratorException;
 
 public class Tutor {
 
-	private String id;
-	private String name;
+	private String tutor_id;
+	private String tutor_name;
 	private Subject subject;
 
 	public Tutor() throws GuidGeneratorException {
@@ -18,8 +18,8 @@ public class Tutor {
 	}
 
 	private Tutor(String id, String name, Subject subject) {
-		this.id = id;
-		this.name = name;
+		this.tutor_id = id;
+		this.tutor_name = name;
 		this.subject = subject;
 	}
 
@@ -27,7 +27,7 @@ public class Tutor {
 	 * @return the id
 	 */
 	public String getId() {
-		return id;
+		return tutor_id;
 	}
 
 	/**
@@ -35,14 +35,14 @@ public class Tutor {
 	 *            the id to set
 	 */
 	public void setId(String id) {
-		this.id = id;
+		this.tutor_id = id;
 	}
 
 	/**
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return tutor_name;
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class Tutor {
 	 *            the name to set
 	 */
 	public void setName(String name) {
-		this.name = name;
+		this.tutor_name = name;
 	}
 
 	/**
@@ -77,9 +77,9 @@ public class Tutor {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Tutor [id=");
-		builder.append(id);
+		builder.append(tutor_id);
 		builder.append(", name=");
-		builder.append(name);
+		builder.append(tutor_name);
 		builder.append(", ");
 		builder.append(subject);
 		builder.append("]");
@@ -95,8 +95,8 @@ public class Tutor {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((tutor_id == null) ? 0 : tutor_id.hashCode());
+		result = prime * result + ((tutor_name == null) ? 0 : tutor_name.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
 	}
@@ -118,18 +118,18 @@ public class Tutor {
 			return false;
 		}
 		Tutor other = (Tutor) obj;
-		if (id == null) {
-			if (other.id != null) {
+		if (tutor_id == null) {
+			if (other.tutor_id != null) {
 				return false;
 			}
-		} else if (!id.equals(other.id)) {
+		} else if (!tutor_id.equals(other.tutor_id)) {
 			return false;
 		}
-		if (name == null) {
-			if (other.name != null) {
+		if (tutor_name == null) {
+			if (other.tutor_name != null) {
 				return false;
 			}
-		} else if (!name.equals(other.name)) {
+		} else if (!tutor_name.equals(other.tutor_name)) {
 			return false;
 		}
 		if (subject == null) {

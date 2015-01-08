@@ -14,9 +14,12 @@
 	<a href="<%=request.getContextPath()%>/student/insert">Insert
 		Student</a>
 	<br />
+	<br />
 	<a href="<%=request.getContextPath()%>/student/search">Find Student</a>
 	<br />
+	<br />
 	<a href="<%=request.getContextPath()%>/student/all">All Students</a>
+	<br />
 	<br />
 	<%@include file="footer.jsp"%>
 </body>

@@ -18,12 +18,12 @@ public class StudentRowMapper implements RowMapper<Student> {
 		Student student = null;
 		try {
 			student = new Student();
+			student.setStudent_id(resultSet.getString(RowMappers_Properties.getString("StudentRowMapper.id"))); //$NON-NLS-1$
+			student.setStudent_name(resultSet.getString(RowMappers_Properties.getString("StudentRowMapper.name"))); //$NON-NLS-1$
+			student.setStudent_age(resultSet.getInt(RowMappers_Properties.getString("StudentRowMapper.age"))); //$NON-NLS-1$
 		} catch (GuidGeneratorException e) {
 			e.printStackTrace();
 		}
-		student.setId(resultSet.getString(RowMappers_Properties.getString("StudentRowMapper.id"))); //$NON-NLS-1$
-		student.setName(resultSet.getString(RowMappers_Properties.getString("StudentRowMapper.name"))); //$NON-NLS-1$
-		student.setAge(resultSet.getInt(RowMappers_Properties.getString("StudentRowMapper.age"))); //$NON-NLS-1$
 		return student;
 	}
 }

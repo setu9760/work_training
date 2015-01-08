@@ -23,8 +23,8 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 		logSql(sql);
 		return getJdbcTemplate().update(
 				sql,
-				new Object[] { student.getId(), student.getName(),
-						student.getAge() });
+				new Object[] { student.getStudent_id(),
+						student.getStudent_name(), student.getStudent_age() });
 	}
 
 	@Override

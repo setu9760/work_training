@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import spring.desai.controllers.StudentController;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
-import spring.desai.pojo.StudentValidator;
+import spring.desai.pojo.validators.StudentValidator;
 import spring.desai.utils.GuidGeneratorException;
 
 @Controller
@@ -29,6 +29,9 @@ public class InsertStudentController {
 
 	@Autowired
 	StudentDao studentDao;
+
+	// @Autowired
+	// StudentValidator studentValidator = new StudentValidator();
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String studentForm(Locale locale, Model model)
@@ -53,8 +56,8 @@ public class InsertStudentController {
 	public String studentResult(@ModelAttribute("student") Student student,
 			Model model, BindingResult bindingResult) {
 		logger.info("studentInsert post request handler");
-		StudentValidator validator = new StudentValidator();
-		validator.validate(student, bindingResult);
+		StudentValidator studentValidator = new StudentValidator();
+		studentValidator.validate(student, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("message",

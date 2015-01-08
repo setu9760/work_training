@@ -2,10 +2,14 @@ package spring.desai.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.Validator;
 
 import spring.desai.pojo.Student;
 import spring.desai.pojo.Subject;
 import spring.desai.pojo.Tutor;
+import spring.desai.pojo.validators.StudentValidator;
+import spring.desai.pojo.validators.SubjectValidator;
+import spring.desai.pojo.validators.TutorValidator;
 import spring.desai.utils.GuidGeneratorException;
 
 @Configuration
@@ -40,30 +44,18 @@ public class PojoBeansConfig {
 		}
 	}
 
-	// @Bean(name = "studentBean2")
-	// public Student getStudentBean2() {
-	// Student student = new Student();
-	// student.setId("2");
-	// student.setName("student 2");
-	// student.setAge(36);
-	// return student;
-	// }
-	//
-	// @Bean(name = "tutorBean2")
-	// public Tutor getTutorBean2() {
-	// Tutor tutor = new Tutor();
-	// tutor.setId(2);
-	// tutor.setName("tutor 2");
-	// tutor.setSubject(getSubjectBean2());
-	// return tutor;
-	// }
-	//
-	// @Bean(name = "subjectBean2")
-	// public Subject getSubjectBean2() {
-	// Subject subject = new Subject();
-	// subject.setSubject_id(2);
-	// subject.setSubject_name("subject 2");
-	// return subject;
-	// }
+	@Bean(name = "studentValidator")
+	public Validator getStudentValudatior() {
+		return new StudentValidator();
+	}
 
+	@Bean(name = "tutorValidator")
+	public Validator getTutorValidator() {
+		return new TutorValidator();
+	}
+
+	@Bean(name = "subjectValidator")
+	public Validator getSubjectValidator() {
+		return new SubjectValidator();
+	}
 }

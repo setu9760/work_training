@@ -30,28 +30,27 @@ public class SearchStudentController {
 	public String studentSearch(Model model) throws GuidGeneratorException {
 		logger.info("studentSearch get request handler");
 		Integer id = new Integer(0);
-//		Student student = new Student();
-//		model.addAttribute("student", student);
+		Student student = new Student();
+		model.addAttribute("student", student);
 		model.addAttribute("id", id);
 		model.addAttribute("title", "Search student");
 		return "student-search";
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String studentSearchResult(
-			@RequestParam("id") String id, Model model,
-			BindingResult result) {
+	public String studentSearchResult(@RequestParam("student") Student student,
+			Model model, BindingResult result) {
 		logger.info("studentSearch post request handler");
-		// Object obj = studentDao.findById(student.getId());
-		// if (obj != null) {
-		// logger.info(obj);
-		// model.addAttribute("message", "student found: " + obj);
-		// model.addAttribute("title", "Success");
-		// } else {
-		// model.addAttribute("message",
-		// "No student found for id: " + student.getId());
-		// model.addAttribute("title", "Error");
-		// }
+		Object obj = studentDao.findById(student.getStudent_id());
+		if (obj != null) {
+			logger.info(obj);
+			model.addAttribute("message", "student found: " + obj);
+			model.addAttribute("title", "Success");
+		} else {
+			model.addAttribute("message",
+					"No student found for id: " + student.getStudent_id());
+			model.addAttribute("title", "Error");
+		}
 		return "result";
 	}
 }
