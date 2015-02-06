@@ -1,11 +1,13 @@
 package spring.desai.pojo.validators;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import spring.desai.pojo.Subject;
 
+@Component
 public class SubjectValidator implements Validator {
 
 	@Override
@@ -15,7 +17,7 @@ public class SubjectValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "subject_id", 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "subject_id",
 				"id.required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "subject_name",
 				"name.required");

@@ -44,7 +44,7 @@ public abstract class JdbcDaoSupport extends
 	}
 
 	protected final void logSql(String sql) {
-		if (logger.isInfoEnabled())
-			logger.info("SQL call: " + sql);
+//		if (logger.isInfoEnabled())
+//			logger.info("SQL call: " + sql);
 	}
 }
