@@ -10,12 +10,15 @@
 
 	<!-- Ivy configurations -->
 	<configurations>
+	
 		<conf name="compile" visibility="private" />
 		<conf name="test" visibility="private" />
 		<conf name="runtime" extends="compile" />
 		<conf name="default" extends="runtime" />
 		<conf name="ivyde" visibility="private" />
 	</configurations>
+	
+	
 
 	<!-- Ivy dependencies declarations -->
 	<dependencies>
@@ -26,7 +29,7 @@
 		<dependency org="org.apache.logging.log4j" name="log4j-core"
 			rev="2.1"  />
 	-->
-		<dependency org="mysql" name="mysql-connector-java" rev="5.1.33" />
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.33" conf="test->default" />
 		
 		<dependency org="junit" name="junit" rev="4.11" conf="test->default" />
 		
@@ -36,6 +39,9 @@
 		<!--
 		<dependency org="cglib" name="cglib" rev="3.1"/>
 		-->	
+		
+		<dependency org="aopalliance" name="aopalliance" rev="1.0" transitive="false"/>
+		
 		
 		<dependency org="org.springframework" name="spring-aop" rev="4.1.0.RELEASE"
 		transitive="false"/>

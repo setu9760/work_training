@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import spring.desai.dao.JdbcDaoSupport;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
 import spring.desai.pojo.Subject;
 
+@Transactional
 @Repository
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 

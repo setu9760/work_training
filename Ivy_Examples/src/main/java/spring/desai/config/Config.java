@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jndi.JndiTemplate;
 
 import spring.desai.dao.StudentDao;
@@ -18,12 +19,15 @@ import spring.desai.dao.JdbcDaoImpl.JdbcSubjectDaoImpl;
 import spring.desai.dao.JdbcDaoImpl.JdbcTutorDaoImpl;
 
 @Configuration
-@Import({ PojoBeansConfig.class, RowMapperConfig.class })
 @ImportResource({ "classpath:spring-beans.xml" })
+@Import({ PojoBeansConfig.class, RowMapperConfig.class })
 public class Config {
-	
+
 	private final String DATASOURCE_JNDI = Config_properties
 			.getString("Config.datasource.jndi");
+
+	private final String DATASOURCE2_JNDI = Config_properties
+			.getString("Config.datasource2.jndi");
 
 	@Bean(name = "dataSource")
 	public DataSource getDatasource() throws NamingException {
@@ -31,6 +35,11 @@ public class Config {
 		DataSource dataSource = (DataSource) jndiTemplate
 				.lookup(DATASOURCE_JNDI);
 		return dataSource;
+	}
+	
+	@Bean(name = "transactionManager")
+	public DataSourceTransactionManager getDataSourceTransactionManager() throws NamingException{
+		return new DataSourceTransactionManager(getDatasource());
 	}
 
 	@Bean(name = "studentDao")
@@ -56,6 +65,19 @@ public class Config {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 		messageSource.setBasename("messages");
 		return messageSource;
+	}
+
+	/************************
+	 * 
+	 * 
+	 *************************/
+
+	@Bean(name = "dataSource2")
+	public DataSource getDatasource2() throws NamingException {
+		JndiTemplate jndiTemplate = new JndiTemplate();
+		DataSource dataSource = (DataSource) jndiTemplate
+				.lookup(DATASOURCE2_JNDI);
+		return dataSource;
 	}
 
 }

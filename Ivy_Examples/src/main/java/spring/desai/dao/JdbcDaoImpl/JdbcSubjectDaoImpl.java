@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import spring.desai.dao.JdbcDaoSupport;
 import spring.desai.dao.SubjectDao;
@@ -14,6 +15,7 @@ import spring.desai.dao.TutorDao;
 import spring.desai.pojo.Subject;
 import spring.desai.pojo.Tutor;
 
+@Transactional
 @Repository
 public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 

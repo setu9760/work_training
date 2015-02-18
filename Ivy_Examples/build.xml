@@ -28,18 +28,33 @@
 		<fileset dir="${ivy.cache.path}/bundles">
 			<include name="*.jar" />
 		</fileset>
-		<pathelement location="C:/Users/desai/Desktop/aaa.jar" />
+		<!--	<pathelement location="C:/Users/desai/Desktop/aaa.jar" /> -->
+	</path>
+	<path id="Ext.libraryclasspath">
+		<!--	<pathelement location="lib/ojdbc6.jar" /> -->
 	</path>
 	<path id="Ivy_Examples.classpath">
 		<pathelement location="bin/classes" />
 		<path refid="EAR Libraries.libraryclasspath" />
 		<path refid="Ivy.libraryclasspath" />
+		<path refid="Ext.libraryclasspath" />
 	</path>
 	<!-- end of classpath declaration -->
 
 	<target name="retrieve" description="Resolve and Retrieve with ivy">
 		<ivy:resolve file="${basedir}/build/ivy.xml" />
 		<ivy:retrieve pattern="${ivy.cache.path}/[type]s/[artifact]-[revision].[ext]" sync="true" type="jar,bundle" />
+	</target>
+
+	<target name="intro">
+		<tstamp>
+			<format property="TIMESTAMP" pattern="dd-MM-yyyy HH:mm" />
+		</tstamp>
+
+		<echo level="info" message="Build started: ${TIMESTAMP} by user: ${user.name}" />
+		<echo level="info" message="file.encoding: ${file.encoding}" />
+		<echo level="info" message="java.version: ${java.runtime.version}" />
+		<echo level="info" message="ant.version: ${ant.version}" />
 	</target>
 
 	<target name="init">
@@ -69,7 +84,7 @@
 		<delete dir="${temp.dir}" />
 	</target>
 
-	<target depends="build-subprojects,build-project" name="build" />
+	<target depends="retrieve, build-subprojects,build-project" name="build" />
 	<target name="build-subprojects" />
 	<target depends="init" name="build-project">
 		<echo message="${ant.project.name}: ${ant.file}" />
@@ -81,6 +96,8 @@
 		</javac>
 	</target>
 	<target name="clean-dist">
+		<antcall target="intro" />
+		<antcall target="init" />
 		<antcall target="clean" />
 		<antcall target="clean-war-comps" />
 		<antcall target="retrieve" />
@@ -109,6 +126,7 @@
 		<war destfile="${dist.dir}/Ivy_Examples.war" webxml="${webinf.dir}/web.xml">
 			<lib dir="${ivy.cache.path}/jars" includes="**.jar" />
 			<lib dir="${ivy.cache.path}/bundles" includes="**.jar" />
+			<!--		<lib dir="${basedir}/lib" includes="**.jar" />  -->
 			<webinf dir="${temp.webinf}" />
 			<classes dir="${bin.dir}/classes" />
 		</war>
