@@ -5,9 +5,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+// import org.apache.log4jLevel;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -30,7 +30,7 @@ import spring.desai.pojo.Student;
 @TestExecutionListeners(listeners = { DependencyInjectionTestExecutionListener.class })
 public class StudentTest {
 
-	private static final Logger log = LogManager.getLogger("testingLogger");
+	private static final Logger log = LoggerFactory.getLogger("testingLogger");
 
 	@Autowired
 	private ApplicationContext context;

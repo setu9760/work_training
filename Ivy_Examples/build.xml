@@ -17,6 +17,11 @@
 	<property name="temp.webinf" value="${temp.dir}/WEB-INF" />
 	<property name="webinf.dir" value="${basedir}/src/main/WebContent/WEB-INF" />
 	<property name="bin.dir" value="bin" />
+	<property name="classes.dir" value="${bin.dir}/classes" />
+	<property name="test.classes.dir" value="${bin.dir}/test-classes" />
+	<property name="src.dir" value="src" />
+	<property name="test.dir" value="test" />
+
 	<!-- end of common properties declaration -->
 
 	<!--  classpath declaration -->
@@ -28,6 +33,7 @@
 		<fileset dir="${ivy.cache.path}/bundles">
 			<include name="*.jar" />
 		</fileset>
+
 		<!--	<pathelement location="C:/Users/desai/Desktop/aaa.jar" /> -->
 	</path>
 	<path id="Ext.libraryclasspath">
@@ -57,41 +63,47 @@
 		<echo level="info" message="ant.version: ${ant.version}" />
 	</target>
 
-	<target name="init">
-		<mkdir dir="bin/classes" />
-		<copy includeemptydirs="false" todir="bin/classes">
-			<fileset dir="src/main/java">
+	<target name="init" description="copies non-java sources i.e. xml, properties, etc files to bin directory">
+		<mkdir dir="${classes.dir}" />
+		<copy includeemptydirs="false" todir="${classes.dir}">
+			<fileset dir="${src.dir}">
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
-		<copy includeemptydirs="false" todir="bin/classes">
-			<fileset dir="src/main/resources">
-				<exclude name="**/*.java" />
-			</fileset>
-		</copy>
-		<copy includeemptydirs="false" todir="bin/classes">
-			<fileset dir="src/test">
+
+		<mkdir dir="${test.classes.dir}" />
+		<copy includeemptydirs="false" todir="${test.classes.dir}">
+			<fileset dir="${test.dir}">
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
 	</target>
+
 	<target name="clean">
-		<delete dir="bin/classes" />
-		<delete dir="${ivy.cache.path}" />
+		<delete dir="${classes.dir}" />
+		<delete dir="${test.classes.dir}" />
+		<delete dir="${dist.dir}" />
+		<!-- <ivy:cleancache /> -->
 	</target>
-	<target depends="clean, clean-war-comps" name="cleanall" />
+	<target depends="clean, clean-war-comps" name="clean-all" />
 	<target name="clean-war-comps" description="Cleans the temporary directories created for war creation">
 		<delete dir="${temp.dir}" />
 	</target>
 
-	<target depends="retrieve, build-subprojects,build-project" name="build" />
+	<target name="build" depends="retrieve, build-subprojects,compile" />
 	<target name="build-subprojects" />
-	<target depends="init" name="build-project">
+
+	<target name="compile" depends="init">
 		<echo message="${ant.project.name}: ${ant.file}" />
-		<javac debug="true" debuglevel="${debuglevel}" destdir="bin/classes" includeantruntime="false" source="${source}" target="${target}">
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${classes.dir}" includeantruntime="false" source="${source}" target="${target}">
 			<src path="src/main/java" />
 			<src path="src/main/resources" />
-			<src path="src/test" />
+			<classpath refid="Ivy_Examples.classpath" />
+		</javac>
+	</target>
+	<target name="compile-tests" description="Compiles the test classes in bin directory">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debuglevel="${debuglevel}" destdir="${test.classes.dir}" includeantruntime="false" srcdir="${test.dir}" source="${source}" target="${target}">
 			<classpath refid="Ivy_Examples.classpath" />
 		</javac>
 	</target>
@@ -104,19 +116,6 @@
 		<antcall target="build" />
 		<antcall target="build-war" />
 	</target>
-	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-		<copy todir="${ant.library.dir}">
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
-		</copy>
-		<unzip dest="${ant.library.dir}">
-			<patternset includes="jdtCompilerAdapter.jar" />
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
-		</unzip>
-	</target>
-	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
-		<antcall target="build" />
-	</target>
 
 	<target name="build-war" depends="build">
 		<mkdir dir="${dist.dir}" />
@@ -125,7 +124,7 @@
 		</copy>
 		<war destfile="${dist.dir}/Ivy_Examples.war" webxml="${webinf.dir}/web.xml">
 			<lib dir="${ivy.cache.path}/jars" includes="**.jar" />
-			<lib dir="${ivy.cache.path}/bundles" includes="**.jar" />
+			<!--		<lib dir="${ivy.cache.path}/bundles" includes="**.jar" />  -->
 			<!--		<lib dir="${basedir}/lib" includes="**.jar" />  -->
 			<webinf dir="${temp.webinf}" />
 			<classes dir="${bin.dir}/classes" />

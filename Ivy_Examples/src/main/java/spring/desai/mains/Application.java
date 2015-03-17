@@ -2,8 +2,8 @@ package spring.desai.mains;
 
 import java.util.List;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -17,26 +17,27 @@ import spring.desai.pojo.Student;
 
 public class Application {
 
-	public static final Logger log = LogManager.getLogger("mainAppLogger");
+	public static final Logger log = LoggerFactory.getLogger("mainAppLogger");
 
 	// public static final Log log = LogFactory.getLog("mainAppLogger");
 
 	// public static final org.apache.logging.log4j.Logger log4j2 =
-	// org.apache.logging.log4j.LogManager
+	// org.apache.logging.log4j.LoggerFactory
 	// .getLogger("");
 
 	public static void main(String[] args) {
-//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-//				Config.class);
-//
-//		StudentDao studentDao;
-//		studentDao = (StudentDao) context.getBean("studentDao");
-//
-//		List<Student> students = (List<Student>) studentDao.getAll();
-//
-//		Gson gson = new Gson();
-//		String writer = gson.toJson(students);
-//		System.out.println(writer);
+		// AnnotationConfigApplicationContext context = new
+		// AnnotationConfigApplicationContext(
+		// Config.class);
+		//
+		// StudentDao studentDao;
+		// studentDao = (StudentDao) context.getBean("studentDao");
+		//
+		// List<Student> students = (List<Student>) studentDao.getAll();
+		//
+		// Gson gson = new Gson();
+		// String writer = gson.toJson(students);
+		// System.out.println(writer);
 
 		// //
 		// Connection conn = null;

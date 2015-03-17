@@ -1,7 +1,7 @@
 package spring.desai.controllers.student;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ import spring.desai.utils.GuidGeneratorException;
 @RequestMapping(value = "student/search")
 public class SearchStudentController {
 
-	private static final Logger logger = LogManager
+	private static final Logger logger = LoggerFactory
 			.getLogger(StudentController.class);
 
 	@Autowired
@@ -58,7 +58,7 @@ public class SearchStudentController {
 		} else {
 			Object obj = studentDao.findById(student.getStudent_id());
 			if (obj != null) {
-				logger.info(obj);
+				logger.info(obj.toString());
 				model.addAttribute("message", "student found: " + obj);
 				model.addAttribute("title", "Success");
 			} else {

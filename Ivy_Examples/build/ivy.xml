@@ -21,7 +21,7 @@
 	
 
 	<!-- Ivy dependencies declarations -->
-	<dependencies>
+	<dependencies >
 	<!--
 		<dependency org="org.apache.logging.log4j" name="log4j-api"
 			rev="2.1" />
@@ -34,13 +34,18 @@
 		<dependency org="junit" name="junit" rev="4.11" conf="test->default" />
 		
 		<dependency org="javax.servlet.jsp.jstl" name="jstl-api" rev="1.2-rev-1"/>
+		
+		<dependency org="javax.servlet" name="jstl" rev="1.2" conf="runtime"/>
+		
+		<dependency org="javaee" name="javaee-api" rev="5"/>
+		
 		<dependency org="taglibs" name="standard" rev="1.1.2"/>
 		
 		<!--
 		<dependency org="cglib" name="cglib" rev="3.1"/>
 		-->	
 		
-		<dependency org="aopalliance" name="aopalliance" rev="1.0" transitive="false"/>
+		<dependency org="aopalliance" name="aopalliance" rev="1.0"/>
 		
 		
 		<dependency org="org.springframework" name="spring-aop" rev="4.1.0.RELEASE"
@@ -83,9 +88,14 @@
 		transitive="false"/>
 		
 		<dependency org="com.google.code.gson" name="gson" rev="2.3"/>
-				
-		<!-- <exclude org="log4j"/> -->
-		<dependency org="log4j" name="log4j" rev="1.2.17"/> 
+		
+		<dependency org="log4j" name="log4j" rev="1.2.17" transitive="false" conf="compile->*"/>
+		
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.10" transitive="false"/>
+		
+		
+		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.10" transitive="false"/>
+		 
 	
 	<!-- 	
 		<dependency org="org.mockito" name="mockito-all" rev="1.10.8" transitive ="false"/>

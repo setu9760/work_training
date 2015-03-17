@@ -3,6 +3,8 @@ package spring.desai.config;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -36,9 +38,10 @@ public class Config {
 				.lookup(DATASOURCE_JNDI);
 		return dataSource;
 	}
-	
+
 	@Bean(name = "transactionManager")
-	public DataSourceTransactionManager getDataSourceTransactionManager() throws NamingException{
+	public DataSourceTransactionManager getDataSourceTransactionManager()
+			throws NamingException {
 		return new DataSourceTransactionManager(getDatasource());
 	}
 
@@ -72,12 +75,12 @@ public class Config {
 	 * 
 	 *************************/
 
-	@Bean(name = "dataSource2")
-	public DataSource getDatasource2() throws NamingException {
-		JndiTemplate jndiTemplate = new JndiTemplate();
-		DataSource dataSource = (DataSource) jndiTemplate
-				.lookup(DATASOURCE2_JNDI);
-		return dataSource;
-	}
+	// @Bean(name = "dataSource2")
+	// public DataSource getDatasource2() throws NamingException {
+	// JndiTemplate jndiTemplate = new JndiTemplate();
+	// DataSource dataSource = (DataSource) jndiTemplate
+	// .lookup(DATASOURCE2_JNDI);
+	// return dataSource;
+	// }
 
 }
