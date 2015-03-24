@@ -4,8 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
+import org.apache.log4j.Logger;
 import org.joda.time.LocalDateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/subject")
 public class SubjectController {
 
-	private static final Logger logger = LoggerFactory
+	private static final Logger logger = Logger
 			.getLogger(SubjectController.class);
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -33,7 +32,8 @@ public class SubjectController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("title", "Subject");
 		logger.info("subject handler");
-		logger.info(dateTime.toString("DD-mm-YY HH-mm-ss"));;
+		logger.info(dateTime.toString("DD-mm-YY HH-mm-ss"));
+		;
 		return "subject";
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
@@ -45,10 +46,7 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 					new Object[] { id }, subjectMapper);
 			return subject;
 		} catch (EmptyResultDataAccessException e) {
-			if (logger.isDebugEnabled())
-				logger.debug("No Subject found for id: " + id, e);
-			else
-				logger.info("No Subject found for id: " + id);
+			log(Level.ERROR, "No Subject found for id: " + id, e);
 			return null;
 		}
 	}
@@ -75,12 +73,14 @@ public class JdbcSubjectDaoImpl extends JdbcDaoSupport implements SubjectDao {
 		String sql = "DELETE FROM subject WHERE subject_id = ? ";
 		logSql(sql);
 		int rowNum = getJdbcTemplate().update(sql, new Object[] { id });
-		if (logger.isDebugEnabled() && rowNum == 0) {
-			logger.info("Zero records deleted as no subject found with id: "
-					+ id);
+
+		if (rowNum == 0) {
+			log(Level.WARN,
+					"Zero records deleted as no subject found with id: " + id);
 		} else {
 			tutorDao.dropAllTutorsForSubject(id);
-			logger.info("One records deleted from subject table with id: " + id);
+			log(Level.INFO, "One records deleted from subject table with id: "
+					+ id);
 		}
 	}
 

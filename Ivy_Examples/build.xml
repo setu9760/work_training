@@ -20,17 +20,14 @@
 	<property name="classes.dir" value="${bin.dir}/classes" />
 	<property name="test.classes.dir" value="${bin.dir}/test-classes" />
 	<property name="src.dir" value="src" />
-	<property name="test.dir" value="test" />
+	<property name="test.dir" value="${src.dir}/test" />
 
 	<!-- end of common properties declaration -->
 
 	<!--  classpath declaration -->
 	<path id="EAR Libraries.libraryclasspath" />
 	<path id="Ivy.libraryclasspath">
-		<fileset dir="${ivy.cache.path}/jars">
-			<include name="*.jar" />
-		</fileset>
-		<fileset dir="${ivy.cache.path}/bundles">
+		<fileset dir="${ivy.cache.path}">
 			<include name="*.jar" />
 		</fileset>
 
@@ -49,7 +46,7 @@
 
 	<target name="retrieve" description="Resolve and Retrieve with ivy">
 		<ivy:resolve file="${basedir}/build/ivy.xml" />
-		<ivy:retrieve pattern="${ivy.cache.path}/[type]s/[artifact]-[revision].[ext]" sync="true" type="jar,bundle" />
+		<ivy:retrieve pattern="${ivy.cache.path}/[artifact]-[revision].[ext]" sync="true" type="jar,bundle" />
 	</target>
 
 	<target name="intro">
@@ -66,7 +63,12 @@
 	<target name="init" description="copies non-java sources i.e. xml, properties, etc files to bin directory">
 		<mkdir dir="${classes.dir}" />
 		<copy includeemptydirs="false" todir="${classes.dir}">
-			<fileset dir="${src.dir}">
+			<fileset dir="${src.dir}/main/java">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<copy includeemptydirs="false" todir="bin/classes">
+			<fileset dir="src/main/resources">
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
@@ -123,7 +125,7 @@
 			<fileset dir="${webinf.dir}" excludes="**/lib/, **/web.xml, **/classes" />
 		</copy>
 		<war destfile="${dist.dir}/Ivy_Examples.war" webxml="${webinf.dir}/web.xml">
-			<lib dir="${ivy.cache.path}/jars" includes="**.jar" />
+			<lib dir="${ivy.cache.path}" includes="**.jar" excludes="servlet**.jar, junit**.jar, mysql**.jar" />
 			<!--		<lib dir="${ivy.cache.path}/bundles" includes="**.jar" />  -->
 			<!--		<lib dir="${basedir}/lib" includes="**.jar" />  -->
 			<webinf dir="${temp.webinf}" />
