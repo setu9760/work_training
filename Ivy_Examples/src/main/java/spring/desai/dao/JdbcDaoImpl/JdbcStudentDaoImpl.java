@@ -2,16 +2,17 @@ package spring.desai.dao.JdbcDaoImpl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Level;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import spring.desai.dao.JdbcDaoSupport;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
 import spring.desai.pojo.Subject;
 
+@Transactional
 @Repository
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 
@@ -25,8 +26,8 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 		logSql(sql);
 		return getJdbcTemplate().update(
 				sql,
-				new Object[] { student.getId(), student.getName(),
-						student.getAge() });
+				new Object[] { student.getStudent_id(),
+						student.getStudent_name(), student.getStudent_age() });
 	}
 
 	@Override
@@ -38,10 +39,7 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 					new Object[] { studId }, studentMapper);
 			return student;
 		} catch (EmptyResultDataAccessException e) {
-			if (logger.isDebugEnabled())
-				logger.debug("No student found for id: " + studId, e);
-			else
-				logger.info("No student found for id: " + studId);
+			log(Level.WARN, "No student found for id: " + studId, e);
 			return null;
 		}
 	}
@@ -69,9 +67,9 @@ public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 		logSql(sql);
 		int numRows = getJdbcTemplate().update(sql, new Object[] { id });
 		if (numRows > 0)
-			logger.info("One record deleted from student table with id: " + id);
-		else
-			logger.info("No record deleted as no student exists with id: " + id);
+			log(Level.INFO, "One record deleted from student table with id: "
+					+ id);
+		log(Level.WARN, "No record deleted as no student exists with id: " + id);
 
 	}
 

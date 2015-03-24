@@ -9,21 +9,23 @@
 </head>
 <body>
 	<%@include file="header.jsp"%>
-	<p>The student details are ${student.id}</p>
 
 	<form:form modelAttribute="student">
-		<label for="id"> ID: </label>
-		<form:input path="id" id="id" />
-		<form:errors path="id" />
+		<label for="student_id"> ID: </label>
+		<form:input path="student_id" id="student_id" />
+		<form:errors path="student_id" />
 		<br />
-		<label for="name">Name</label>
-		<form:input path="name" id="name" />
-		<form:errors path="name" />
 		<br />
-		<label for="age">Age</label>
-		<form:input path="age" id="age" />
-		<form:errors path="age" />
-
+		<label for="student_name">Name</label>
+		<form:input path="student_name" id="student_name" />
+		<form:errors path="student_name" />
+		<br />
+		<br />
+		<label for="student_age">Age</label>
+		<form:input path="student_age" id="student_age" />
+		<form:errors path="student_age" />
+		<br />
+		<br />
 		<input type="submit" value="submit" />
 
 	</form:form>

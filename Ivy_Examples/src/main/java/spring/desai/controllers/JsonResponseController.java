@@ -32,7 +32,7 @@ public class JsonResponseController {
 
 	private Gson gson = new Gson();
 	private String jsonString;
-	private static final String JSON_RESPONSE = "jsonResponse";
+	private static final String JSON_RESPONSE = "json-response";
 
 	@RequestMapping(value = "/all-students", method = RequestMethod.GET)
 	public String allStudents(Model model) {

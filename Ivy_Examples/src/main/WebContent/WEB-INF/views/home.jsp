@@ -10,16 +10,6 @@
 <body>
 
 	<%@include file="header.jsp"%>
-	<%
-		String message = request.getParameter("message");
-		boolean isSet = message != null;
-		if (isSet) {
-	%>
-	<p>Message:</p><%=message%>
-	<%
-		}
-	%>
-
 
 	<br />
 	<br />

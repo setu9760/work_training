@@ -1,22 +1,22 @@
 package spring.desai.pojo;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import spring.desai.utils.GuidGenerator;
+import spring.desai.utils.GuidGeneratorException;
 
 public class Subject {
 
-
 	private String subject_id;
-
-	@NotNull
-	@Size(min = 4, max = 15)
 	private String subject_name;
 
-	public Subject() {
+	public Subject() throws GuidGeneratorException {
+		this("");
 	}
 
-	public Subject(String subject_id, String subject_name) {
+	public Subject(String name) throws GuidGeneratorException {
+		this(GuidGenerator.getInstance().getGuid(), name);
+	}
+
+	private Subject(String subject_id, String subject_name) {
 		this.subject_id = subject_id;
 		this.subject_name = subject_name;
 	}
@@ -67,7 +67,9 @@ public class Subject {
 		return builder.toString();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -81,7 +83,9 @@ public class Subject {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

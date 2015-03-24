@@ -1,100 +1,93 @@
 package spring.desai.pojo;
 
+import spring.desai.utils.GuidGenerator;
+import spring.desai.utils.GuidGeneratorException;
+
 public class Student {
 
-	private String id;
-	private String name;
-	private int age;
+	private String student_id;
+	private String student_name;
+	private int student_age;
 
-	public Student() {
+	public Student() throws GuidGeneratorException {
+		this("", 18);
 	}
 
-	public Student(String id, String name, int age) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.age = age;
+	public Student(String name, int age) throws GuidGeneratorException {
+		this(GuidGenerator.getInstance().getGuid(), name, age);
 	}
 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
+	private Student(String id, String name, int age) {
+		this.student_id = id;
+		this.student_name = name;
+		this.student_age = age;
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * @return the student_id
 	 */
-	public void setId(String id) {
-		this.id = id;
+	public String getStudent_id() {
+		return student_id;
 	}
 
 	/**
-	 * @return the name
+	 * @param student_id
+	 *            the student_id to set
 	 */
-	public String getName() {
-		return name;
+	public void setStudent_id(String student_id) {
+		this.student_id = student_id;
 	}
 
 	/**
-	 * @param name
-	 *            the name to set
+	 * @return the student_name
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public String getStudent_name() {
+		return student_name;
 	}
 
 	/**
-	 * @return the age
+	 * @param student_name
+	 *            the student_name to set
 	 */
-	public int getAge() {
-		return age;
+	public void setStudent_name(String student_name) {
+		this.student_name = student_name;
 	}
 
 	/**
-	 * @param age
-	 *            the age to set
+	 * @return the student_age
 	 */
-	public void setAge(int age) {
-		this.age = age;
+	public int getStudent_age() {
+		return student_age;
+	}
+
+	/**
+	 * @param student_age
+	 *            the student_age to set
+	 */
+	public void setStudent_age(int student_age) {
+		this.student_age = student_age;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Student [id=");
-		builder.append(id);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", age=");
-		builder.append(age);
-		builder.append("]");
-		return builder.toString();
-	}
-
-	
-
-	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + age;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + student_age;
+		result = prime * result
+				+ ((student_id == null) ? 0 : student_id.hashCode());
+		result = prime * result
+				+ ((student_name == null) ? 0 : student_name.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -109,23 +102,42 @@ public class Student {
 			return false;
 		}
 		Student other = (Student) obj;
-		if (age != other.age) {
+		if (student_age != other.student_age) {
 			return false;
 		}
-		if (id == null) {
-			if (other.id != null) {
+		if (student_id == null) {
+			if (other.student_id != null) {
 				return false;
 			}
-		} else if (!id.equals(other.id)) {
+		} else if (!student_id.equals(other.student_id)) {
 			return false;
 		}
-		if (name == null) {
-			if (other.name != null) {
+		if (student_name == null) {
+			if (other.student_name != null) {
 				return false;
 			}
-		} else if (!name.equals(other.name)) {
+		} else if (!student_name.equals(other.student_name)) {
 			return false;
 		}
 		return true;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Student [student_id=");
+		builder.append(student_id);
+		builder.append(", student_name=");
+		builder.append(student_name);
+		builder.append(", student_age=");
+		builder.append(student_age);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

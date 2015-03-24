@@ -1,9 +1,10 @@
 package spring.desai.dao;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -27,18 +28,16 @@ import spring.desai.pojo.Tutor;
 public abstract class JdbcDaoSupport extends
 		org.springframework.jdbc.core.support.JdbcDaoSupport {
 
+	private static final Logger logger = Logger.getLogger(JdbcDaoSupport.class);
+
+	private static final Logger sqlLogger = Logger.getLogger("jdbcdaolog");
+
 	@Autowired
 	protected DataSource dataSource;
 
 	@Autowired
-	protected SubjectDao subjectDao;
-
-	@Resource
-	protected TutorDao tutorDao;
-
-	@Autowired
 	protected RowMapper<Student> studentMapper;
-	
+
 	@Autowired
 	protected RowMapper<Subject> subjectMapper;
 
@@ -51,7 +50,18 @@ public abstract class JdbcDaoSupport extends
 	}
 
 	protected final void logSql(String sql) {
-		if (logger.isInfoEnabled())
-			logger.info("SQL call: " + sql);
+		sqlLogger.debug("SQL call: " + sql);
+	}
+
+	protected final void log(Level level, String message, Throwable t) {
+		if (logger.getLevel().equals(level)) {
+			logger.log(level, message, t);
+		}
+	}
+
+	protected final void log(Level level, String message) {
+		if (logger.getLevel().equals(level)) {
+			logger.log(level, message);
+		}
 	}
 }

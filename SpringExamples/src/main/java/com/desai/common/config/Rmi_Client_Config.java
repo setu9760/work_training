@@ -10,10 +10,10 @@ import com.desai.common.rmi.Calculation;
 @Configuration
 public class Rmi_Client_Config {
 
-	@Value("rmi://localhost:1099/CalculationService")
+	@Value("rmi://localhost:1099/calculationServise")
 	String SERVICE_URL;
 
-	@Bean(name = "caclulationImplBean")
+	@Bean(name = "caclulationBean")
 	public RmiProxyFactoryBean getRmiProxyFactoryBean() {
 		RmiProxyFactoryBean rmiProxy = new RmiProxyFactoryBean();
 		rmiProxy.setServiceUrl(SERVICE_URL);

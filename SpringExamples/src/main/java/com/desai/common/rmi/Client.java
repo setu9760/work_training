@@ -9,8 +9,7 @@ public class Client {
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(
 				Rmi_Client_Config.class);
-		Calculation calculation = (Calculation) context
-				.getBean("calculationBean");
+		Calculation calculation = context.getBean(Calculation.class);
 		System.out.println(calculation.cube(3));
 	}
 

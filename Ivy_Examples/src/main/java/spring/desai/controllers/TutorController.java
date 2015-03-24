@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDateTime;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/tutor")
 public class TutorController {
 
-	private static final Logger logger = LogManager
+	private static final Logger logger = Logger
 			.getLogger(TutorController.class);
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -33,7 +32,7 @@ public class TutorController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("title", "Tutor");
 		logger.info("tutor handler");
-		logger.info(dateTime);
+		logger.info(dateTime.toString("DD-mm-YY HH-mm-ss"));;
 		return "tutor";
 	}
 

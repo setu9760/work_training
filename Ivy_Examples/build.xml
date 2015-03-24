@@ -17,35 +17,53 @@
 	<property name="temp.webinf" value="${temp.dir}/WEB-INF" />
 	<property name="webinf.dir" value="${basedir}/src/main/WebContent/WEB-INF" />
 	<property name="bin.dir" value="bin" />
+	<property name="classes.dir" value="${bin.dir}/classes" />
+	<property name="test.classes.dir" value="${bin.dir}/test-classes" />
+	<property name="src.dir" value="src" />
+	<property name="test.dir" value="${src.dir}/test" />
+
 	<!-- end of common properties declaration -->
 
 	<!--  classpath declaration -->
 	<path id="EAR Libraries.libraryclasspath" />
 	<path id="Ivy.libraryclasspath">
-		<fileset dir="${ivy.cache.path}/jars">
+		<fileset dir="${ivy.cache.path}">
 			<include name="*.jar" />
 		</fileset>
-		<fileset dir="${ivy.cache.path}/bundles">
-			<include name="*.jar" />
-		</fileset>
-		<pathelement location="C:/Users/desai/Desktop/aaa.jar" />
+
+		<!--	<pathelement location="C:/Users/desai/Desktop/aaa.jar" /> -->
+	</path>
+	<path id="Ext.libraryclasspath">
+		<!--	<pathelement location="lib/ojdbc6.jar" /> -->
 	</path>
 	<path id="Ivy_Examples.classpath">
 		<pathelement location="bin/classes" />
 		<path refid="EAR Libraries.libraryclasspath" />
 		<path refid="Ivy.libraryclasspath" />
+		<path refid="Ext.libraryclasspath" />
 	</path>
 	<!-- end of classpath declaration -->
 
 	<target name="retrieve" description="Resolve and Retrieve with ivy">
 		<ivy:resolve file="${basedir}/build/ivy.xml" />
-		<ivy:retrieve pattern="${ivy.cache.path}/[type]s/[artifact]-[revision].[ext]" sync="true" type="jar,bundle" />
+		<ivy:retrieve pattern="${ivy.cache.path}/[artifact]-[revision].[ext]" sync="true" type="jar,bundle" />
 	</target>
 
-	<target name="init">
-		<mkdir dir="bin/classes" />
-		<copy includeemptydirs="false" todir="bin/classes">
-			<fileset dir="src/main/java">
+	<target name="intro">
+		<tstamp>
+			<format property="TIMESTAMP" pattern="dd-MM-yyyy HH:mm" />
+		</tstamp>
+
+		<echo level="info" message="Build started: ${TIMESTAMP} by user: ${user.name}" />
+		<echo level="info" message="file.encoding: ${file.encoding}" />
+		<echo level="info" message="java.version: ${java.runtime.version}" />
+		<echo level="info" message="ant.version: ${ant.version}" />
+	</target>
+
+	<target name="init" description="copies non-java sources i.e. xml, properties, etc files to bin directory">
+		<mkdir dir="${classes.dir}" />
+		<copy includeemptydirs="false" todir="${classes.dir}">
+			<fileset dir="${src.dir}/main/java">
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
@@ -54,51 +72,51 @@
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
-		<copy includeemptydirs="false" todir="bin/classes">
-			<fileset dir="src/test">
+
+		<mkdir dir="${test.classes.dir}" />
+		<copy includeemptydirs="false" todir="${test.classes.dir}">
+			<fileset dir="${test.dir}">
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
 	</target>
+
 	<target name="clean">
-		<delete dir="bin/classes" />
-		<delete dir="${ivy.cache.path}" />
+		<delete dir="${classes.dir}" />
+		<delete dir="${test.classes.dir}" />
+		<delete dir="${dist.dir}" />
+		<!-- <ivy:cleancache /> -->
 	</target>
-	<target depends="clean, clean-war-comps" name="cleanall" />
+	<target depends="clean, clean-war-comps" name="clean-all" />
 	<target name="clean-war-comps" description="Cleans the temporary directories created for war creation">
 		<delete dir="${temp.dir}" />
 	</target>
 
-	<target depends="build-subprojects,build-project" name="build" />
+	<target name="build" depends="retrieve, build-subprojects,compile" />
 	<target name="build-subprojects" />
-	<target depends="init" name="build-project">
+
+	<target name="compile" depends="init">
 		<echo message="${ant.project.name}: ${ant.file}" />
-		<javac debug="true" debuglevel="${debuglevel}" destdir="bin/classes" includeantruntime="false" source="${source}" target="${target}">
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${classes.dir}" includeantruntime="false" source="${source}" target="${target}">
 			<src path="src/main/java" />
 			<src path="src/main/resources" />
-			<src path="src/test" />
+			<classpath refid="Ivy_Examples.classpath" />
+		</javac>
+	</target>
+	<target name="compile-tests" description="Compiles the test classes in bin directory">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debuglevel="${debuglevel}" destdir="${test.classes.dir}" includeantruntime="false" srcdir="${test.dir}" source="${source}" target="${target}">
 			<classpath refid="Ivy_Examples.classpath" />
 		</javac>
 	</target>
 	<target name="clean-dist">
+		<antcall target="intro" />
+		<antcall target="init" />
 		<antcall target="clean" />
 		<antcall target="clean-war-comps" />
 		<antcall target="retrieve" />
 		<antcall target="build" />
 		<antcall target="build-war" />
-	</target>
-	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-		<copy todir="${ant.library.dir}">
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
-		</copy>
-		<unzip dest="${ant.library.dir}">
-			<patternset includes="jdtCompilerAdapter.jar" />
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
-		</unzip>
-	</target>
-	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
-		<antcall target="build" />
 	</target>
 
 	<target name="build-war" depends="build">
@@ -107,8 +125,9 @@
 			<fileset dir="${webinf.dir}" excludes="**/lib/, **/web.xml, **/classes" />
 		</copy>
 		<war destfile="${dist.dir}/Ivy_Examples.war" webxml="${webinf.dir}/web.xml">
-			<lib dir="${ivy.cache.path}/jars" includes="**.jar" />
-			<lib dir="${ivy.cache.path}/bundles" includes="**.jar" />
+			<lib dir="${ivy.cache.path}" includes="**.jar" excludes="servlet**.jar, junit**.jar, mysql**.jar" />
+			<!--		<lib dir="${ivy.cache.path}/bundles" includes="**.jar" />  -->
+			<!--		<lib dir="${basedir}/lib" includes="**.jar" />  -->
 			<webinf dir="${temp.webinf}" />
 			<classes dir="${bin.dir}/classes" />
 		</war>

@@ -4,12 +4,14 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.apache.log4j.LogManager;
+// import org.slf4j.Logger;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,20 +19,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import spring.desai.controllers.StudentController;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
-import spring.desai.pojo.StudentValidator;
+import spring.desai.pojo.validators.StudentValidator;
+import spring.desai.utils.GuidGeneratorException;
 
 @Controller
 @RequestMapping(value = "student/insert")
 public class InsertStudentController {
 
-	private static final Logger logger = LogManager
+	private static final Logger logger = Logger
 			.getLogger(StudentController.class);
 
 	@Autowired
-	StudentDao studentDao;
+	private StudentDao studentDao;
+
+	@Autowired
+	private StudentValidator studentValidator;
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(studentValidator);
+	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String studentForm(Locale locale, Model model) {
+	public String studentForm(Locale locale, Model model)
+			throws GuidGeneratorException {
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
@@ -38,7 +50,7 @@ public class InsertStudentController {
 		logger.info("studentInsert get request handler");
 		String formattedDate = dateFormat.format(date);
 
-		Student student = new Student("1", "setu-web", 3);
+		Student student = new Student();
 
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("student", student);
@@ -51,8 +63,7 @@ public class InsertStudentController {
 	public String studentResult(@ModelAttribute("student") Student student,
 			Model model, BindingResult bindingResult) {
 		logger.info("studentInsert post request handler");
-		StudentValidator validator = new StudentValidator();
-		validator.validate(student, bindingResult);
+		studentValidator.validate(student, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("message",
@@ -66,7 +77,5 @@ public class InsertStudentController {
 			model.addAttribute("title", "Success");
 			return "result";
 		}
-
 	}
-
 }
