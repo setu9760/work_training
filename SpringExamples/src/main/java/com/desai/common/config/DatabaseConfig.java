@@ -12,7 +12,7 @@ import com.desai.common.database.StudentDAO;
 @Configuration
 public class DatabaseConfig {
 
-	@Value("com.mysql.jdbc.Driver")
+	@Value("org.springframework.jdbc.datasource.DriverManagerDataSource")
 	private String DRIVER_CLASSNAME;
 
 	@Value("jdbc:mysql://localhost:3306/test")

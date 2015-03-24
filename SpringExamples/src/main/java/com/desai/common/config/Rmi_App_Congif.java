@@ -22,7 +22,7 @@ public class Rmi_App_Congif {
 		rmi.setServiceInterface(Calculation.class);
 		rmi.setServiceName("Calculation");
 		rmi.setReplaceExistingBinding(true);
-		rmi.setRegistryPort(1099);
+		rmi.setRegistryPort(9595);
 		return rmi;
 	}
 }

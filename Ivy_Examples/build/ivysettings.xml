@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings>
+<settings defaultResolver="local"/>
+	<properties file="desai.properties" /> 
+	<properties file="ivysettings.properties" />
+
+	<resolvers>
+		<filesystem name="local">
+			<ivy pattern="${ivy.local.default.root}/${ivy.local.default.ivy.pattern}" />
+			<artifact
+				pattern="${ivy.local.default.root}/${ivy.local.default.artifact.pattern}" />
+		</filesystem>
+	</resolvers>
+	<modules>
+		<module organisation="com.desai" name=".*" resolver="local"/>
+	</modules>
+</ivysettings>

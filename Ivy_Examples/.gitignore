@@ -1,1 +1,11 @@
 /bin/
+/dist/
+/jar-in-jar-loader.zip
+/log/
+/target/
+/.settings/
+/build/.gitignore
+/classes/
+/.classpath
+/.project
+/log/

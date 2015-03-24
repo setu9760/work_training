@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" packages="com.desai">
+
+	<Properties>
+		<Property name="log-path">log</Property>
+	</Properties>
+
+	<Appenders>
+		<RollingFile name="file-log" fileName="${log-path}/log4j2.log"
+			filePattern="${log-path}/log4j2-%d{yyyy-MM-dd}-%i.log.bk">
+			<PatternLayout header="$${property:customKey}">
+
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+			<DefaultRolloverStrategy max="10" />
+			<Policies>
+				<!-- <TimeBasedTriggeringPolicy interval="1" modulate="true" /> -->
+				<SizeBasedTriggeringPolicy size="20 KB" />
+			</Policies>
+
+		</RollingFile>
+
+
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="info" additivity="false">
+			<AppenderRef ref="console" />
+		</Root>
+		<Logger name="com.desai" level="info" additivity="false">
+			<appender-ref ref="file-log" level="info" />
+		</Logger>
+	</Loggers>
+</Configuration>

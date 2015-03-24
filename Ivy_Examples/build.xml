@@ -1,87 +1,137 @@
-<project basedir="." default="build" name="Ivy_Examples" xmlns:ivy="antlib:org.apache.ivy.ant">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." default="clean-dist" name="Ivy_Examples" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<!-- common properties declaration -->
 	<property environment="env" />
-	<property name="ECLIPSE_HOME" value="../../../../eclipse_jee_juna/eclipse" />
+	<property name="ECLIPSE_HOME" value="../../../../../../eclipse_jee_juna/eclipse" />
 	<property name="junit.output.dir" value="junit" />
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
-<!--	<path id="Ivy.libraryclasspath">
-		<pathelement location="build/ivy/ivycache/cache/org.apache.logging.log4j/log4j-api/jars/log4j-api-2.1.jar" />
-		<pathelement location="build/ivy/ivycache/cache/org.apache.logging.log4j/log4j-core/jars/log4j-core-2.1.jar" />
-		<pathelement location="build/ivy/ivycache/cache/junit/junit/jars/junit-4.11.jar" />
-		<pathelement location="build/ivy/ivycache/cache/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.3.jar" />
-	</path>  -->
-	<path id="Ivy_Examples.classpath">
-		<pathelement location="bin" />
-		<path refid="Ivy.libraryclasspath" />
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="ivy.cache.path" value="${build.dir}/ivy/cache" />
+	<property name="ivy.file" value="${build.dir}/ivy.xml" />
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="temp.dir" value="${dist.dir}/tmp" />
+	<property name="temp.webinf" value="${temp.dir}/WEB-INF" />
+	<property name="webinf.dir" value="${basedir}/src/main/WebContent/WEB-INF" />
+	<property name="bin.dir" value="bin" />
+	<property name="classes.dir" value="${bin.dir}/classes" />
+	<property name="test.classes.dir" value="${bin.dir}/test-classes" />
+	<property name="src.dir" value="src" />
+	<property name="test.dir" value="${src.dir}/test" />
+
+	<!-- end of common properties declaration -->
+
+	<!--  classpath declaration -->
+	<path id="EAR Libraries.libraryclasspath" />
+	<path id="Ivy.libraryclasspath">
+		<fileset dir="${ivy.cache.path}">
+			<include name="*.jar" />
+		</fileset>
+
+		<!--	<pathelement location="C:/Users/desai/Desktop/aaa.jar" /> -->
 	</path>
-	<target name="init">
-		<mkdir dir="bin" />
-		<copy includeemptydirs="false" todir="bin">
-			<fileset dir="src">
+	<path id="Ext.libraryclasspath">
+		<!--	<pathelement location="lib/ojdbc6.jar" /> -->
+	</path>
+	<path id="Ivy_Examples.classpath">
+		<pathelement location="bin/classes" />
+		<path refid="EAR Libraries.libraryclasspath" />
+		<path refid="Ivy.libraryclasspath" />
+		<path refid="Ext.libraryclasspath" />
+	</path>
+	<!-- end of classpath declaration -->
+
+	<target name="retrieve" description="Resolve and Retrieve with ivy">
+		<ivy:resolve file="${basedir}/build/ivy.xml" />
+		<ivy:retrieve pattern="${ivy.cache.path}/[artifact]-[revision].[ext]" sync="true" type="jar,bundle" />
+	</target>
+
+	<target name="intro">
+		<tstamp>
+			<format property="TIMESTAMP" pattern="dd-MM-yyyy HH:mm" />
+		</tstamp>
+
+		<echo level="info" message="Build started: ${TIMESTAMP} by user: ${user.name}" />
+		<echo level="info" message="file.encoding: ${file.encoding}" />
+		<echo level="info" message="java.version: ${java.runtime.version}" />
+		<echo level="info" message="ant.version: ${ant.version}" />
+	</target>
+
+	<target name="init" description="copies non-java sources i.e. xml, properties, etc files to bin directory">
+		<mkdir dir="${classes.dir}" />
+		<copy includeemptydirs="false" todir="${classes.dir}">
+			<fileset dir="${src.dir}/main/java">
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
-		<copy includeemptydirs="false" todir="bin">
-			<fileset dir="resources">
+		<copy includeemptydirs="false" todir="bin/classes">
+			<fileset dir="src/main/resources">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+
+		<mkdir dir="${test.classes.dir}" />
+		<copy includeemptydirs="false" todir="${test.classes.dir}">
+			<fileset dir="${test.dir}">
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
 	</target>
-	<target name="resolve" description="resolve dependencies with ivy">
-		<ivy:resolve file="build/ivy.xml" />
-		<ivy:cachepath pathid="default.classpath" />
-	</target>
+
 	<target name="clean">
-		<delete dir="bin" />
+		<delete dir="${classes.dir}" />
+		<delete dir="${test.classes.dir}" />
+		<delete dir="${dist.dir}" />
+		<!-- <ivy:cleancache /> -->
 	</target>
-	<target depends="clean" name="cleanall" />
-	<target depends="build-subprojects,build-project" name="build" />
+	<target depends="clean, clean-war-comps" name="clean-all" />
+	<target name="clean-war-comps" description="Cleans the temporary directories created for war creation">
+		<delete dir="${temp.dir}" />
+	</target>
+
+	<target name="build" depends="retrieve, build-subprojects,compile" />
 	<target name="build-subprojects" />
-	<target depends="init" name="build-project">
+
+	<target name="compile" depends="init">
 		<echo message="${ant.project.name}: ${ant.file}" />
-		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-			<src path="src" />
-			<src path="resources" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${classes.dir}" includeantruntime="false" source="${source}" target="${target}">
+			<src path="src/main/java" />
+			<src path="src/main/resources" />
 			<classpath refid="Ivy_Examples.classpath" />
 		</javac>
 	</target>
-	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
-	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-		<copy todir="${ant.library.dir}">
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
-		</copy>
-		<unzip dest="${ant.library.dir}">
-			<patternset includes="jdtCompilerAdapter.jar" />
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
-		</unzip>
+	<target name="compile-tests" description="Compiles the test classes in bin directory">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debuglevel="${debuglevel}" destdir="${test.classes.dir}" includeantruntime="false" srcdir="${test.dir}" source="${source}" target="${target}">
+			<classpath refid="Ivy_Examples.classpath" />
+		</javac>
 	</target>
-	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+	<target name="clean-dist">
+		<antcall target="intro" />
+		<antcall target="init" />
+		<antcall target="clean" />
+		<antcall target="clean-war-comps" />
+		<antcall target="retrieve" />
 		<antcall target="build" />
+		<antcall target="build-war" />
 	</target>
-	<target name="PersonTest">
-		<mkdir dir="${junit.output.dir}" />
-		<junit fork="yes" printsummary="withOutAndErr">
-			<formatter type="xml" />
-			<test name="com.desai.common.test.PersonTest" todir="${junit.output.dir}" />
-			<classpath refid="Ivy_Examples.classpath" />
-		</junit>
+
+	<target name="build-war" depends="build">
+		<mkdir dir="${dist.dir}" />
+		<copy todir="${temp.webinf}">
+			<fileset dir="${webinf.dir}" excludes="**/lib/, **/web.xml, **/classes" />
+		</copy>
+		<war destfile="${dist.dir}/Ivy_Examples.war" webxml="${webinf.dir}/web.xml">
+			<lib dir="${ivy.cache.path}" includes="**.jar" excludes="servlet**.jar, junit**.jar, mysql**.jar" />
+			<!--		<lib dir="${ivy.cache.path}/bundles" includes="**.jar" />  -->
+			<!--		<lib dir="${basedir}/lib" includes="**.jar" />  -->
+			<webinf dir="${temp.webinf}" />
+			<classes dir="${bin.dir}/classes" />
+		</war>
+		<antcall target="clean-war-comps" />
 	</target>
-	<target name="PersonTest.testPersonStringInt">
-		<mkdir dir="${junit.output.dir}" />
-		<junit fork="yes" printsummary="withOutAndErr">
-			<formatter type="xml" />
-			<test name="com.desai.common.test.PersonTest" todir="${junit.output.dir}" />
-			<classpath refid="Ivy_Examples.classpath" />
-		</junit>
-	</target>
-	<target name="junitreport">
-		<junitreport todir="${junit.output.dir}">
-			<fileset dir="${junit.output.dir}">
-				<include name="TEST-*.xml" />
-			</fileset>
-			<report format="frames" todir="${junit.output.dir}" />
-		</junitreport>
-	</target>
+
 </project>
