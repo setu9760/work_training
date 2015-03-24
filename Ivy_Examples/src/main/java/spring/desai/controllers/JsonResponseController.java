@@ -18,7 +18,7 @@ import spring.desai.pojo.Tutor;
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping("api/json/android")
+@RequestMapping("api/json")
 public class JsonResponseController {
 
 	@Autowired

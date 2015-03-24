@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import spring.desai.controllers.StudentController;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
 import spring.desai.pojo.validators.StudentValidator;
@@ -22,7 +21,7 @@ import spring.desai.utils.GuidGeneratorException;
 public class SearchStudentController {
 
 	private static final Logger logger = Logger
-			.getLogger(StudentController.class);
+			.getLogger(SearchStudentController.class);
 
 	@Autowired
 	private StudentDao studentDao;

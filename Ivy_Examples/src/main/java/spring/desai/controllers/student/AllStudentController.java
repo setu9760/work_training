@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import spring.desai.controllers.StudentController;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
 
@@ -19,7 +18,7 @@ import spring.desai.pojo.Student;
 public class AllStudentController {
 
 	private static final Logger logger = Logger
-			.getLogger(StudentController.class);
+			.getLogger(AllStudentController.class);
 
 	@Autowired
 	StudentDao studentDao;

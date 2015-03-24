@@ -76,7 +76,7 @@
 		
 		<dependency org="commons-logging" name="commons-logging" rev="1.2"
 		transitive="false"/>
-		
+	
 		<dependency org="joda-time" name="joda-time" rev="2.1" 
 		transitive="false"/>
 		

@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-// import org.slf4j.Logger;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,18 +15,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import spring.desai.controllers.StudentController;
 import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
 import spring.desai.pojo.validators.StudentValidator;
 import spring.desai.utils.GuidGeneratorException;
+// import org.slf4j.Logger;
 
 @Controller
 @RequestMapping(value = "student/insert")
 public class InsertStudentController {
 
 	private static final Logger logger = Logger
-			.getLogger(StudentController.class);
+			.getLogger(InsertStudentController.class);
 
 	@Autowired
 	private StudentDao studentDao;

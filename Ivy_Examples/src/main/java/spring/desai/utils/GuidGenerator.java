@@ -2,6 +2,8 @@ package spring.desai.utils;
 
 import java.io.Serializable;
 
+import org.springframework.cache.annotation.Cacheable;
+
 public class GuidGenerator {
 
 	private static GuidGenerator instance = new GuidGenerator();
