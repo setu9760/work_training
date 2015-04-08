@@ -12,7 +12,7 @@ import spring.desai.dao.StudentDao;
 import spring.desai.pojo.Student;
 import spring.desai.pojo.Subject;
 
-@Transactional
+@Transactional()
 @Repository
 public class JdbcStudentDaoImpl extends JdbcDaoSupport implements StudentDao {
 

@@ -42,6 +42,7 @@ public class GuidGenerator {
 		}
 	}
 
+	@Cacheable
 	private String format(short shortVal) {
 		String formatted = Integer.toHexString(shortVal);
 		StringBuffer buf = new StringBuffer("000");
